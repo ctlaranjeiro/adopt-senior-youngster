@@ -2,9 +2,9 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
 const Volunteer = require('../models/volunteer');
-const Institution = require('../models/institution');
-const DB_TITLE = 'adopt-senior-youngster';
-mongoose.connect(`mongodb://localhost/${DB_TITLE}`, {
+// const Institution = require('../models/institution');
+const DB_NAME = 'adopt-senior-youngster';
+mongoose.connect(`mongodb://localhost/${DB_NAME}`, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -24,12 +24,12 @@ const users = [
   emergencyContact: {
     firstName: 'Sammuel',
     lastName: 'Gamgee',
-    phoneNumber: '911234568',
+    phoneNumber: 911234568,
     email: 'samwise@hotmail.com',
     address: 'Baggs End, Underhill, Shire'
   },
   schedulePreference: 'Over Night: 12am - 8am',
-  specificNeeds: ['Dislocations']
+  specificNeeds: 'Dislocations'
 },
 {
   accountType: 'User',
@@ -50,7 +50,7 @@ const users = [
     address: 'Rua dos Clerigos n9 2dir, Porto, Portugal'
   },
   schedulePreference: 'Morning: 8am - 12pm',
-  specificNeeds: ['House Care/Maintnense']
+  specificNeeds: 'House Care/Maintnense'
 },
 {
   accountType: 'User',
@@ -71,7 +71,7 @@ const users = [
     address: 'Rua Sampaio Bruno n25 1dir, Lisboa, Portugal'
   },
   schedulePreference: '24 hours',
-  specificNeeds: ['Health Care', 'House Care/Maintnense', 'Dislocations', 'Grocery Shopping']
+  specificNeeds: 'Health Care' + 'House Care/Maintnense' + 'Dislocations' + 'Grocery Shopping'
 },
 {
   accountType: 'User',
@@ -92,7 +92,7 @@ const users = [
     address: 'Calçada de Carriche n33 rc, Lisboa, Portugal'
   },
   schedulePreference: '24 hours',
-  specificNeeds: ['Pupil (for at-risk youth in need of a mentor)']
+  specificNeeds: 'Pupil (for at-risk youth in need of a mentor)'
 }
 ];
 const volunteers = [
@@ -113,3 +113,19 @@ const volunteers = [
   aboutMe: 'I beleve tha discipline and faith are the way to proper educate and '
   }
 ];
+
+User.create(users, err => {
+  if (err) {
+    throw err;
+  }
+  console.log(`Created ${users.length} users`);
+  mongoose.connection.close();
+});
+
+Volunteer.create(volunteers, err => {
+  if (err) {
+    throw err;
+  }
+  console.log(`Created ${volunteers.length} voluntees`);
+  mongoose.connection.close();
+});
