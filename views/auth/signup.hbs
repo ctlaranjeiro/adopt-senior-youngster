@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="auth-container signup-form">
+    <div class="buttons-div">
+      <div class="sign-up-btn btn-w-50">
+        <a href="/signup">Sign up</a>
+      </div>
+
+      <div class="login-btn btn-w-50">
+        <a href="/login">Login</a>
+      </div>
+    </div>
+
+    <div class="auth-div">
+      <div class="select-account-type">
+        <p id="txt-account-selected">type of account</p>
+        <div class="buttons-div" id="account-selected">
+          <div class="btn-select-account" id="user-btn-signup">
+            <a href="/signup/user">User</a>
+          </div>
+
+          <div class="btn-select-account" id="volunteer-btn-signup">
+            <a href="/signup/volunteer">Volunteer</a>
+          </div>
+
+
+          {{!-- <button class="btn-select-account" id="user-btn-signup" type="submit" action="/signup/user">User</button>
+          <button class="btn-select-account" id="volunteer-btn-signup" type="submit">Volunteer</button> --}}
+        </div>
+      </div>
+      <div class="signup-social social-networks"></div>
+
+      <p class="signup-divide-auth divide-auth"></p>
+
+      <form class="signup-base-form form" action='/signup' method='POST'></form>
+    </div>
+  </div>
+</div>
