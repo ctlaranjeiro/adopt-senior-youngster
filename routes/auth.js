@@ -3,7 +3,7 @@ const router  = express.Router();
 const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 
-const User = require('../models/user');
+//const User = require('../models/user');
 
 /* GET sign up page */
 router.get('/signup', (req, res, next) => {

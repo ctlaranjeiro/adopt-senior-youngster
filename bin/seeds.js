@@ -9,7 +9,6 @@ mongoose.connect(`mongodb://localhost/${DB_TITLE}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-
 const users = [
 {
   accountType: 'User',
@@ -29,7 +28,7 @@ const users = [
     email: 'samwise@hotmail.com',
     address: 'Baggs End, Underhill, Shire'
   },
-  schedulePreference: { type: String, required: true, enum: 'Over Night: 12am - 8am',
+  schedulePreference: 'Over Night: 12am - 8am',
   specificNeeds: ['Dislocations']
 },
 {
@@ -96,7 +95,6 @@ const users = [
   specificNeeds: ['Pupil (for at-risk youth in need of a mentor)']
 }
 ];
-
 const volunteers = [
   {
   accountType: 'Volunteer',
@@ -114,4 +112,4 @@ const volunteers = [
   availablePeriods: '24 hours',
   aboutMe: 'I beleve tha discipline and faith are the way to proper educate and '
   }
-],
+];
