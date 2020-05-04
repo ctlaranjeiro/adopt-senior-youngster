@@ -430,6 +430,9 @@ footer {
     border-radius: 5px;
     margin: 10% 0;
     align-self: center; }
+  .form .continue-btn {
+    font-weight: 600;
+    font-size: 0.85em; }
   .form p {
     margin-top: 1.3em;
     font-size: 0.7em; }
