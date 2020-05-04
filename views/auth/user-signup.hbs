@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="auth-container signup-form">
+    <div class="buttons-div">
+      <div class="sign-up-btn btn-w-50">
+        <a href="/signup">Sign up</a>
+      </div>
+
+      <div class="login-btn btn-w-50">
+        <a href="/login">Login</a>
+      </div>
+    </div>
+
+    <div class="auth-div">
+      <div class="select-account-type">
+        <p>selected account</p>
+        <div class="buttons-div">
+          <div class="signup-btn-selected">User</div>
+        </div>
+        <a href="/signup">different account?</a>
+      </div>
+      <div class="social-networks">
+        <p>sign up with social network</p>
+        <div class="buttons-div">
+          <div class="facebook-btn btn-w-30">
+            <a href="#">Facebook</a>
+          </div>
+
+          <div class="google-btn btn-w-30">
+            <a href="#">Google</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="divide-auth"><span>or</span></p>
+
+      <form class="signup-base-form form" action='/signup/user' method='POST'>
+        <input type="email" name="email" placeholder="email" required>
+        <input type="password" name="password" placeholder="password" required>
+        <div>
+          <button type="submit" class="submit-btn">Signup</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

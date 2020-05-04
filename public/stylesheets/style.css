@@ -260,4 +260,185 @@ footer {
       padding: 0;
       font-size: 0.7em; }
 
+.container {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.auth-container {
+  background-color: #d1d3d4;
+  width: 80%;
+  align-self: center;
+  display: flex;
+  flex-direction: column; }
+  .auth-container .buttons-div {
+    display: flex;
+    justify-content: space-between; }
+  .auth-container .btn-w-50 {
+    width: 50%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .auth-container .btn-w-50 a {
+      color: black;
+      font-weight: bold;
+      text-decoration: none; }
+  .auth-container .auth-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  .auth-container p {
+    font-size: 0.85em; }
+  .auth-container .divide-auth {
+    width: 80%;
+    text-align: center;
+    border-bottom: 1px solid #a7a9ac;
+    line-height: 0.1em; }
+    .auth-container .divide-auth span {
+      background: #d1d3d4;
+      padding: 0 10%; }
+  .auth-container .social-networks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin: 10% 0; }
+    .auth-container .social-networks .btn-w-30 {
+      width: 7em;
+      height: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0.8em;
+      border-radius: 4px;
+      padding: 1.2em 0; }
+      .auth-container .social-networks .btn-w-30 a {
+        color: white;
+        font-size: 0.85em;
+        font-weight: 600;
+        text-decoration: none; }
+  .auth-container .facebook-btn {
+    background-color: #276EC1;
+    width: 100%; }
+  .auth-container .google-btn {
+    background-color: #C14327;
+    width: 100%; }
+
+.login-form .sign-up-btn {
+  background-color: #a7a9ac;
+  box-shadow: inset -3px -2px 9px rgba(0, 0, 0, 0.3); }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%; }
+  .form input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 1em;
+    font-size: 0.9em; }
+  .form .submit-btn {
+    width: 50%;
+    padding: 0.5em;
+    background-color: #3da8c2;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-radius: 5px;
+    margin: 10% 0;
+    align-self: center; }
+  .form p {
+    margin-top: 1.3em;
+    font-size: 0.7em; }
+  .form div {
+    margin-top: 0.8em;
+    background-color: white;
+    width: 125%;
+    align-self: center;
+    display: flex;
+    justify-content: center; }
+
+.auth-div .select-account-type {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  width: 80%;
+  margin: 10% 0 0;
+  text-align: center; }
+  .auth-div .select-account-type a {
+    color: #2b7283;
+    text-decoration: none;
+    font-size: 0.8em;
+    margin-top: 0.5em;
+    font-weight: 600; }
+
+.auth-div .signup-btn-selected {
+  background-color: #2b7283;
+  color: white;
+  border: 1px solid white;
+  width: 100%;
+  padding: 0.5em;
+  margin: -0.5em 2em 0;
+  border-radius: 3px;
+  font-size: 0.9em; }
+
+.auth-div .btn-select-account {
+  background-color: #d1d3d4;
+  width: 100%;
+  border: 1px solid #2b7283;
+  padding: 0.5em;
+  margin: 0 0.8em;
+  color: #2b7283;
+  border-radius: 3px; }
+  .auth-div .btn-select-account a {
+    color: #2b7283;
+    text-decoration: none; }
+
+.auth-div .btn-select-account:focus {
+  background-color: #2b7283;
+  outline: none;
+  color: white;
+  border: 1px solid white; }
+
+.signup-form .login-btn {
+  background-color: #a7a9ac;
+  box-shadow: inset -3px -2px 9px rgba(0, 0, 0, 0.3); }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 80%; }
+  .form input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 1em;
+    font-size: 0.9em; }
+  .form .submit-btn {
+    width: 50%;
+    padding: 0.5em;
+    background-color: #3da8c2;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-radius: 5px;
+    margin: 10% 0;
+    align-self: center; }
+  .form p {
+    margin-top: 1.3em;
+    font-size: 0.7em; }
+  .form div {
+    margin-top: 0.8em;
+    background-color: white;
+    width: 125%;
+    align-self: center;
+    display: flex;
+    justify-content: center; }
+
 /*# sourceMappingURL=style.css.map */
