@@ -265,12 +265,13 @@ footer {
   height: 90vh;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: flex-start; }
 
 .auth-container {
   background-color: #d1d3d4;
   width: 80%;
-  align-self: center;
+  align-self: flex-start;
+  margin-top: 2em;
   display: flex;
   flex-direction: column; }
   .auth-container .buttons-div {
@@ -330,38 +331,6 @@ footer {
 .login-form .sign-up-btn {
   background-color: #a7a9ac;
   box-shadow: inset -3px -2px 9px rgba(0, 0, 0, 0.3); }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 80%; }
-  .form input {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0.5em;
-    margin-top: 1em;
-    font-size: 0.9em; }
-  .form .submit-btn {
-    width: 50%;
-    padding: 0.5em;
-    background-color: #3da8c2;
-    border: 1px solid white;
-    color: white;
-    font-weight: bold;
-    font-size: 0.9em;
-    border-radius: 5px;
-    margin: 10% 0;
-    align-self: center; }
-  .form p {
-    margin-top: 1.3em;
-    font-size: 0.7em; }
-  .form div {
-    margin-top: 0.8em;
-    background-color: white;
-    width: 125%;
-    align-self: center;
-    display: flex;
-    justify-content: center; }
 
 .auth-div .select-account-type {
   display: flex;
@@ -430,13 +399,54 @@ footer {
     border-radius: 5px;
     margin: 10% 0;
     align-self: center; }
-  .form .continue-btn {
+  .form select {
+    background-color: white;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 1em;
+    font-size: 0.9em; }
+  .form .checkbox-form {
+    background-color: purple; }
+    .form .checkbox-form label {
+      background-color: yellow;
+      width: 400%;
+      text-align: left; }
+  .form .labels {
+    font-size: 0.9em;
     font-weight: 600;
-    font-size: 0.85em; }
+    margin: 0;
+    padding-top: 2em; }
+  .form label {
+    font-size: 0.9em; }
+  .form #birthdate {
+    width: 65%;
+    margin-left: 1.9%;
+    background-color: white;
+    text-align: center; }
+  .form fieldset legend {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin: 0;
+    padding-top: 2em; }
+  .form .align-checkbox {
+    display: flex;
+    width: 100%;
+    padding: 0.5em; }
+    .form .align-checkbox input {
+      width: 15%;
+      margin: 0;
+      padding: 0;
+      align-self: center; }
+    .form .align-checkbox label {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      align-self: center; }
   .form p {
     margin-top: 1.3em;
     font-size: 0.7em; }
-  .form div {
+  .form .white-bg {
     margin-top: 0.8em;
     background-color: white;
     width: 125%;

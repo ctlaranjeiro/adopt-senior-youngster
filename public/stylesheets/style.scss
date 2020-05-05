@@ -361,20 +361,20 @@ footer {
 //-------- LOGIN & SIGN UP --------
 ////////////////////////////////////
 
-.container{
-  // background-color: purple;
+.container {
+  //background-color: purple;
   width: 100vw;
   height: 90vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .auth-container {
   background-color: #d1d3d4;
   width: 80%;
-  align-self: center;
-  //margin-top: 3em;
+  align-self: flex-start;
+  margin-top: 2em;
   display: flex;
   flex-direction: column;
 
@@ -419,7 +419,7 @@ footer {
     }
   }
 
-  .social-networks{
+  .social-networks {
     //background-color: purple;
     display: flex;
     flex-direction: column;
@@ -427,7 +427,7 @@ footer {
     width: 80%;
     margin: 10% 0;
 
-    .btn-w-30{
+    .btn-w-30 {
       width: 7em;
       height: 2em;
       display: flex;
@@ -436,7 +436,7 @@ footer {
       margin: 0 0.8em;
       border-radius: 4px;
       padding: 1.2em 0;
-  
+
       a {
         color: white;
         font-size: 0.85em;
@@ -446,12 +446,12 @@ footer {
     }
   }
 
-  .facebook-btn{
+  .facebook-btn {
     background-color: #276EC1;
     width: 100%;
   }
 
-  .google-btn{
+  .google-btn {
     background-color: #C14327;
     width: 100%;
   }
@@ -468,52 +468,10 @@ footer {
 
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-
-  input {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 0.5em;
-    margin-top: 1em;
-    font-size: 0.9em;
-  }
-
-  .submit-btn {
-    width: 50%;
-    padding: 0.5em;
-    background-color: #3da8c2;
-    border: 1px solid white;
-    color: white;
-    font-weight: bold;
-    font-size: 0.9em;
-    border-radius: 5px;
-    margin: 10% 0;
-    align-self: center;
-  }
-
-  p{
-    margin-top: 1.3em;
-    font-size: 0.7em;
-  }
-
-  div{
-    margin-top: 0.8em;
-    background-color: white;
-    width: 125%;
-    align-self: center;
-    display: flex;
-    justify-content: center;
-  }
-}
-
-
 
 // ---------> SIGN UP
-.auth-div{
-  .select-account-type{
+.auth-div {
+  .select-account-type {
     display: flex;
     flex-direction: column;
     align-items: space-between;
@@ -521,7 +479,7 @@ footer {
     margin: 10% 0 0;
     text-align: center;
 
-    a{
+    a {
       color: #2b7283;
       text-decoration: none;
       font-size: 0.8em;
@@ -530,9 +488,9 @@ footer {
     }
   }
 
-  .signup-btn-selected{
+  .signup-btn-selected {
     background-color: #2b7283;
-    color:white;
+    color: white;
     border: 1px solid white;
     width: 100%;
     padding: 0.5em;
@@ -541,7 +499,7 @@ footer {
     font-size: 0.9em;
   }
 
-  .btn-select-account{
+  .btn-select-account {
     background-color: #d1d3d4;
     width: 100%;
     border: 1px solid #2b7283;
@@ -550,16 +508,16 @@ footer {
     color: #2b7283;
     border-radius: 3px;
 
-    a{
+    a {
       color: #2b7283;
       text-decoration: none;
     }
   }
 
-  .btn-select-account:focus{
+  .btn-select-account:focus {
     background-color: #2b7283;
     outline: none;
-    color:white;
+    color: white;
     border: 1px solid white;
   }
 }
@@ -598,17 +556,81 @@ footer {
     align-self: center;
   }
 
-  .continue-btn{
-    font-weight: 600;
-    font-size: 0.85em;
+  select {
+    background-color: white;
+    //color: grey;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 1em;
+    font-size: 0.9em;
   }
 
-  p{
+  .checkbox-form {
+    background-color: purple;
+
+    label {
+      background-color: yellow;
+      width: 400%;
+      text-align: left;
+    }
+  }
+
+  .labels {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin: 0;
+    padding-top: 2em;
+  }
+
+  label{
+    font-size: 0.9em;
+  }
+
+  #birthdate{
+    width: 65%;
+    margin-left: 1.9%;
+    background-color: white;
+    text-align: center;
+  }
+
+  fieldset {
+    legend {
+      font-size: 0.9em;
+      font-weight: 600;
+      margin: 0;
+      padding-top: 2em;
+    }
+  }
+
+  .align-checkbox {
+    display: flex;
+    //background-color: yellow;
+    width: 100%;
+    padding: 0.5em;
+
+    input {
+      width: 15%;
+      margin: 0;
+      padding: 0;
+      align-self: center;
+    }
+
+    label {
+      //background-color: purple;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      align-self: center;
+    }
+  }
+
+  p {
     margin-top: 1.3em;
     font-size: 0.7em;
   }
 
-  div{
+  .white-bg {
     margin-top: 0.8em;
     background-color: white;
     width: 125%;

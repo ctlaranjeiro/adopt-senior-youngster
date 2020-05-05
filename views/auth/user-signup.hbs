@@ -1,14 +1,8 @@
 <div class="container">
   <div class="auth-container signup-form">
-    <div class="buttons-div">
-      <div class="sign-up-btn btn-w-50">
-        <a href="/signup">Sign up</a>
-      </div>
 
-      <div class="login-btn btn-w-50">
-        <a href="/login">Login</a>
-      </div>
-    </div>
+    <!-- Login & Sign Up buttons top -->
+    {{> authButtonsTop}}
 
     <div class="auth-div">
       <div class="select-account-type">
@@ -18,25 +12,92 @@
         </div>
         <a href="/signup">different account?</a>
       </div>
-      <div class="social-networks">
-        <p>sign up with social network</p>
-        <div class="buttons-div">
-          <div class="facebook-btn btn-w-30">
-            <a href="#">Facebook</a>
-          </div>
 
-          <div class="google-btn btn-w-30">
-            <a href="#">Google</a>
-          </div>
-        </div>
-      </div>
-
-      <p class="divide-auth"><span>or</span></p>
+      <!-- Sign Up social networks -->
+      {{> signUpSocial}}
 
       <form class="signup-base-form form" action='/signup/user' method='POST'>
-        <input type="email" name="email" placeholder="email" required>
-        <input type="password" name="password" placeholder="password" required>
-        <button type="submit" class="submit-btn continue-btn">Continue</button>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+
+        <select name="gender" id="gender-select">
+          <option value="">-- Select Gender --</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <div>
+          <label for="date">Birth date</label>
+          <input type="date" name="birthDate" id="birthdate" required>
+        </div>
+        <input type="text" name="address" placeholder="address" required>
+        <input type="number" name="phoneNumber" placeholder="Phone number" required>
+
+        <label class="labels">Schedule preference:</label>
+        <div class="align-checkbox">
+          <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm">
+          <label for="morning">Morning: 8am - 12pm</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm">
+          <label for="afternoon">Afternoon: 12pm - 4pm</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm">
+          <label for="evening">Evening: 4pm - 8pm</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am">
+          <label for="night">Night: 8pm - 12am</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am">
+          <label for="overNight">Over Night: 12am - 8am</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="24hours" name="24hours" value="24 hours">
+          <label for="24hours">24 hours</label>
+        </div>
+
+
+        <label class="labels">Specific needs:</label>
+        <div class="align-checkbox">
+          <input type="checkbox" id="healthCare" name="healthCare" value="Health Care">
+          <label for="healthCare">Health Care</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance">
+          <label for="houseCare">House Care/Maintenance</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="displacements" name="displacements" value="Displacement">
+          <label for="displacements">Displacement</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping">
+          <label for="grocery">Grocery Shopping</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="pupil" name="pupil" value="Pupil (for at-risk youth in need of a mentor)">
+          <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
+        </div>
+
+
+        <fieldset>
+          <legend>Emergency contact information</legend>
+          <input type="text" name="emergC-firstName" placeholder="First name">
+          <input type="text" name="emergC-lastName" placeholder="Last name">
+          <input type="number" name="emergC-phoneNumber" placeholder="Phone number">
+          <input type="email" name="emergC-email" placeholder="Email">
+          <input type="text" name="emergC-address" placeholder="Address">
+        </fieldset>
+
+        <div class="white-bg">
+          <button type="submit" class="submit-btn">Sign Up</button>
+        </div>
       </form>
     </div>
   </div>
