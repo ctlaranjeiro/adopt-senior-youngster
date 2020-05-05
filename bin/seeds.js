@@ -29,7 +29,7 @@ const users = [
     address: 'Baggs End, Underhill, Shire'
   },
   schedulePreference: 'Over Night: 12am - 8am',
-  specificNeeds: 'Dislocations'
+  specificNeeds: 'Displacements'
 },
 {
   accountType: 'User',
@@ -39,7 +39,7 @@ const users = [
   lastName: 'Dias',
   gender: 'Female',
   avatarUrl: '/public/images/pics/aurora-dias.png',
-  birthDate: 1950-02-28,
+  birthDate: 1940-02-28,
   address: 'Praça Paiva Coiceiro 29 1esq, Lisboa, Portugal',
   phoneNumber: 961234567,
   emergencyContact: {
@@ -71,7 +71,7 @@ const users = [
     address: 'Rua Sampaio Bruno n25 1dir, Lisboa, Portugal'
   },
   schedulePreference: '24 hours',
-  specificNeeds: 'Health Care' + 'House Care/Maintnense' + 'Dislocations' + 'Grocery Shopping'
+  specificNeeds: 'Health Care' + 'House Care/Maintnense' + 'Displacements' + 'Grocery Shopping'
 },
 {
   accountType: 'User',
@@ -80,7 +80,7 @@ const users = [
   firstName: 'Dennis',
   lastName: '"The Menace"',
   gender: 'Male',
-  avatarUrl: '/public/images/pics/dennis.png',
+  avatarUrl: '/public/images/pics/dennis-the-menace.png',
   birthDate: 2010-12-25,
   address: 'Juvenile center of Lisboa',
   phoneNumber: 216661313,
@@ -95,10 +95,11 @@ const users = [
   specificNeeds: 'Pupil (for at-risk youth in need of a mentor)'
 }
 ];
+
 const volunteers = [
   {
   accountType: 'Volunteer',
-  email: 'chuck.norris',
+  email: 'chuck.norris@hotmail.com',
   password: 'walkertxranger',
   firstName: 'Carlos',
   lastName: 'Norris',
@@ -110,9 +111,101 @@ const volunteers = [
   occupation: 'Marcial arts master, Pastor',
   skills: 'Mentor (for at-risk youth in need of a mentor)',
   availablePeriods: '24 hours',
-  aboutMe: 'I beleve tha discipline and faith are the way to proper educate and '
+  aboutMe: 'I beleve tha discipline and faith are the way to proper educate and discipline.'
+  },
+  {
+    accountType: 'Volunteer',
+    email: 'jason.statham@gmail.com',
+    password: 'transporter',
+    firstName: 'Jason',
+    lastName: 'Statham',
+    gender: 'Male',
+    avatarUrl: '/public/images/pics/jason-statham.png',
+    birthDate: 26-07-1967,
+    address: 'Praça de Alvalade n4 2dir, Lisboa, Portugal',
+    phoneNumber: 966696970,
+    occupation: 'Kick-Boxing fighter, courier, personal driver',
+    skills: 'Displacements',
+    availablePeriods: '24 hours',
+    aboutMe: "I have 3 roules. I don't want to know anything about the package, I drive under the speed limit and I only drive my car."
+  },
+  {
+    accountType: 'Volunteer',
+    email: 'mariana.anjos@gmail.com',
+    password: 'jesuseocaminho',
+    firstName: 'Mariana',
+    lastName: 'Anjos',
+    gender: 'Female',
+    avatarUrl: '/public/images/pics/mariana-anjos.jpg',
+    birthDate: 16-07-1997,
+    address: 'Praça de Alvalade n7 2dir, Lisboa, Portugal',
+    phoneNumber: 966677970,
+    occupation: 'nurse',
+    skills: 'Health Care' + 'House Care/Maintnense' + 'Grocery Shopping',
+    availablePeriods: 'Afternoon: 12pm - 4pm',
+    aboutMe: "I am a nurse at a hospital. I like to help people."
+  },
+  {
+    accountType: 'Volunteer',
+    email: 'optimus.autobots@gmail.com',
+    password: 'autobotsrollout',
+    firstName: 'Optimus',
+    lastName: 'Prime',
+    gender: 'Male',
+    avatarUrl: '/public/images/pics/optimus.png',
+    birthDate: 10-11-1011,
+    address: 'Classified',
+    phoneNumber: 911011011,
+    occupation: 'Leader of the Autobots',
+    skills: 'Displacements',
+    availablePeriods: '24 hours',
+    aboutMe: "I am a leader and a friend."
+  },
+  {
+    accountType: 'Volunteer',
+    email: 'vin.diesel@gmail.com',
+    password: 'fastandfurious',
+    firstName: 'Vin',
+    lastName: 'Diesel',
+    gender: 'Male',
+    avatarUrl: '/public/images/pics/vin-diesel.png',
+    birthDate: 18-07-1967,
+    address: 'Praça de Alvalade n17 2dir, Lisboa, Portugal',
+    phoneNumber: 910000001,
+    occupation: 'driver',
+    skills: 'Displacements',
+    availablePeriods: '24 hours',
+    aboutMe: "You ride with me, you are part of my family. And I'm all about family."
+  },
+  {
+    accountType: 'Volunteer',
+    email: 'miyagisun@gmail.com',
+    password: 'waxonwaxoff',
+    firstName: 'Pat',
+    lastName: 'Morita',
+    gender: 'Male',
+    avatarUrl: '/public/images/pics/kesuke-miyagi.png',
+    birthDate: 28-06-1932,
+    address: 'Praça de Alvalade n37 rc, Lisboa, Portugal',
+    phoneNumber: 912692469,
+    occupation: 'janitor',
+    skills: 'Mentor (for at-risk youth in need of a mentor)',
+    availablePeriods: 'Afternoon: 12pm - 4pm',
+    aboutMe: "We should never fight. But if we must fight, fight to win."
   }
 ];
+
+// const institutions = [
+//   {
+//     accountType: 'Institution',
+//     email: 'holyhouseofpoorsouls@gmail.com',
+//     password: 'hhops2000',
+//     name: 'Holy House Of Poor Souls',
+//     institutionType: 'Social Support',
+//     adress: 'Largo dos Prazers n1, Lisboa, Portugal',
+//     phoneNumber: 216699669
+//   }
+// ];
 
 User.create(users, err => {
   if (err) {
@@ -129,3 +222,11 @@ Volunteer.create(volunteers, err => {
   console.log(`Created ${volunteers.length} voluntees`);
   mongoose.connection.close();
 });
+
+// Institution.create(institutions, err => {
+//   if(err) {
+//     throw err;
+//   }
+//   console.log(`Created ${institutions.length} institutions`);
+//   mongoose.connection.close();
+// });
