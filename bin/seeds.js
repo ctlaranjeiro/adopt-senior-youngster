@@ -13,7 +13,7 @@ const users = [
 {
   accountType: 'User',
   email: 'frodo.baggins@hotmail.com',
-  password: 'IloveSam',
+  password: 'ILoveSam',
   firstName: 'Frodo',
   lastName: 'Baggins',
   gender: 'Other',

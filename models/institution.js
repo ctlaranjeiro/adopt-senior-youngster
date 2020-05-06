@@ -9,6 +9,7 @@ const institutionSchema = new Schema({
   name: { type: String, required: true },
   webpageUrl: { type: String },
   institutionType: { type: String, required: true, enum: ['Health Care', 'Parish', 'Public', 'Court', 'Social Support', 'Retirement Home'] },
+  // without Cloudinary
   avatarUrl: {
     type: String,
     default: (nameInitial) => {
@@ -16,6 +17,9 @@ const institutionSchema = new Schema({
     return nameInitial;
     }
   },
+  // with Cloudinary
+  // imgName: String,
+  // imgPath: String,
   adress: { type: String, required: true },
   phoneNumber: { type: Number, required: true, minlength: 9, maxlength: 9 },
   socialMedia: { type: Array }

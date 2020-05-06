@@ -1,0 +1,81 @@
+<header>
+  <img id="logo" src="/images/Logo.png">
+  <div class="user">
+    <h2>Hello, {{user.firstName}}</h2>
+    <div class="menu-wrapper">
+        <input type="checkbox" class="toggle" />
+        <div class="hamburger">
+          {% if {{user.imgName}} %}
+          <style>
+            .hamburger { width: 44px; height: 44px; background: url({{ user.imgPath }}{{ user.imgName }}) no-repeat center top; border-radius: 50%;}
+            .bar { visibility: hidden; }
+          </style>
+          {% end if %}
+          <div class="bar"></div>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="/edit">Edit Profile</a></li>
+            <li><a href="/logout">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</header>
+
+<div class="data container">
+  <div class="title">
+    <h2>PERSONAL DATA</h2>
+  </div>
+  <div class="data-content">
+    <div class="personal">
+      <p>NAME: {{user.firstName}} {{user.lastName}}</p>
+      <p>BIRTH DATE: {{user.birthDate}}</p>
+      <p>ADDRESS: {{user.address}}</p>
+      <p>EMAIL: {{user.email}}</p>
+      <p>PHONE NUMBER: {{user.phoneNumber}}</p>
+    </div>
+    <div class="emergency-contact">
+      <h3>Emergency Contact</h3>
+      <p>NAME: {{user.emergencyContact.firstName}} {{user.emergencyContact.lastName}}</p>
+      <p>ADDRESS: {{user.emergencyContact.address}}</p>
+      <p>EMAIL: {{user.emergencyContact.email}}</p>
+      <p>PHONE NUMBER: {{user.emergencyContact.phoneNumber}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="specs">
+  <nav>
+    <a href="#needs"><h2>USER NEEDS</h2></a>
+
+    <a href="#preferences"><h2>SCHEDULE PREFERENCES</h2></a>
+  </nav>
+  <div id="needs" class="needs">
+    <ul>
+      {{#each user.specificNeeds}}
+      <li>{{this.needs}}</li>
+      {{/each}}
+    </ul>
+    <div class="notes">
+      <h3>NOTES</h3>
+      <article>
+        {{!-- To be filled by the user through a text area of a form in the user edit (DOM manipulation)--}}
+      </article>
+    </div>
+  </div>
+  <div id="preferences" class="preferences">
+    <ul>
+      {{#each user.schedulePreference}}
+      <li>{{this.preference}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+<div class="volunteers">
+  <h2>ASSIGNED VOLUNTEERS</h2>
+  <div class="user-volunteers" style="overflow: auto;"> // overflow: auto creats a scroll bar if the content is to
+
+  </div>
+</div>

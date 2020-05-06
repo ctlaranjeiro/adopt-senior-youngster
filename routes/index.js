@@ -9,6 +9,8 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
+// TO IMPLEMENT CLOUDINARY
+
 // router.get(/* adicionar user */, (req, res) => {
 //   res.render(/* */);
 // });
