@@ -28,8 +28,8 @@ const users = [
     email: 'samwise@hotmail.com',
     address: 'Baggs End, Underhill, Shire'
   },
-  schedulePreference: 'Over Night: 12am - 8am',
-  specificNeeds: 'Displacements'
+  schedulePreference: ['Over Night: 12am - 8am'],
+  specificNeeds: ['Displacements']
 },
 {
   accountType: 'User',
@@ -49,8 +49,8 @@ const users = [
     email: 'cristina.dias@hotmail.com',
     address: 'Rua dos Clerigos n9 2dir, Porto, Portugal'
   },
-  schedulePreference: 'Morning: 8am - 12pm',
-  specificNeeds: 'House Care/Maintnense'
+  schedulePreference: ['Morning: 8am - 12pm'],
+  specificNeeds: ['House Care/Maintnense']
 },
 {
   accountType: 'User',
@@ -70,8 +70,8 @@ const users = [
     email: 'fernando.taxista@hotmail.com',
     address: 'Rua Sampaio Bruno n25 1dir, Lisboa, Portugal'
   },
-  schedulePreference: '24 hours',
-  specificNeeds: 'Health Care' + 'House Care/Maintnense' + 'Displacements' + 'Grocery Shopping'
+  schedulePreference: ['24 hours'],
+  specificNeeds: ['Health Care', 'House Care/Maintnense', 'Displacements', 'Grocery Shopping']
 },
 {
   accountType: 'User',
@@ -91,8 +91,8 @@ const users = [
     email: 'joe.wilson@hotmail.com',
     address: 'Calçada de Carriche n33 rc, Lisboa, Portugal'
   },
-  schedulePreference: '24 hours',
-  specificNeeds: 'Pupil (for at-risk youth in need of a mentor)'
+  schedulePreference:[ '24 hours'],
+  specificNeeds: ['Pupil (for at-risk youth in need of a mentor)']
 }
 ];
 
@@ -109,8 +109,8 @@ const volunteers = [
   address: 'Praça de Alvalade n1 3dir, Lisboa, Portugal',
   phoneNumber: 966696969,
   occupation: 'Marcial arts master, Pastor',
-  skills: 'Mentor (for at-risk youth in need of a mentor)',
-  availablePeriods: '24 hours',
+  skills: ['Mentor (for at-risk youth in need of a mentor)'],
+  availablePeriods: ['24 hours'],
   aboutMe: 'I beleve tha discipline and faith are the way to proper educate and discipline.'
   },
   {
@@ -125,8 +125,8 @@ const volunteers = [
     address: 'Praça de Alvalade n4 2dir, Lisboa, Portugal',
     phoneNumber: 966696970,
     occupation: 'Kick-Boxing fighter, courier, personal driver',
-    skills: 'Displacements',
-    availablePeriods: '24 hours',
+    skills: ['Displacements'],
+    availablePeriods: ['24 hours'],
     aboutMe: "I have 3 roules. I don't want to know anything about the package, I drive under the speed limit and I only drive my car."
   },
   {
@@ -141,8 +141,8 @@ const volunteers = [
     address: 'Praça de Alvalade n7 2dir, Lisboa, Portugal',
     phoneNumber: 966677970,
     occupation: 'nurse',
-    skills: 'Health Care' + 'House Care/Maintnense' + 'Grocery Shopping',
-    availablePeriods: 'Afternoon: 12pm - 4pm',
+    skills:[ 'Health Care', 'House Care/Maintnense', 'Grocery Shopping'],
+    availablePeriods: ['Afternoon: 12pm - 4pm'],
     aboutMe: "I am a nurse at a hospital. I like to help people."
   },
   {
@@ -157,8 +157,8 @@ const volunteers = [
     address: 'Classified',
     phoneNumber: 911011011,
     occupation: 'Leader of the Autobots',
-    skills: 'Displacements',
-    availablePeriods: '24 hours',
+    skills: ['Displacements'],
+    availablePeriods: ['24 hours'],
     aboutMe: "I am a leader and a friend."
   },
   {
@@ -173,8 +173,8 @@ const volunteers = [
     address: 'Praça de Alvalade n17 2dir, Lisboa, Portugal',
     phoneNumber: 910000001,
     occupation: 'driver',
-    skills: 'Displacements',
-    availablePeriods: '24 hours',
+    skills: ['Displacements'],
+    availablePeriods: ['24 hours'],
     aboutMe: "You ride with me, you are part of my family. And I'm all about family."
   },
   {
@@ -189,9 +189,9 @@ const volunteers = [
     address: 'Praça de Alvalade n37 rc, Lisboa, Portugal',
     phoneNumber: 912692469,
     occupation: 'janitor',
-    skills: 'Mentor (for at-risk youth in need of a mentor)',
-    availablePeriods: 'Afternoon: 12pm - 4pm',
-    aboutMe: "We should never fight. But if we must fight, fight to win."
+    skills: ['Mentor (for at-risk youth in need of a mentor)'],
+    availablePeriods: ['Afternoon: 12pm - 4pm'],
+    aboutMe: "We should never fight. But if we must fight, we fight to win."
   }
 ];
 

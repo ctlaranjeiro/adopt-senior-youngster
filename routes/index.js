@@ -1,6 +1,8 @@
 /* jshint esversion: 9*/
 const express = require('express');
 const router  = express.Router();
+const User = require('../models/user');
+const Volunteer = require('../models/volunteer');
 
 const uploadCloud = require('../config/cloudinary');
 
@@ -8,7 +10,20 @@ const uploadCloud = require('../config/cloudinary');
 router.get('/', (req, res, next) => {
   res.render('index');
 });
+/* GET user page */
+router.get('/user/:id', (req, res, next) => {
+  try {
+    const uid = req.params.id;
+    User.findById(uid)
+      .populate('volunteer')
+      .then(user => {
 
+        res.render('user', { user });
+      });
+  } catch(e){
+    next(e);
+  }
+});
 // TO IMPLEMENT CLOUDINARY
 
 // router.get(/* adicionar user */, (req, res) => {

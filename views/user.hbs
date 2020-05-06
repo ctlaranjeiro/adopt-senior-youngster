@@ -1,27 +1,4 @@
-<header>
-  <img id="logo" src="/images/Logo.png">
-  <div class="user">
-    <h2>Hello, {{user.firstName}}</h2>
-    <div class="menu-wrapper">
-        <input type="checkbox" class="toggle" />
-        <div class="hamburger">
-          {% if {{user.imgName}} %}
-          <style>
-            .hamburger { width: 44px; height: 44px; background: url({{ user.imgPath }}{{ user.imgName }}) no-repeat center top; border-radius: 50%;}
-            .bar { visibility: hidden; }
-          </style>
-          {% end if %}
-          <div class="bar"></div>
-        </div>
-        <div class="menu">
-          <ul>
-            <li><a href="/edit">Edit Profile</a></li>
-            <li><a href="/logout">Log Out</a></li>
-          </ul>
-        </div>
-      </div>
-  </div>
-</header>
+{{> profileHeader}}
 
 <div class="data container">
   <div class="title">
@@ -75,7 +52,54 @@
 
 <div class="volunteers">
   <h2>ASSIGNED VOLUNTEERS</h2>
-  <div class="user-volunteers" style="overflow: auto;"> // overflow: auto creats a scroll bar if the content is to
-
+  <div class="user-volunteers" style="overflow: auto;"> {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
+    <ul>
+      {{#each volunteer}}
+      <li>
+        <span>{{volunteer.firstName}}</span>
+        <div class="avatar">
+          {{!-- volunteerinitials or sized picture --}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="volunteer-details">
+    <nav>
+      <a href="#volProfile">
+        <h3>PROFILE</h3>
+      </a>
+      <a href="#volReports">
+        <h3>REPORTS</h3>
+      </a>
+      <a href="#volSchedules">
+        <h3>SCHEDULES</h3>
+      </a>
+    </nav>
+    <div id="volProfile">
+      <p>Name: {{volunteer.firstName}} {{volunteer.lastName}}</p>
+      <p>Birth Date: {{volunteer.birthDate}}</p>
+      <p>Phone Number: {{volunteer.phoneNumber}}</p>
+      <p>email: {{volunteer.email}}</p>
+    </div>
+    <div id="volRports" style="overflow: auto;">
+      {{#if (report.author.id === volunteer.id && report.subject === this.User)}} {{!-- TO DO: Verify the handlebars helpers docummentation about logic --}}
+        {{#each report}}
+        <div>
+          {{report.text}}
+        </div>
+        {{/each}}
+      {{/if}}
+    </div> 
+    <div id="volSchedules">
+      <ul>
+        {{#each volunteer.availablePeriod === this.schedulePreference}}
+        <li>{{this.schedulePreference}}</li>
+      </ul>
+    </div>
+   
+    {{!-- TO DO: Add form to submit volunteer review --}}
   </div>
 </div>
+
+{{!-- TO DO: If we have time add INSTITUTIONS block --}}

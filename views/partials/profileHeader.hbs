@@ -1,0 +1,24 @@
+<header>
+  <img id="logo" src="/images/Logo.png">
+  <div class="user">
+    <h2>Hello, {{user.firstName}}</h2>
+    <div class="menu-wrapper">
+        <input type="checkbox" class="toggle" />
+        <div class="hamburger">
+          {{#if user.imgName}}
+          <style>
+            .hamburger { width: 44px; height: 44px; background: url({{ user.imgPath }}{{ user.imgName }}) no-repeat center top; border-radius: 50%;}
+            .bar { visibility: hidden; }
+          </style>
+          {{/if}}
+          <div class="bar"></div>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="/edit">Edit Profile</a></li>
+            <li><a href="/logout">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</header>

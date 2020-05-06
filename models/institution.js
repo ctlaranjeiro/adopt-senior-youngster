@@ -8,7 +8,7 @@ const institutionSchema = new Schema({
   password: { type: String, required: true, minlength: 6 },
   name: { type: String, required: true },
   webpageUrl: { type: String },
-  institutionType: { type: String, required: true, enum: ['Health Care', 'Parish', 'Public', 'Court', 'Social Support', 'Retirement Home'] },
+  institutionType: { type: Array, required: true/* , enum: ['Health Care', 'Parish', 'Public', 'Court', 'Social Support', 'Retirement Home'] */ },
   // without Cloudinary
   avatarUrl: {
     type: String,
