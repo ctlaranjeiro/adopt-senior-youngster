@@ -1,3 +1,5 @@
+{{> headerHomeAuth}}
+
 <div class="container">
   <div class="auth-container signup-form">
 
@@ -16,13 +18,16 @@
       <!-- Sign Up social networks -->
       {{> signUpSocial}}
 
-      <form class="signup-base-form form" action='/signup/user' method='POST'>
-        <input type="email" name="email" placeholder="Email" required>
+      <form class="signup-base-form form" action='/signup/user' method='POST' enctype="multipart/form-data">
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        {{#if emailErrorMessage}}
+        <div class='error-message'>{{ emailErrorMessage }}</div>
+        {{/if}}
         <input type="password" name="password" placeholder="Password" required>
         <input type="text" name="firstName" placeholder="First name" required>
         <input type="text" name="lastName" placeholder="Last name" required>
 
-        <select name="gender" id="gender-select">
+        <select name="gender" id="gender-select" required>
           <option value="">-- Select Gender --</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
@@ -30,11 +35,15 @@
         </select>
 
         <div>
-          <label for="date">Birth date</label>
+          <label for="date">Birth date:</label>
           <input type="date" name="birthDate" id="birthdate" required>
         </div>
         <input type="text" name="address" placeholder="address" required>
         <input type="number" name="phoneNumber" placeholder="Phone number" required>
+
+        <!-- INPUT PHOTO -->
+        <input type="file" name="photo" id="upload-photo" required>
+
 
         <label class="labels">Schedule preference:</label>
         <div class="align-checkbox">
@@ -58,9 +67,12 @@
           <label for="overNight">Over Night: 12am - 8am</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="24hours" name="24hours" value="24 hours">
+          <input type="checkbox" id="24hours" name="fullDay" value="24 hours">
           <label for="24hours">24 hours</label>
         </div>
+        {{#if checkboxErrorMessage}}
+        <div class='error-message'>{{ checkboxErrorMessage }}</div>
+        {{/if}}
 
 
         <label class="labels">Specific needs:</label>
@@ -81,18 +93,21 @@
           <label for="grocery">Grocery Shopping</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="pupil" name="pupil" value="Pupil (for at-risk youth in need of a mentor)">
+          <input type="checkbox" id="pupil" name="pupil" value="Pupil">
           <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
         </div>
+        {{#if checkboxErrorMessage}}
+        <div class='error-message'>{{ checkboxErrorMessage }}</div>
+        {{/if}}
 
 
         <fieldset>
           <legend>Emergency contact information</legend>
-          <input type="text" name="emergC-firstName" placeholder="First name">
-          <input type="text" name="emergC-lastName" placeholder="Last name">
-          <input type="number" name="emergC-phoneNumber" placeholder="Phone number">
-          <input type="email" name="emergC-email" placeholder="Email">
-          <input type="text" name="emergC-address" placeholder="Address">
+          <input type="text" name="emergFirstName" placeholder="First name" required>
+          <input type="text" name="emergLastName" placeholder="Last name" required>
+          <input type="number" name="emergPhoneNumber" placeholder="Phone number" required>
+          <input type="email" name="emergEmail" placeholder="Email" required>
+          <input type="text" name="emergAddress" placeholder="Address" required>
         </fieldset>
 
         <div class="white-bg">

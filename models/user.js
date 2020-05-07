@@ -10,17 +10,17 @@ const userSchema = new Schema({
   lastName: { type: String, required: true },
   gender: { type: String, required: true, enum: ['Male', 'Female', 'Other'] },
   // Without Cloudinary
-  avatarUrl: {
-    type: String,
-    default: (firstNameInitial, lastNameInitial) => {
-    firstNameInitial = this.firstName[0];
-    lastNameInitial = this.lastName[0];
-    return firstNameInitial, lastNameInitial;
-    }
-  },
+  // avatarUrl: {
+  //   type: String,
+  //   default: (firstNameInitial, lastNameInitial) => {
+  //   firstNameInitial = this.firstName[0];
+  //   lastNameInitial = this.lastName[0];
+  //   return firstNameInitial, lastNameInitial;
+  //   }
+  // },
   // With Cloudinary
-  // imgName: String,
-  // st: String,
+  imgName: String,
+  imgPath: String,
   birthDate: { type: Date, required: true },
   address: { type: String, required: true },
   phoneNumber: { type: Number, required: true, minlength: 9, maxlength: 9 },

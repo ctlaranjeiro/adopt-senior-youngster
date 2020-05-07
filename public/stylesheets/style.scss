@@ -32,7 +32,7 @@ body {
   align-content: center;
 }
 
-nav {
+header {
   width: 100vw;
 
   #logo {
@@ -201,8 +201,6 @@ h6 {
   font-weight: bold;
   color: #3da8c2;
 }
-
-
 
 
 
@@ -535,7 +533,36 @@ footer {
   flex-direction: column;
   width: 80%;
 
+  .error-message{
+    background: #F02B63;
+    box-sizing: border-box;
+    font-size: 0.9em;
+    color: #fff;
+    margin: 0 auto 0.5em;
+    padding: 5px;
+    width: 100%;
+  }
+
+  .success-message{
+    background: rgb(10, 165, 10);
+    box-sizing: border-box;
+    font-size: 0.9em;
+    color: #fff;
+    margin: 0 auto 0.5em;
+    padding: 5px;
+    width: 100%;
+  }
+
   input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 1em;
+    font-size: 0.9em;
+  }
+
+  #upload-photo{
+    background-color: white;
     box-sizing: border-box;
     width: 100%;
     padding: 0.5em;

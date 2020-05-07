@@ -1,6 +1,6 @@
 /* jshint esversion: 9*/
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const User = require('../models/user');
 const Volunteer = require('../models/volunteer');
 
@@ -10,6 +10,17 @@ const uploadCloud = require('../config/cloudinary');
 router.get('/', (req, res, next) => {
   res.render('index');
 });
+
+/* MIDDLEWARE */
+router.use((req, res, next) => {
+  if (req.session.currentUser) {
+    //what next does here is to redirect the user to the next route on our code --- order matters here! -- it will affect every single thing that it's after this next
+    next();
+  } else {
+    res.redirect('/login');
+  }
+});
+
 /* GET user page */
 router.get('/user/:id', (req, res, next) => {
   try {
@@ -24,21 +35,6 @@ router.get('/user/:id', (req, res, next) => {
     next(e);
   }
 });
-// TO IMPLEMENT CLOUDINARY
 
-// router.get(/* adicionar user */, (req, res) => {
-//   res.render(/* */);
-// });
-
-// router.post(/* */, uploadCloud.single('photo'), (req, res) => {
-//   const { title, description } = req.body;
-//   const imgPath = req.file.url;
-//   const imgName = req.file.originalname;
-//   const newUser = new User({user, name});
-//   newUser.save()
-//     .then(user => {
-//       res.redirect('/');
-//     })
-// })
 
 module.exports = router;
