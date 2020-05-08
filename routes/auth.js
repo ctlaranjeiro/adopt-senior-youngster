@@ -56,28 +56,33 @@ router.get('/logout', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
   // Add fallbacks
-  if (!email || !password){
+  if (!email || !password) {
     res.render('auth/login', {
       errorMessage: 'Please enter both email and password to login'
     });
     return;
   }
-
-  User.findOne({ 'email': email })
-  //NEED TO CHECK IN THE VOLUNTEERS DB TOO -- apply the same for the user's and volunteer's signup - a user can't have both accounts by using the same email.
+  User.findOne({'email': email})
+    //NEED TO CHECK IN THE VOLUNTEERS DB TOO -- apply the same for the user's and volunteer's signup - a user can't have both accounts by using the same email.
     .then(user => {
 
       // Check if the user exists
-      if(!user){
+      if (!user) {
         res.render('auth/login', {
           errorMessage: "The email doesn't exist."
         });
       }
 
       //compare the password with the one in the database
-      if(bcrypt.compareSync(password, user.password)) {
+      // comparing hardcoded passwords in the seeds.js file for the exemplification accounts
+      if (password === user.password) {
+        req.session.currentUser = user;
+        const userId = user._id;
+        res.redirect(`/user/${userId}`);
+      }
+      // regular compare with bcrypt
+      if (bcrypt.compareSync(password, user.password)) {
         req.session.currentUser = user;
         const userId = user._id;
         res.redirect(`/user/${userId}`);
@@ -221,14 +226,14 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
           return;
         }
 
-        if(!morning && !afternoon && !evening && !night && !overNight && !fullDay){
+        if (!morning && !afternoon && !evening && !night && !overNight && !fullDay) {
           res.render('auth/user-signup', {
             checkboxErrorMessage: 'Select at least one from the above.'
           });
           return;
         }
 
-        if(!healthCare && !houseCare && !displacements && !grocery && !pupil){
+        if (!healthCare && !houseCare && !displacements && !grocery && !pupil) {
           res.render('auth/user-signup', {
             checkboxErrorMessage: 'Select at least one from the above.'
           });
@@ -356,14 +361,14 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
           return;
         }
 
-        if(!morning && !afternoon && !evening && !night && !overNight && !fullDay){
+        if (!morning && !afternoon && !evening && !night && !overNight && !fullDay) {
           res.render('auth/volunteer-signup', {
             checkboxErrorMessage: 'Select at least one from the above.'
           });
           return;
         }
 
-        if(!healthCare && !houseCare && !displacements && !grocery && !pupil){
+        if (!healthCare && !houseCare && !displacements && !grocery && !pupil) {
           res.render('auth/volunteer-signup', {
             checkboxErrorMessage: 'Select at least one from the above.'
           });
