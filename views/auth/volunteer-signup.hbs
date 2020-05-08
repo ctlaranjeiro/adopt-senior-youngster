@@ -18,22 +18,97 @@
       <!-- Sign Up social networks -->
       {{> signUpSocial}}
 
-      <form class="signup-base-form form" action='/signup/volunteer' method='POST'>
-        <input type="email" name="email" placeholder="email" required>
-        <input type="password" name="password" placeholder="password" required>
-        
-        {{!-- <input type="text" name="occupation" placeholder="Occupation" required>
-        
-        <div class="checkbox-form">
-        <input type="checkbox" id="skill1" name="skill1" value="Health Care">
-        <label for="skill1">Health Care</label>
-        <input type="checkbox" id="skill2" name="skill2" value="Health Care">
-        <label for="skill2">Health Care</label>
-        </div> --}}
-        
+      <form class="signup-base-form form" action='/signup/volunteer' method='POST' enctype="multipart/form-data">
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        {{#if emailErrorMessage}}
+        <div class='error-message'>{{ emailErrorMessage }}</div>
+        {{/if}}
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+
+        <select name="gender" id="gender-select" required>
+          <option value="">-- Select Gender --</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <div>
+          <label for="date">Birth date:</label>
+          <input type="date" name="birthDate" id="birthdate" required>
+        </div>
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="number" name="phoneNumber" placeholder="Phone number" required>
+        <input type="text" name="occupation" placeholder="Occupation (optional)">
+
+        <!-- INPUT PHOTO -->
+        <input type="file" name="photo" id="upload-photo" required>
+
+
+        <label class="labels">Available periods to help:</label>
+        <div class="align-checkbox">
+          <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm">
+          <label for="morning">Morning: 8am - 12pm</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm">
+          <label for="afternoon">Afternoon: 12pm - 4pm</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm">
+          <label for="evening">Evening: 4pm - 8pm</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am">
+          <label for="night">Night: 8pm - 12am</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am">
+          <label for="overNight">Over Night: 12am - 8am</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="24hours" name="fullDay" value="24 hours">
+          <label for="24hours">24 hours</label>
+        </div>
+        {{#if checkboxErrorMessage}}
+        <div class='error-message'>{{ checkboxErrorMessage }}</div>
+        {{/if}}
+
+
+        <label class="labels">Skills:</label>
+        <div class="align-checkbox">
+          <input type="checkbox" id="healthCare" name="healthCare" value="Health Care">
+          <label for="healthCare">Health Care</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance">
+          <label for="houseCare">House Care/Maintenance</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="displacements" name="displacements" value="Displacement">
+          <label for="displacements">Displacement</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping">
+          <label for="grocery">Grocery Shopping</label>
+        </div>
+        <div class="align-checkbox">
+          <input type="checkbox" id="pupil" name="pupil" value="Pupil">
+          <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
+        </div>
+        {{#if checkboxErrorMessage}}
+        <div class='error-message'>{{ checkboxErrorMessage }}</div>
+        {{/if}}
+
+
+        <label for="aboutMe" class="labels">About me:</label>
+        <textarea id="aboutMe" rows="4" cols="50" placeholder="type here..."></textarea>
+
         <div class="white-bg">
           <button type="submit" class="submit-btn">Sign Up</button>
         </div>
+      </form>
       </form>
     </div>
   </div>

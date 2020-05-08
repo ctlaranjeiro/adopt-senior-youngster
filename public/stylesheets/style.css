@@ -469,8 +469,11 @@ footer {
   .form p {
     margin-top: 1.3em;
     font-size: 0.7em; }
+  .form textarea {
+    font-size: 0.9em;
+    margin-top: 1em; }
   .form .white-bg {
-    margin-top: 0.8em;
+    margin-top: 1.5em;
     background-color: white;
     width: 125%;
     align-self: center;

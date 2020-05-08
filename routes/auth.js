@@ -5,6 +5,7 @@ const bcryptSalt = 10;
 const uploadCloud = require('../config/cloudinary.js');
 
 const User = require('../models/user');
+const Volunteer = require('../models/volunteer');
 
 /* GET sign up page */
 router.get('/signup', (req, res, next) => {
@@ -65,6 +66,7 @@ router.post('/login', (req, res, next) => {
   }
 
   User.findOne({ 'email': email })
+  //NEED TO CHECK IN THE VOLUNTEERS DB TOO -- apply the same for the user's and volunteer's signup - a user can't have both accounts by using the same email.
     .then(user => {
 
       // Check if the user exists
@@ -246,6 +248,142 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
   }
 });
 /* --------------- END of post signup user */
+
+
+
+/* POST signUp volunteer */
+router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) => {
+  try {
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      gender,
+      birthDate,
+      address,
+      phoneNumber,
+      occupation,
+      //available periods
+      morning,
+      afternoon,
+      evening,
+      night,
+      overNight,
+      fullDay,
+      //skills
+      healthCare,
+      houseCare,
+      displacements,
+      grocery,
+      pupil,
+      aboutMe
+    } = req.body;
+
+    // ---- CHECKBOX VALUES 
+    const availablePeriods = [];
+
+    if (morning) {
+      availablePeriods.push(morning);
+    }
+    if (afternoon) {
+      availablePeriods.push(afternoon);
+    }
+    if (evening) {
+      availablePeriods.push(evening);
+    }
+    if (night) {
+      availablePeriods.push(night);
+    }
+    if (overNight) {
+      availablePeriods.push(overNight);
+    }
+    if (fullDay) {
+      availablePeriods.push(fullDay);
+    }
+
+    const skills = [];
+
+    if (healthCare) {
+      skills.push(healthCare);
+    }
+    if (houseCare) {
+      skills.push(houseCare);
+    }
+    if (displacements) {
+      skills.push(displacements);
+    }
+    if (grocery) {
+      skills.push(grocery);
+    }
+    if (pupil) {
+      skills.push(pupil);
+    }
+
+    // console.log(`Available periods: ${availablePeriods}`);
+    // console.log(`Skills: ${skills}`);
+
+    const salt = bcrypt.genSaltSync(bcryptSalt);
+    const hashPass = bcrypt.hashSync(password, salt);
+
+    const imgPath = req.file.url;
+    const imgName = req.file.originalname;
+
+    const newVolunteer = new Volunteer({
+      email,
+      password: hashPass,
+      firstName,
+      lastName,
+      gender,
+      birthDate,
+      address,
+      phoneNumber,
+      occupation,
+      availablePeriods: availablePeriods,
+      skills: skills,
+      aboutMe,
+      imgPath,
+      imgName
+    });
+
+
+    Volunteer.findOne({'email': email})
+      .then(volunteer => {
+        if (volunteer) {
+          res.render('auth/volunteer-signup', {
+            emailErrorMessage: 'Email already registered.'
+          });
+          return;
+        }
+
+        if(!morning && !afternoon && !evening && !night && !overNight && !fullDay){
+          res.render('auth/volunteer-signup', {
+            checkboxErrorMessage: 'Select at least one from the above.'
+          });
+          return;
+        }
+
+        if(!healthCare && !houseCare && !displacements && !grocery && !pupil){
+          res.render('auth/volunteer-signup', {
+            checkboxErrorMessage: 'Select at least one from the above.'
+          });
+          return;
+        }
+
+        newVolunteer.save()
+          .then(volunteer => {
+            res.redirect("/login");
+          })
+          .catch(err => {
+            console.log('An error occurred while saving volunteer to DB:', err);
+          });
+      });
+  } catch (e) {
+    next(e);
+  }
+});
+/* --------------- END of post signup volunteer */
+
 
 
 
