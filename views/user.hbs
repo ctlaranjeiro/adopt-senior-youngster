@@ -31,7 +31,7 @@
   <div id="needs" class="needs">
     <ul>
       {{#each user.specificNeeds}}
-      <li>{{this.needs}}</li>
+      <li>{{user.needs}}</li>
       {{/each}}
     </ul>
     <div class="notes">
@@ -44,7 +44,7 @@
   <div id="preferences" class="preferences">
     <ul>
       {{#each user.schedulePreference}}
-      <li>{{this.preference}}</li>
+      <li>{{user.preference}}</li>
       {{/each}}
     </ul>
   </div>
@@ -52,13 +52,14 @@
 
 <div class="volunteers">
   <h2>ASSIGNED VOLUNTEERS</h2>
-  <div class="user-volunteers" style="overflow: auto;"> {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
-    <ul>
-      {{#each volunteer}}
+  <div class="user-volunteers" id="user-volunteers" style="overflow: auto;"> {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
+    <ul id="volunteersList">
+      {{#each assignedVolunteer}}
       <li>
         <span>{{volunteer.firstName}}</span>
         <div class="avatar">
           {{!-- volunteerinitials or sized picture --}}
+          {{!-- Content created through DOM --}}
         </div>
       </li>
       {{/each}}
@@ -77,29 +78,47 @@
       </a>
     </nav>
     <div id="volProfile">
-      <p>Name: {{volunteer.firstName}} {{volunteer.lastName}}</p>
-      <p>Birth Date: {{volunteer.birthDate}}</p>
-      <p>Phone Number: {{volunteer.phoneNumber}}</p>
-      <p>email: {{volunteer.email}}</p>
+      <p>Name: {{!-- Content created through DOM --}}</p>
+      <p>Age: {{!-- Content created through DOM --}}</p>
+      <p>Phone Number: {{!-- Content created through DOM --}}</p>
+      <p>email: {{!-- Content created through DOM --}}</p>
     </div>
     <div id="volRports" style="overflow: auto;">
-      {{#if (report.author.id === volunteer.id && report.subject === this.User)}} {{!-- TO DO: Verify the handlebars helpers docummentation about logic --}}
-        {{#each report}}
-        <div>
-          {{report.text}}
-        </div>
-        {{/each}}
-      {{/if}}
+      {{!-- Content created through DOM --}}
     </div> 
     <div id="volSchedules">
-      <ul>
-        {{#each volunteer.availablePeriod === this.schedulePreference}}
-        <li>{{this.schedulePreference}}</li>
-      </ul>
+      {{!-- Content created through DOM --}}
     </div>
    
     {{!-- TO DO: Add form to submit volunteer review --}}
+    <div id="volRevew">
+      <form action="" method="post">
+        <label>User Name</label>
+        <input type="text" name="author" id="author" value="{{user.firstName}} {{user.lastName}}"> {{!-- To be poppulated --}}
+        <label>Volunteer Name</label>
+        <input type="text" name="subject" id="subject"> {{!-- To be poppulated with the respectiv volunteer data --}} 
+        <div class="ratting">
+          <h5>How do you rate the help?</h5>
+          <label for="one">1</label>
+          <input type="radio" name="rate" id="one" value="1">
+          <label for="two">2</label>
+          <input type="radio" name="rate" id="two" value="2">
+          <label for="three">3</label>
+          <input type="radio" name="rate" id="three" value="3">
+          <label for="fuor">4</label>
+          <input type="radio" name="rate" id="fuor" value="4">
+          <label for="five">5</label>
+          <input type="radio" name="rate" id="five" value="5">
+        </div>
+        <label> Your Review</label>
+        <textarea name="text" id="tex" cols="150" rows="10"></textarea>
+
+        <button type="submit">Submit Review</button>
+      </form>
+    </div>
   </div>
 </div>
 
 {{!-- TO DO: If we have time add INSTITUTIONS block --}}
+
+<script src="../javascripts/userPage.js"></script>
