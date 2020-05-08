@@ -9,6 +9,7 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 const helpers = require('handlebars-helpers')();
+hbs.registerHelper(helpers);
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
 
@@ -16,10 +17,10 @@ const MongoStore   = require('connect-mongo')(session);
 mongoose
   .connect('mongodb://localhost/adopt-senior-youngster', {useNewUrlParser: true})
   .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
   .catch(err => {
-    console.error('Error connecting to mongo', err)
+    console.error('Error connecting to mongo', err);
   });
 
 const app_name = require('./package.json').name;

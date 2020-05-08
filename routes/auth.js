@@ -77,6 +77,15 @@ router.post('/login', (req, res, next) => {
       }
 
       //compare the password with the one in the database
+
+      // comparing hardcoded passwords in the seeds.js file for the exemplification accounts
+      if(password === user.password) {
+        req.session.currentUser = user;
+        const userId = user._id;
+        res.redirect(`/user/${userId}`);
+      }
+
+      // regular compare with bcrypt
       if(bcrypt.compareSync(password, user.password)) {
         req.session.currentUser = user;
         const userId = user._id;

@@ -2,15 +2,12 @@
   <img id="logo" src="/images/Logo.png">
   <div class="user">
     <h2>Hello, {{user.firstName}}</h2>
+    <div class="avatar" style="background-color: darkgray; width: 44px; height: 44px; border-radius: 50%">
+      {{this.firstName.[0]}} {{this.lastName.[0]}}
+    </div>
     <div class="menu-wrapper">
         <input type="checkbox" class="toggle" />
         <div class="hamburger">
-          {{#if user.imgName}}
-          <style>
-            .hamburger { width: 44px; height: 44px; background: url({{ user.imgPath }}{{ user.imgName }}) no-repeat center top; border-radius: 50%;}
-            .bar { visibility: hidden; }
-          </style>
-          {{/if}}
           <div class="bar"></div>
         </div>
         <div class="menu">
@@ -22,3 +19,5 @@
       </div>
   </div>
 </header>
+
+<script src="/public/javascripts/userPage.js"></script>
