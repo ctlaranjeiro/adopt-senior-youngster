@@ -44,6 +44,24 @@ router.get('/login', (req, res, next) => {
   }
 });
 
+/* GET user login page */
+router.get('/login/user', (req, res, next) => {
+  try {
+    res.render('auth/user-login');
+  } catch (e) {
+    next(e);
+  }
+});
+
+/* GET volunteer login page */
+router.get('/login/volunteer', (req, res, next) => {
+  try {
+    res.render('auth/volunteer-login');
+  } catch (e) {
+    next(e);
+  }
+});
+
 /* GET logout */
 router.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
@@ -52,13 +70,13 @@ router.get('/logout', (req, res, next) => {
 });
 
 
-/* POST login */
-router.post('/login', (req, res, next) => {
+/* POST login user*/
+router.post('/login/user', (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   // Add fallbacks
   if (!email || !password) {
-    res.render('auth/login', {
+    res.render('auth/login/user', {
       errorMessage: 'Please enter both email and password to login'
     });
     return;
@@ -69,7 +87,7 @@ router.post('/login', (req, res, next) => {
 
       // Check if the user exists
       if (!user) {
-        res.render('auth/login', {
+        res.render('auth/login/user', {
           errorMessage: "The email doesn't exist."
         });
       }
@@ -89,7 +107,51 @@ router.post('/login', (req, res, next) => {
         const userId = user._id;
         res.redirect(`/user/${userId}`);
       } else {
-        res.render('auth/login', {
+        res.render('auth/login/user', {
+          errorMessage: 'Incorrect email or password'
+        });
+      }
+    });
+});
+
+/* POST login volunteer*/
+router.post('/login/volunteer', (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  // Add fallbacks
+  if (!email || !password) {
+    res.render('auth/login/volunteer', {
+      errorMessage: 'Please enter both email and password to login'
+    });
+    return;
+  }
+  Volunteer.findOne({'email': email})
+    //NEED TO CHECK IN THE VOLUNTEERS DB TOO -- apply the same for the user's and volunteer's signup - a user can't have both accounts by using the same email.
+    .then(volunteer => {
+
+      // Check if the volunteer exists
+      if (!volunteer) {
+        res.render('auth/login/volunteer', {
+          errorMessage: "The email doesn't exist."
+        });
+      }
+
+      //compare the password with the one in the database
+
+      // comparing hardcoded passwords in the seeds.js file for the exemplification accounts
+      if(password === volunteer.password) {
+        req.session.currentUser = volunteer;
+        const volunteerId = volunteer._id;
+        res.redirect(`/volunteer/${volunteerId}`);
+      }
+
+      // regular compare with bcrypt
+      if(bcrypt.compareSync(password, volunteer.password)) {
+        req.session.currentUser = volunteer;
+        const volunteerId = volunteer._id;
+        res.redirect(`/volunteer/${volunteerId}`);
+      } else {
+        res.render('auth/login/volunteer', {
           errorMessage: 'Incorrect email or password'
         });
       }

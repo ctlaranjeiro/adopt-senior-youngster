@@ -36,5 +36,19 @@ router.get('/user/:id', (req, res, next) => {
   }
 });
 
+/* GET volunteer page */
+router.get('/volunteer/:id', (req, res, next) => {
+  try {
+    const vid = req.params.id;
+    Volunteer.findById(vid)
+      .populate('user')
+      .then(volunteer => {
+
+        res.render('volunteer', { volunteer });
+      });
+  } catch(e){
+    next(e);
+  }
+});
 
 module.exports = router;

@@ -346,7 +346,7 @@ footer {
     margin-top: 0.5em;
     font-weight: 600; }
 
-.auth-div .signup-btn-selected {
+.auth-div .signup-btn-selected, .auth-div .login-btn-selected {
   background-color: #2b7283;
   color: white;
   border: 1px solid white;

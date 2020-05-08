@@ -1,0 +1,42 @@
+{{> headerHomeAuth}}
+
+<div class="container">
+  <div class="auth-container login-form">
+    <div class="buttons-div">
+      <div class="sign-up-btn btn-w-50">
+        <a href="/signup">Sign up</a>
+      </div>
+
+      <div class="login-btn btn-w-50">
+        <a href="/login">Login</a>
+      </div>
+    </div>
+
+    <div class="auth-div">
+      <div class="select-account-type">
+        <p>selected account</p>
+        <div class="buttons-div">
+          <div class="login-btn-selected">User</div>
+        </div>
+        <a href="/login">different account?</a>
+      </div>
+      
+      <!-- Login social networks -->
+      {{> loginSocial}}
+
+      <form class="form" action='/login/user' method='POST'>
+        <input type="email" name="email" placeholder="email">
+        <input type="password" name="password" placeholder="password">
+
+        {{#if errorMessage}}
+        <div class='error-message'>{{ errorMessage }}</div>
+        {{/if}}
+
+        {{!-- <p>Forgot your password?</p> --}}
+        <div class="white-bg">
+          <button type="submit" class="submit-btn">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
