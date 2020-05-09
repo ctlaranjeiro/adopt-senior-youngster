@@ -7,7 +7,7 @@
   <div class="data-content">
     <div class="personal">
       <p><strong>NAME: </strong>{{user.firstName}} {{user.lastName}}</p>
-      <p><strong>BIRTH DATE: </strong>{{user.birthDate}}</p>
+      <p><strong>AGE: </strong>{{user.age}}</p>
       <p><strong>ADDRESS: </strong>{{user.address}}</p>
       <p><strong>EMAIL: </strong>{{user.email}}</p>
       <p><strong>PHONE NUMBER: </strong>{{user.phoneNumber}}</p>
@@ -66,38 +66,38 @@
     {{#if user.assignedVolunteers}}
     <ul id="volunteersList">
       {{#each user.assignedVolunteers}}
-      <li>
+      <li class="column">
         <input type="checkbox" name="tabs" id="volTab" class="rd_tabs">
         <label for="volTab" class="rd_lbl">{{firstName}} {{lastName}} <img src={{imgPath}} class="avatarImg"></label>
         <div class="content assignedVolunteerContent">
           <nav class="nav_tabs">
     <ul>
-      <li>
+      <li class="row">
         <input type="radio" name="tabs" class="rd_tabs" id="volProfile">
         <label for="volProfile" class="rd_lbl">PROFILE</label>
         <div class="content profile-content">
           <p>Name: {{firstName}} {{lastName}}</p>
-          <p>Age: {{birthDate}}</p>
+          <p>Age: {{age}}</p>
           <p>Phone Number: {{volPhoneNumber}}</p>
           <p>email: {{email}}</p>
           <p>Occupation: {{occupation}}</p>
         </div>
       </li>
-      <li>
+      <li class="row">
         <input type="radio" name="tabs" class="rd_tabs" id="volReports">
         <label for="volReports" class="rd_lbl">REPORTS</label>
         <div class="content reports-content">
           <p>Inserir aqui os relatorios d voluntario correspondentes ao utilizador</p>
         </div>
       </li>
-      <li>
+      <li class="row">
         <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
         <label for="volSchedules" class="rd_lbl">SCHEDULES</label>
         <div class="content schedules-content">
           <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
         </div>
       </li>
-      <li>
+      <li class="row">
         <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
         <label for="volRevew" class="rd_lbl">REVIEW</label>
         <div class="content ratting-content">
