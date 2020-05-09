@@ -36,6 +36,27 @@ router.get('/user/:id', (req, res, next) => {
   }
 });
 
+/* GET user edit page */
+router.get('/user/:id/edit', (req,res, next) => {
+  const uid = req.params.id;
+
+  User.findById(uid)
+    .populate('assignedVolunteers')
+    .then(user => {
+      res.render('user-edit', { user });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+
+
+
+
+
+
+
 /* GET volunteer page */
 router.get('/volunteer/:id', (req, res, next) => {
   try {

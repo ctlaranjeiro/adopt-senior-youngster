@@ -76,7 +76,7 @@ router.get('/login', (req, res, next) => {
 
 /* POST login :params*/
 router.post('/login/:account', (req, res, next) => {
-  const params = req.params;
+  const params = req.params.account;
   const email = req.body.email;
   const password = req.body.password;
 
