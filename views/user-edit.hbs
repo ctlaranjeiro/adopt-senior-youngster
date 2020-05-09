@@ -1,1 +1,9 @@
-<h1>{{user.firstName}} {{user.lastName}} edit page</h1>
+{{> profileHeader}}
+
+<h3>Edit Details</h3>
+
+<form class="form edit-details" action="/user/{{user._id}}/edit" method="POST">
+  <label class="labels">Personal data:</label>
+  <label for="email">Email:</label>
+  <input type="email" name="email" value="{{user.email}}" id="email">
+</form>

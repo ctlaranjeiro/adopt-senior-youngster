@@ -21,6 +21,7 @@ router.use((req, res, next) => {
   }
 });
 
+
 /* GET user page */
 router.get('/user/:id', (req, res, next) => {
   try {
@@ -42,12 +43,16 @@ router.get('/user/:id/edit', (req,res, next) => {
   User.findById(uid)
     .populate('assignedVolunteers')
     .then(user => {
-      res.render('user-edit', { user });
+      Volunteer.find().then(volunteers => {
+        //console.log('Volunteers: ', volunteers);
+        res.render('user-edit', { user, volunteers });
+      });
     })
     .catch(err => {
       next(err);
     });
 });
+
 
 
 
