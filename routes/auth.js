@@ -76,7 +76,7 @@ router.post('/login/user', (req, res, next) => {
   const password = req.body.password;
   // Add fallbacks
   if (!email || !password) {
-    res.render('auth/login/user', {
+    res.render('auth/user-login', {
       errorMessage: 'Please enter both email and password to login'
     });
     return;
@@ -87,7 +87,7 @@ router.post('/login/user', (req, res, next) => {
 
       // Check if the user exists
       if (!user) {
-        res.render('auth/login/user', {
+        res.render('auth/user-login', {
           errorMessage: "The email doesn't exist."
         });
       }
@@ -107,7 +107,7 @@ router.post('/login/user', (req, res, next) => {
         const userId = user._id;
         res.redirect(`/user/${userId}`);
       } else {
-        res.render('auth/login/user', {
+        res.render('auth/user-login', {
           errorMessage: 'Incorrect email or password'
         });
       }
@@ -120,7 +120,7 @@ router.post('/login/volunteer', (req, res, next) => {
   const password = req.body.password;
   // Add fallbacks
   if (!email || !password) {
-    res.render('auth/login/volunteer', {
+    res.render('auth/volunteer-login', {
       errorMessage: 'Please enter both email and password to login'
     });
     return;
@@ -131,7 +131,7 @@ router.post('/login/volunteer', (req, res, next) => {
 
       // Check if the volunteer exists
       if (!volunteer) {
-        res.render('auth/login/volunteer', {
+        res.render('auth/volunteer-login', {
           errorMessage: "The email doesn't exist."
         });
       }
@@ -151,7 +151,7 @@ router.post('/login/volunteer', (req, res, next) => {
         const volunteerId = volunteer._id;
         res.redirect(`/volunteer/${volunteerId}`);
       } else {
-        res.render('auth/login/volunteer', {
+        res.render('auth/volunteer-login', {
           errorMessage: 'Incorrect email or password'
         });
       }

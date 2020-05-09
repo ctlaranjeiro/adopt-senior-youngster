@@ -64,10 +64,7 @@
     <h2>ASSIGNED VOLUNTEERS</h2>
   </div>
     {{#if user.assignedVolunteers}}
-    <p>You don't have anyone who can help you</p>
-    {{else}}
     <ul id="volunteersList">
-
       {{#each assignedVolunteers}}
       <li>
         <span>{{firstName}}</span>
@@ -79,7 +76,10 @@
       </li>
       {{/each}}
     </ul>
+    {{else}}
+    <p>You don't have anyone who can help you</p>
     {{/if}}
+
   </div>
   <nav class="nav_tabs">
     <ul>
