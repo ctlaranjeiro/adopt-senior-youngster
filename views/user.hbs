@@ -65,61 +65,47 @@
   </div>
     {{#if user.assignedVolunteers}}
     <ul id="volunteersList">
-
       {{#each user.assignedVolunteers}}
-      <p>
-        OLÁ {{firstName}} <img src={{this.imgPath}}>
-      </p>
       <li>
-        <span>{{firstName}} {{lastName}}</span>
-        <div class="avatar">
-          <img src={{imgPath}}>
-          {{!-- volunteerinitials or sized picture --}}
-          {{!-- Content created through DOM --}}
-        </div>
-      </li>
-      {{/each}}
-    </ul>
-    {{else}}
-    <p>You don't have anyone who can help you</p>
-    {{/if}}
-
-  </div>
-  <nav class="nav_tabs">
+        <input type="checkbox" name="tabs" id="volTab" class="rd_tabs">
+        <label for="volTab" class="rd_lbl">{{firstName}} {{lastName}} <img src={{imgPath}} class="avatarImg"></label>
+        <div class="content assignedVolunteerContent">
+          <nav class="nav_tabs">
     <ul>
       <li>
         <input type="radio" name="tabs" class="rd_tabs" id="volProfile">
         <label for="volProfile" class="rd_lbl">PROFILE</label>
-        <div class="content">
-          <p>Name: {{!-- Content created through DOM --}}</p>
-          <p>Age: {{!-- Content created through DOM --}}</p>
-          <p>Phone Number: {{!-- Content created through DOM --}}</p>
-          <p>email: {{!-- Content created through DOM --}}</p>
+        <div class="content profile-content">
+          <p>Name: {{firstName}} {{lastName}}</p>
+          <p>Age: {{birthDate}}</p>
+          <p>Phone Number: {{volPhoneNumber}}</p>
+          <p>email: {{email}}</p>
+          <p>Occupation: {{occupation}}</p>
         </div>
       </li>
       <li>
         <input type="radio" name="tabs" class="rd_tabs" id="volReports">
         <label for="volReports" class="rd_lbl">REPORTS</label>
-        <div class="content">
+        <div class="content reports-content">
           <p>Inserir aqui os relatorios d voluntario correspondentes ao utilizador</p>
         </div>
       </li>
       <li>
         <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
         <label for="volSchedules" class="rd_lbl">SCHEDULES</label>
-        <div class="content">
+        <div class="content schedules-content">
           <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
         </div>
       </li>
       <li>
         <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
         <label for="volRevew" class="rd_lbl">REVIEW</label>
-        <div class="content">
+        <div class="content ratting-content">
           <form action="" method="post">
         <label>User Name</label>
-        <input type="text" name="author" id="author" value="{{user.firstName}} {{user.lastName}}"> {{!-- To be poppulated --}}
+        <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}"> {{!-- To be poppulated --}}
         <label>Volunteer Name</label>
-        <input type="text" name="subject" id="subject" value="{{assignedVolunteers.firstName}}"> {{!-- To be poppulated with the respectiv volunteer data --}} 
+        <input type="text" name="subject" id="subject" value="{{firstName}}"> {{!-- To be poppulated with the respectiv volunteer data --}} 
         <div class="ratting">
           <h5>How do you rate the help?</h5>
           <label for="one">1</label>
@@ -142,6 +128,16 @@
       </li>
     </ul>
   </nav>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+    {{else}}
+    <p>You don't have anyone who can help you</p>
+    {{/if}}
+
+  </div>
+  
   
 </div>
 

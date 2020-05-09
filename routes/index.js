@@ -28,7 +28,6 @@ router.get('/user/:id', (req, res, next) => {
     User.findById(uid)
       .populate('assignedVolunteers')
       .then(user => {
-
         res.render('user', { user });
       });
   } catch(e){
