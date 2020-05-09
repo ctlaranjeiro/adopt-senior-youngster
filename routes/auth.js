@@ -355,7 +355,15 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
     const imgPath = req.file.url;
     const imgName = req.file.originalname;
 
-    const age = birthDate.getDate();
+    // calculate age based on birthdate
+    function getYears(x) {
+      return Math.floor(x / 1000 / 60 / 60 / 24 / 365);
+    }
+    const n = Date.now();
+    const d = new Date(birthDate);
+    const age = getYears(n - d);
+    
+    //console.log(age);
 
     const newUser = new User({
       email,
@@ -364,7 +372,7 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
       lastName,
       gender,
       birthDate,
-      age,
+      age: age,
       address,
       phoneNumber,
       emergencyContact: {
@@ -431,7 +439,7 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
       gender,
       birthDate,
       address,
-      phoneNumber,
+      volPhoneNumber,
       occupation,
       //available periods
       morning,
@@ -498,6 +506,16 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
     const imgPath = req.file.url;
     const imgName = req.file.originalname;
 
+    // calculate age based on birthdate
+    function getYears(x) {
+      return Math.floor(x / 1000 / 60 / 60 / 24 / 365);
+    }
+    const n = Date.now();
+    const d = new Date(birthDate);
+    const age = getYears(n - d);
+    
+    //console.log(age);
+
     const newVolunteer = new Volunteer({
       email,
       password: hashPass,
@@ -505,8 +523,9 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
       lastName,
       gender,
       birthDate,
+      age: age,
       address,
-      phoneNumber,
+      volPhoneNumber,
       occupation,
       availablePeriods: availablePeriods,
       skills: skills,

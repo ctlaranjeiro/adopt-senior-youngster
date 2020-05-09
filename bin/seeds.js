@@ -23,6 +23,7 @@ const users = [
   gender: 'Other',
   imgPath: '/images/pics/Frodo-Baggins.png',
   birthDate: new Date (1956, 01, 01),
+  age: 64,
   address: 'Baggs End, Underhill, Shire',
   phoneNumber: 911234567,
   emergencyContact: {
@@ -44,6 +45,7 @@ const users = [
   gender: 'Female',
   imgPath: '/images/pics/aurora-dias.png',
   birthDate: new Date (1940, 02, 28),
+  age: 80,
   address: 'Praça Paiva Coiceiro 29 1esq, Lisboa, Portugal',
   phoneNumber: 961234567,
   emergencyContact: {
@@ -57,7 +59,7 @@ const users = [
   specificNeeds: ['House Care/Maintnense'],
   assignedVolunteers:[
     {
-      _id: Object("5eb6ceb7fc598b2af13c7095") // <----------
+      _id: Object("5eb6d2b8c35aa729c1cf24fd") // <----------
     }
 ]
 },
@@ -70,6 +72,7 @@ const users = [
   gender: 'Male',
   imgPath: '/images/pics/rui-mota.png',
   birthDate: new Date (1980, 03, 13),
+  age: 40,
   address: 'Rua Carlos Mardel n13 1esq, Lisboa, Portugal',
   phoneNumber: 931234513,
   emergencyContact: {
@@ -91,6 +94,7 @@ const users = [
   gender: 'Male',
   imgPath: '/images/pics/dennis-the-menace.png',
   birthDate: new Date (2010, 12, 25),
+  age: 10,
   address: 'Juvenile center of Lisboa',
   phoneNumber: 216661313,
   emergencyContact: {
@@ -115,6 +119,7 @@ const volunteers = [
   gender: 'Male',
   imgPath: '/images/pics/chuck-norris.png',
   birthDate: new Date (10, 03, 1940),
+  age: 80,
   address: 'Praça de Alvalade n1 3dir, Lisboa, Portugal',
   volPhoneNumber: 966696969,
   occupation: 'Marcial arts master, Pastor',
@@ -131,6 +136,7 @@ const volunteers = [
     gender: 'Male',
     imgPath: '/images/pics/jason-statham.png',
     birthDate: new Date (26, 07, 1967),
+    age: 53,
     address: 'Praça de Alvalade n4 2dir, Lisboa, Portugal',
     volPhoneNumber: 966696970,
     occupation: 'Kick-Boxing fighter, courier, personal driver',
@@ -147,6 +153,7 @@ const volunteers = [
     gender: 'Female',
     imgPath: '/images/pics/mariana-anjos.jpg',
     birthDate: new Date (16, 07, 1997),
+    age: 23,
     address: 'Praça de Alvalade n7 2dir, Lisboa, Portugal',
     volPhoneNumber: 966677970,
     occupation: 'nurse',
@@ -163,6 +170,7 @@ const volunteers = [
     gender: 'Male',
     imgPath: '/images/pics/optimus.png',
     birthDate: new Date (10, 11, 1011),
+    age: 1009,
     address: 'Classified',
     volPhoneNumber: 911011011,
     occupation: 'Leader of the Autobots',
@@ -179,6 +187,7 @@ const volunteers = [
     gender: 'Male',
     imgPath: '/images/pics/vin-diesel.png',
     birthDate: new Date (18, 07, 1967),
+    age: 53,
     address: 'Praça de Alvalade n17 2dir, Lisboa, Portugal',
     volPhoneNumber: 910000001,
     occupation: 'driver',
@@ -195,6 +204,7 @@ const volunteers = [
     gender: 'Male',
     imgPath: '/images/pics/kesuke-miyagi.png',
     birthDate: new Date (28, 06, 1932),
+    age: 88,
     address: 'Praça de Alvalade n37 rc, Lisboa, Portugal',
     volPhoneNumber: 912692469,
     occupation: 'janitor',
