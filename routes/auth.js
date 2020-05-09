@@ -355,6 +355,8 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
     const imgPath = req.file.url;
     const imgName = req.file.originalname;
 
+    const age = birthDate.getDate();
+
     const newUser = new User({
       email,
       password: hashPass,
@@ -362,6 +364,7 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
       lastName,
       gender,
       birthDate,
+      age,
       address,
       phoneNumber,
       emergencyContact: {

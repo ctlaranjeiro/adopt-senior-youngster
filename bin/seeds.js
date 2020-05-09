@@ -57,7 +57,7 @@ const users = [
   specificNeeds: ['House Care/Maintnense'],
   assignedVolunteers:[
     {
-      _id: Object("5eb688581f122e37709a932c")
+      _id: Object("5eb6b2060cb3ee1c4ea45215")
       // accountType: 'Volunteer',
       // email: 'mariana.anjos@gmail.com',
       // password: 'jesuseocaminho',
@@ -238,13 +238,13 @@ User.create(users, err => {
   mongoose.connection.close();
 });
 
-Volunteer.create(volunteers, err => {
-  if (err) {
-    throw err;
-  }
-  console.log(`Created ${volunteers.length} voluntees`);
-  mongoose.connection.close();
-});
+// Volunteer.create(volunteers, err => {
+//   if (err) {
+//     throw err;
+//   }
+//   console.log(`Created ${volunteers.length} voluntees`);
+//   mongoose.connection.close();
+// });
 
 // Institution.create(institutions, err => {
 //   if(err) {
