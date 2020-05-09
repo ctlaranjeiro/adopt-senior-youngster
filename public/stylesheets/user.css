@@ -2,6 +2,13 @@
   margin: 0;
   padding: 0;
 }
+.avatarImg {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background-color: #fff;
+}
 
 .data-container,
 .specs {
@@ -93,6 +100,37 @@ article {
   height: 320px;
   width: 100vw;
   left: 0;
+}
+
+
+
+.volunteers {
+  width: 100vw;
+  height: 600px;
+}
+
+.ratting-content {
+  background-color: yellow;
+}
+
+.schedules-content {
+  background-color: violet;
+}
+
+.reports-content{
+  background-color: salmon;
+}
+
+.profile-content{
+  background-color: red;
+}
+
+.ratting-content,
+.schedules-content,
+.reports-content,
+.profile-content {
+  width: 600px;
+  height: 750px;
 }
 
 .rd_tabs:checked ~ .content {

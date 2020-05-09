@@ -24,6 +24,7 @@ const userSchema = new Schema({
   imgName: String,
   imgPath: String,
   birthDate: { type: Date, required: true },
+  age: Number,
   address: { type: String, required: true },
   phoneNumber: { type: Number, required: true, minlength: 9, maxlength: 9 },
   emergencyContact: {
