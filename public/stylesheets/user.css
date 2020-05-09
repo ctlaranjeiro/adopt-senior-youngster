@@ -1,0 +1,101 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.data-container,
+.specs {
+  display: block;
+}
+
+.data-container,
+.volunteers {
+  background-color: silver;
+}
+
+.specs {
+  background-color: darkcyan;
+  height: 220px;
+}
+
+.title {
+  background-color: dimgrey;
+  width: 130px;
+  /* height: 40px; */
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ h2 {
+  font-size: 12px;
+  text-align: center;
+}
+
+.data-content,
+.needs,
+.volunteers{
+  float: left;
+  display: flex;
+  justify-content: space-between;  
+}
+
+.data-content,
+.needs,
+.notes,
+.volunteers,
+.user-volunteers,
+article {
+  padding: 5px;
+  font-size: 12px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+article {
+  background-color: #fff;
+  height: 100px;
+  overflow: auto;
+}
+
+.rd_tabs {
+  position: relative;
+  display: none;
+}
+
+.nav_tabs ul li {
+  float: left;
+  margin-right: 5px;
+  list-style: none;
+}
+
+.rd_lbl {
+  width: 140px;
+  height: 40px;
+  background-color: dimgray;
+  display: inline-flex;
+  cursor: pointer;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.rd_tabs:checked ~ label {
+  background-color: #fff;
+}
+
+.content {
+  display: none;
+  position: absolute;
+  height: 320px;
+  width: 100vw;
+  left: 0;
+}
+
+.rd_tabs:checked ~ .content {
+  display: flex;
+  justify-content: space-between;
+}

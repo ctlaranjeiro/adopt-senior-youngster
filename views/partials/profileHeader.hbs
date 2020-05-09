@@ -2,8 +2,8 @@
   <img id="logo" src="/images/Logo.png">
   <div class="user">
     <h2>Hello, {{user.firstName}}</h2>
-    <div class="avatar" style="background-color: darkgray; width: 44px; height: 44px; border-radius: 50%">
-      {{this.firstName.[0]}} {{this.lastName.[0]}}
+    <div class="avatar" style="background-image: url({{user.avatarUrl}}); contain norepeat; width: 44px; height: 44px; border-radius: 50%">
+      
     </div>
     <div class="menu-wrapper">
         <input type="checkbox" class="toggle" />
@@ -20,4 +20,4 @@
   </div>
 </header>
 
-<script src="/public/javascripts/userPage.js"></script>
+{{!-- <script src="/javascripts/userPage.js"></script> --}}
