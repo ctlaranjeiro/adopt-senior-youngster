@@ -2,45 +2,28 @@
 
 <div class="container">
   <div class="auth-container login-form">
-    <div class="buttons-div">
-      <div class="sign-up-btn btn-w-50">
-        <a href="/signup">Sign up</a>
-      </div>
 
-      <div class="login-btn btn-w-50">
-        <a href="/login">Login</a>
-      </div>
-    </div>
+    <!-- Login & Sign Up buttons top -->
+    {{> authButtonsTop}}
 
     <div class="auth-div">
-      <div class="social-networks">
-        <p>with social network</p>
-        <div class="buttons-div">
-          <div class="facebook-btn btn-w-30">
-            <a href="#">Facebook</a>
+      <div class="select-account-type">
+        <p id="txt-account-selected">type of account</p>
+        <div class="buttons-div" id="account-selected">
+          <div class="btn-select-account" id="user-btn-signup">
+            <a href="/login/user">User</a>
           </div>
 
-          <div class="google-btn btn-w-30">
-            <a href="#">Google</a>
+          <div class="btn-select-account" id="volunteer-btn-signup">
+            <a href="/login/volunteer">Volunteer</a>
           </div>
         </div>
       </div>
+      <div class="signup-social social-networks"></div>
 
-      <p class="divide-auth"><span>or</span></p>
+      <p class="signup-divide-auth divide-auth"></p>
 
-      <form class="form" action='/login' method='POST'>
-        <input type="email" name="email" placeholder="email">
-        <input type="password" name="password" placeholder="password">
-
-        {{#if errorMessage}}
-        <div class='error-message'>{{ errorMessage }}</div>
-        {{/if}}
-
-        {{!-- <p>Forgot your password?</p> --}}
-        <div class="white-bg">
-          <button type="submit" class="submit-btn">Login</button>
-        </div>
-      </form>
+      <form class="signup-base-form form" action='/signup' method='POST'></form>
     </div>
   </div>
 </div>
