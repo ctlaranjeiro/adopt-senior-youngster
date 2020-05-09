@@ -9,6 +9,10 @@ mongoose.connect(`mongodb://localhost/${DB_NAME}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+// User.collection.drop();
+// Volunteer.collection.drop();
+
 const users = [
 {
   accountType: 'User',
@@ -53,20 +57,21 @@ const users = [
   specificNeeds: ['House Care/Maintnense'],
   assignedVolunteers:[
     {
-      accountType: 'Volunteer',
-      email: 'mariana.anjos@gmail.com',
-      password: 'jesuseocaminho',
-      firstName: 'Mariana',
-      lastName: 'Anjos',
-      gender: 'Female',
-      avatarUrl: '/public/images/pics/mariana-anjos.jpg',
-      birthDate: 16-07-1997,
-      address: 'Praça de Alvalade n7 2dir, Lisboa, Portugal',
-      phoneNumber: 966677970,
-      occupation: 'nurse',
-      skills:[ 'Health Care', 'House Care/Maintnense', 'Grocery Shopping'],
-      availablePeriods: ['Afternoon: 12pm - 4pm'],
-      aboutMe: "I am a nurse at a hospital. I like to help people."
+      _id: Object("5eb688581f122e37709a932c")
+      // accountType: 'Volunteer',
+      // email: 'mariana.anjos@gmail.com',
+      // password: 'jesuseocaminho',
+      // firstName: 'Mariana',
+      // lastName: 'Anjos',
+      // gender: 'Female',
+      // avatarUrl: '/public/images/pics/mariana-anjos.jpg',
+      // birthDate: 16-07-1997,
+      // address: 'Praça de Alvalade n7 2dir, Lisboa, Portugal',
+      // phoneNumber: 966677970,
+      // occupation: 'nurse',
+      // skills:[ 'Health Care', 'House Care/Maintnense', 'Grocery Shopping'],
+      // availablePeriods: ['Afternoon: 12pm - 4pm'],
+      // aboutMe: "I am a nurse at a hospital. I like to help people."
     }
 ]
 },

@@ -1,4 +1,4 @@
-{{> profileHeader}}
+{{!-- {{> profileHeader}} --}}
 
 <div class="data-container">
   <div class="title">
@@ -64,21 +64,21 @@
     <h2>ASSIGNED VOLUNTEERS</h2>
   </div>
     {{#if user.assignedVolunteers}}
-    <p>You don't have anyone who can help you</p>
-    {{else}}
     <ul id="volunteersList">
 
-      {{#each assignedVolunteers}}
+      {{#each user.assignedVolunteers}}
       <li>
         <span>{{firstName}}</span>
         <div class="avatar">
-          <img src={{avatarUrl}} alt="">
+          <img src={{imgPath}}>
           {{!-- volunteerinitials or sized picture --}}
           {{!-- Content created through DOM --}}
         </div>
       </li>
       {{/each}}
     </ul>
+    {{else}}
+    <p>You don't have anyone who can help you</p>
     {{/if}}
   </div>
   <nav class="nav_tabs">

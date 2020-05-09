@@ -2,6 +2,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
+
 const userSchema = new Schema({
   accountType: { type: String, default: 'User'},
   email: { type: String, required: true },
@@ -36,7 +38,7 @@ const userSchema = new Schema({
   // 
   specificNeeds: { type: Array, required: true/* , enum: ['Health Care', 'House Care/Maintenance', 'Displacements', 'Grocery Shopping', 'Pupil (for at-risk youth in need of a mentor)']  */},
   hasHelp: { type: Boolean, default: false },
-  assignedVolunteers: { type: Schema.Types.ObjectId, ref: 'Volunteer'}, // Interligar com volunter.js
+  assignedVolunteers: [{ type: Schema.Types.ObjectId, ref: 'Volunteer'}], // Interligar com volunter.js
   reports: { type: Schema.Types.ObjectId, ref: 'Report' } // Interligar com report.js
 }, {
   timestamps: true
