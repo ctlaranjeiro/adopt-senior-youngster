@@ -1,4 +1,4 @@
-{{!-- {{> profileHeader}} --}}
+{{> profileHeader}}
 
 <div class="data-container">
   <div class="title">
@@ -67,8 +67,11 @@
     <ul id="volunteersList">
 
       {{#each user.assignedVolunteers}}
+      <p>
+        OLÁ {{firstName}} <img src={{this.imgPath}}>
+      </p>
       <li>
-        <span>{{firstName}}</span>
+        <span>{{firstName}} {{lastName}}</span>
         <div class="avatar">
           <img src={{imgPath}}>
           {{!-- volunteerinitials or sized picture --}}
@@ -110,13 +113,13 @@
       </li>
       <li>
         <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
-        <label for="volRevew" class="rd_lbl">PROFILE</label>
+        <label for="volRevew" class="rd_lbl">REVIEW</label>
         <div class="content">
           <form action="" method="post">
         <label>User Name</label>
         <input type="text" name="author" id="author" value="{{user.firstName}} {{user.lastName}}"> {{!-- To be poppulated --}}
         <label>Volunteer Name</label>
-        <input type="text" name="subject" id="subject"> {{!-- To be poppulated with the respectiv volunteer data --}} 
+        <input type="text" name="subject" id="subject" value="{{assignedVolunteers.firstName}}"> {{!-- To be poppulated with the respectiv volunteer data --}} 
         <div class="ratting">
           <h5>How do you rate the help?</h5>
           <label for="one">1</label>

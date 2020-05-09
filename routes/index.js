@@ -26,7 +26,7 @@ router.get('/user/:id', (req, res, next) => {
   try {
     const uid = req.params.id;
     User.findById(uid)
-      .populate('volunteer')
+      .populate('assignedVolunteers')
       .then(user => {
 
         res.render('user', { user });
