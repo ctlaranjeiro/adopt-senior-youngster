@@ -120,6 +120,9 @@ header {
     cursor: pointer;
     box-sizing: 15px;
     border-bottom: 2px solid transparent; }
+    header .menu ul li a {
+      color: #f8f8f8;
+      text-decoration: none; }
   header .menu ul li:hover {
     color: #f8f8f8;
     border-bottom: 2px solid #f8f8f8; }
@@ -265,7 +268,8 @@ footer {
   height: 90vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; }
+  align-items: flex-start;
+  padding: 0; }
 
 .auth-container {
   background-color: #d1d3d4;
@@ -479,5 +483,53 @@ footer {
     align-self: center;
     display: flex;
     justify-content: center; }
+
+.edit-container {
+  background-color: #d1d3d4;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em; }
+  .edit-container h3 {
+    align-self: center;
+    margin-bottom: 0.5em; }
+  .edit-container .edit-details {
+    width: 100%; }
+    .edit-container .edit-details .labels {
+      margin-top: -1em; }
+      .edit-container .edit-details .labels .center {
+        text-align: center; }
+  .edit-container .edit-labels {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 0.9em; }
+    .edit-container .edit-labels label {
+      margin-right: 1em;
+      margin-top: 1.5em;
+      width: 85px; }
+  .edit-container p {
+    font-size: 0.8em;
+    text-align: center;
+    margin: 4em 0 0 0; }
+  .edit-container a {
+    text-decoration: none;
+    color: #3da8c2;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1em; }
+  .edit-container .center-btn {
+    display: flex;
+    justify-content: center; }
+    .edit-container .center-btn .submit-btn {
+      margin: 1em 0; }
+    .edit-container .center-btn .red {
+      background-color: #cf0000;
+      font-size: 0.8em; }
+  .edit-container hr {
+    margin: 0.3em 0; }
 
 /*# sourceMappingURL=style.css.map */

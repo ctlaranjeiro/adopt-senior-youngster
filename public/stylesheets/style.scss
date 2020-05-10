@@ -154,6 +154,11 @@ header {
     cursor: pointer;
     box-sizing: 15px;
     border-bottom: 2px solid transparent;
+
+    a{
+      color: #f8f8f8;
+      text-decoration: none;
+    }
   }
 
   .menu ul li:hover {
@@ -366,6 +371,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 0;
 }
 
 .auth-container {
@@ -679,3 +685,76 @@ footer {
 //-------- EDIT DETAILS --------
 ////////////////////////////////////
 
+.edit-container {
+  background-color: #d1d3d4;
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  
+  h3{
+    align-self: center;
+    margin-bottom: 0.5em;
+  }
+
+  .edit-details{
+    //background-color: blue;
+    width: 100%;
+
+    .labels{
+      margin-top: -1em;
+
+      .center{
+        text-align: center;
+      }
+    }
+  }
+
+  .edit-labels{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 0.9em;
+    
+    label{
+      margin-right: 1em;
+      margin-top: 1.5em;
+      width: 85px;
+    }
+  }
+
+  p{
+    font-size: 0.8em;
+    text-align: center;
+    margin: 4em 0 0 0;
+  }
+
+  a{
+    text-decoration: none;
+    color: #3da8c2;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1em;
+  }
+
+  .center-btn{
+    display: flex;
+    justify-content: center;
+
+    .submit-btn{
+      margin: 1em 0;
+    }
+
+    .red{
+      background-color: rgb(207, 0, 0);
+      font-size: 0.8em;
+    }
+  }
+
+  hr{
+    margin:0.3em 0;
+  }
+}

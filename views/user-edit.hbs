@@ -1,9 +1,161 @@
 {{> profileHeader}}
 
-<h3>Edit Details</h3>
+<div class="container">
+  <div class="edit-container">
+    <h3>Edit Details</h3>
 
-<form class="form edit-details" action="/user/{{user._id}}/edit" method="POST">
-  <label class="labels">Personal data:</label>
-  <label for="email">Email:</label>
-  <input type="email" name="email" value="{{user.email}}" id="email">
-</form>
+    <form class="form edit-details" action="/user/{{user._id}}/updatePersonalDetails" method="POST">
+      <label class="labels">Personal data:</label>
+      <div class="edit-labels">
+        <label for="firstName">First Name:</label>
+        <input type="firstName" name="firstName" value="{{user.firstName}}" id="firstName">
+      </div>
+      <div class="edit-labels">
+        <label for="lastName">Last Name:</label>
+        <input type="lastName" name="lastName" value="{{user.lastName}}" id="lastName">
+      </div>
+      <div class="edit-labels">
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{user.email}}" id="email">
+      </div>
+      <div class="edit-labels">
+        <label for="address">Address:</label>
+        <input type="address" name="address" value="{{user.address}}" id="address">
+      </div>
+      <div class="edit-labels">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="phoneNumber" name="phoneNumber" value="{{user.phoneNumber}}" id="phoneNumber">
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update details</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/user/{{user._id}}/updateSchedule" method="POST">
+      <label class="labels">Schedule Preference:</label>
+      <div class="align-checkbox">
+        <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm">
+        <label for="morning">Morning: 8am - 12pm</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm">
+        <label for="afternoon">Afternoon: 12pm - 4pm</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm">
+        <label for="evening">Evening: 4pm - 8pm</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am">
+        <label for="night">Night: 8pm - 12am</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am">
+        <label for="overNight">Over Night: 12am - 8am</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="24hours" name="fullDay" value="24 hours">
+        <label for="24hours">24 hours</label>
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update schedule</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/user/{{user._id}}/updateNeeds" method="POST">
+      <label class="labels">Specific Needs:</label>
+      <div class="align-checkbox">
+        <input type="checkbox" id="healthCare" name="healthCare" value="Health Care">
+        <label for="healthCare">Health Care</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance">
+        <label for="houseCare">House Care/Maintenance</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="displacements" name="displacements" value="Displacement">
+        <label for="displacements">Displacement</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping">
+        <label for="grocery">Grocery Shopping</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="pupil" name="pupil" value="Pupil">
+        <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update needs</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/user/{{user._id}}/updateEmergContact" method="POST">
+      {{!-- <label class="labels">Emergency Contact details:</label> --}}
+      <fieldset>
+        <legend>Emergency contact information:</legend>
+        <div class="edit-labels">
+          <label for="address">First Name:</label>
+          <input type="text" name="emergFirstName" value="{{user.emergencyContact.firstName}}">
+        </div>
+        <div class="edit-labels">
+          <label for="address">Last Name:</label>
+          <input type="text" name="emergLastName" value="{{user.emergencyContact.lastName}}">
+        </div>
+        <div class="edit-labels">
+          <label for="address">Phone Number:</label>
+          <input type="number" name="emergPhoneNumber" value="{{user.emergencyContact.phoneNumber}}">
+        </div>
+        <div class="edit-labels">
+          <label for="address">Email:</label>
+          <input type="email" name="emergEmail" value="{{user.emergencyContact.email}}">
+        </div>
+        <div class="edit-labels">
+          <label for="address">Address:</label>
+          <input type="text" name="emergAddress" value="{{user.emergencyContact.address}}">
+        </div>
+      </fieldset>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update contact</button>
+      </div>
+    </form>
+    <hr>
+
+
+
+    <form class="form edit-details" action="/user/{{user._id}}/uploadPhoto" method="POST" enctype="multipart/form-data">
+      <label class="labels">Profile picture:</label>
+      <div class="edit-labels">
+        <input type="file" name="photo" id="upload-photo">
+      </div>
+
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Upload photo</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/user/{{user._id}}/changePassword" method="POST">
+      <label class="labels">Password:</label>
+      <div class="edit-labels">
+        <input type="password" name="password" placeholder="••••••••••" id="password">
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Change password</button>
+      </div>
+    </form>
+    <hr>
+
+    <a href="/user/{{user._id}}">Back to profile</a>
+
+    <form class="form edit-details" action="/user/{{user._id}}/delete" method="POST">
+      <p>No longer wish to have an account?</p>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn red">Delete account</button>
+      </div>
+    </form>
+
+  </div>
+</div>

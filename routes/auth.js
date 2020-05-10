@@ -69,11 +69,6 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
-/* GET login*/
-router.get('/login', (req, res, next) => {
-  res.render('auth/login');
-});
-
 /* POST login :params*/
 router.post('/login/:account', (req, res, next) => {
   const params = req.params.account;
@@ -414,7 +409,9 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
 
         newUser.save()
           .then(user => {
-            res.redirect("/login");
+            req.session.currentUser = user;
+            const userId = user._id;
+            res.redirect(`/user/${userId}`);
           })
           .catch(err => {
             console.log('An error occurred while saving user to DB:', err);
@@ -560,7 +557,9 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
 
         newVolunteer.save()
           .then(volunteer => {
-            res.redirect("/login");
+            req.session.currentUser = volunteer;
+            const volunteerId = volunteer._id;
+            res.redirect(`/volunteer/${volunteerId}`);
           })
           .catch(err => {
             console.log('An error occurred while saving volunteer to DB:', err);
