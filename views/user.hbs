@@ -26,119 +26,135 @@
   <nav class="nav_tabs">
     <ul>
       <li>
-        <input type="radio" name="tabs" class="rd_tabs" id="userNeeds">
-        <label for="userNeeds" class="rd_lbl">USER NEEDS</label>
-        <div id="needs" class="needs content">
-          <ul>
-            {{#each user.specificNeeds}}
-            <li> - {{this}}</li>
-            {{/each}}
-          </ul>
-          <div class="notes">
-            <h3>NOTES</h3>
-            <article>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, laboriosam. Non eligendi impedit odio fugit illo perspiciatis reprehenderit voluptas sint qui in. Molestias tenetur facilis unde! Eaque quod aliquid similique quisquam quaerat, accusantium doloremque quia tenetur. Voluptas neque provident ratione perferendis tenetur ipsum, accusantium ab nobis esse assumenda quidem praesentium consequuntur, quae dolor harum. Voluptas, nemo laboriosam. Voluptatum praesentium aspernatur sequi commodi vero! Esse, facere quod! Ratione labore recusandae quaerat magnam necessitatibus reprehenderit! Exercitationem, rerum.
-              {{!-- To be filled by the user through a text area of a form in the user edit (DOM manipulation)--}}
-            </article>
-          </div>
+        <input type="radio" name="tabs" class="rd_tabs" id="tab1" checked>
+        <label for="tab1">USER<br>NEEDS</label>
+        <div class="content">
+          <article>
+            <div class="needs">
+              <ul>
+                {{#each user.specificNeeds}}
+                <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="notes">            
+              <h3>NOTES</h3>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, laboriosam. Non eligendi impedit odio fugit
+                illo perspiciatis reprehenderit voluptas sint qui in. Molestias tenetur facilis unde! Eaque quod aliquid
+                similique quisquam quaerat, accusantium doloremque quia tenetur.
+                {{this.notes}}{{!-- To be filled by the user through a text area of a form in the user edit (DOM manipulation)--}}
+            </div>
+          </article>
         </div>
+          
       </li>
       <li>
-        <input type="radio" name="tabs" class="rd_tabs" id="schdPref">
-        <label for="schdPref" class="rd_lbl">SCHEDULE PREFERENCES</label>
-        <div id="preferences" class="preferences content">
-          <ul>
-            {{#each user.schedulePreference}}
-            <li>{{this}}</li>
-            {{/each}}
-          </ul>
-        </div>
+        <input type="radio" name="tabs" class="rd_tabs" id="tab2">
+        <label for="tab2">SCHEDULE PREFERENCES</label>
+        <div class="content">
+          <article>
+            <ul>
+              {{#each user.schedulePreference}}
+              <li>{{this}}</li>
+              {{/each}}
+            </ul>
+          </article>
+        </div>         
       </li>
-   
-  </div>
+
+</div>
 </div>
 
-<div class="volunteers">
-  <div class="user-volunteers" id="userVolunteers" style="overflow: auto;"> {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
-  <div class="title">
-    <h2>ASSIGNED VOLUNTEERS</h2>
-  </div>
-    {{#if user.assignedVolunteers}}
-    <ul id="volunteersList">
-      {{#each user.assignedVolunteers}}
-      <li class="column">
-        <input type="checkbox" name="tabs" id="volTab" class="rd_tabs">
-        <label for="volTab" class="rd_lbl">{{firstName}} {{lastName}} <img src={{imgPath}} class="avatarImg"></label>
-        <div class="content assignedVolunteerContent">
-          <nav class="nav_tabs">
-    <ul>
-      <li class="row">
-        <input type="radio" name="tabs" class="rd_tabs" id="volProfile">
-        <label for="volProfile" class="rd_lbl">PROFILE</label>
-        <div class="content profile-content">
-          <p>Name: {{firstName}} {{lastName}}</p>
-          <p>Age: {{age}}</p>
-          <p>Phone Number: {{volPhoneNumber}}</p>
-          <p>email: {{email}}</p>
-          <p>Occupation: {{occupation}}</p>
-        </div>
-      </li>
-      <li class="row">
-        <input type="radio" name="tabs" class="rd_tabs" id="volReports">
-        <label for="volReports" class="rd_lbl">REPORTS</label>
-        <div class="content reports-content">
-          <p>Inserir aqui os relatorios d voluntario correspondentes ao utilizador</p>
-        </div>
-      </li>
-      <li class="row">
-        <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
-        <label for="volSchedules" class="rd_lbl">SCHEDULES</label>
-        <div class="content schedules-content">
-          <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
-        </div>
-      </li>
-      <li class="row">
-        <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
-        <label for="volRevew" class="rd_lbl">REVIEW</label>
-        <div class="content ratting-content">
-          <form action="" method="post">
-        <label>User Name</label>
-        <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}"> {{!-- To be poppulated --}}
-        <label>Volunteer Name</label>
-        <input type="text" name="subject" id="subject" value="{{firstName}}"> {{!-- To be poppulated with the respectiv volunteer data --}} 
-        <div class="ratting">
-          <h5>How do you rate the help?</h5>
-          <label for="one">1</label>
-          <input type="radio" name="rate" id="one" value="1">
-          <label for="two">2</label>
-          <input type="radio" name="rate" id="two" value="2">
-          <label for="three">3</label>
-          <input type="radio" name="rate" id="three" value="3">
-          <label for="fuor">4</label>
-          <input type="radio" name="rate" id="fuor" value="4">
-          <label for="five">5</label>
-          <input type="radio" name="rate" id="five" value="5">
-        </div>
-        <label> Your Review</label>
-        <textarea name="text" id="tex" cols="150" rows="10"></textarea>
+<div class="assigned-person">
+  <div class="user-volunteers" id="userVolunteers">
+    {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
+    <div class="title">
+      <h2>ASSIGNED VOLUNTEERS</h2>
+    </div>
+    <nav class="col">
+      {{#if user.assignedVolunteers}}
+      <ul id="volunteersList">
+        {{#each user.assignedVolunteers}}
+        <li class="column">
+          <input type="checkbox" name="tabs" id="volTab" class="chk_tabs">
+          <label for="volTab" class="banner">{{firstName}} <img src={{imgPath}} class="avatarImg"></label>
+          <div class="assignedVolunteerContent">
+            <article class="assigned">
+              <nav class="nav_tabs">
+                <ul>
+                  <li class="row">
+                    <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
+                    <label for="volProfile" class="field">PROFILE</label>
+                    <div class="content profile-content">
+                      <article>
+                        <p>Name: {{firstName}} {{lastName}}</p>
+                        <p>Age: {{age}}</p>
+                        <p>Phone Number: {{volPhoneNumber}}</p>
+                        <p>email: {{email}}</p>
+                        <p>Occupation: {{occupation}}</p>
+                      </article>
+                    </div>
+                  </li>
+                  <li class="row">
+                    <input type="radio" name="tabs" class="rd_tabs" id="volReports">
+                    <label for="volReports" class="field">REPORTS</label>
+                    <div class="content reports-content">
+                      <p>Inserir aqui os relatorios d voluntario correspondentes ao utilizador</p>
+                    </div>
+                  </li>
+                  <li class="row">
+                    <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
+                    <label for="volSchedules" class="field">SCHEDULES</label>
+                    <div class="content schedules-content">
+                      <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
+                    </div>
+                  </li>
+                  <li class="row">
+                    <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
+                    <label for="volRevew" class="field">REVIEW</label>
+                    <div class="content ratting-content">
+                      <form action="" method="post">
+                        <label>User Name</label>
+                        <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
+                        {{!-- To be poppulated --}}
+                        <label>Volunteer Name</label>
+                        <input type="text" name="subject" id="subject" value="{{firstName}}">
+                        {{!-- To be poppulated with the respectiv volunteer data --}}
+                        <div class="ratting">
+                          <h5>How do you rate the help?</h5>
+                          <label for="one">1</label>
+                          <input type="radio" name="rate" id="one" value="1">
+                          <label for="two">2</label>
+                          <input type="radio" name="rate" id="two" value="2">
+                          <label for="three">3</label>
+                          <input type="radio" name="rate" id="three" value="3">
+                          <label for="fuor">4</label>
+                          <input type="radio" name="rate" id="fuor" value="4">
+                          <label for="five">5</label>
+                          <input type="radio" name="rate" id="five" value="5">
+                        </div>
+                        <label> Your Review</label>
+                        <textarea name="text" id="tex" cols="150" rows="10"></textarea>
 
-        <button type="submit">Submit Review</button>
-      </form>
-        </div>
-      </li>
-    </ul>
-  </nav>
-        </div>
-      </li>
-      {{/each}}
-    </ul>
-    {{else}}
-    <p>You don't have anyone who can help you</p>
-    {{/if}}
+                        <button type="submit">Submit Review</button>
+                      </form>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </article>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <p>You don't have anyone who can help you</p>
+      {{/if}}
+    </nav>
 
   </div>
-  
-  
+
+
 </div>
 
 {{!-- TO DO: If we have time add INSTITUTIONS block --}}

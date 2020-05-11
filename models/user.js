@@ -34,13 +34,12 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     address: { type: String, required: true }
   },
-  // schedulePreference: { type: String, required: true, enum: ['Morning: 8am - 12pm', 'Afternoon: 12pm - 4pm', 'Evening: 4pm - 8pm', 'Night: 8pm - 12am', 'Over Night: 12am - 8am', '24 hours'] },
-  schedulePreference: { type: Array, required: true/* , enum: ['Morning: 8am - 12pm', 'Afternoon: 12pm - 4pm', 'Evening: 4pm - 8pm', 'Night: 8pm - 12am', 'Over Night: 12am - 8am', '24 hours']  */},
-  // 
-  specificNeeds: { type: Array, required: true/* , enum: ['Health Care', 'House Care/Maintenance', 'Displacements', 'Grocery Shopping', 'Pupil (for at-risk youth in need of a mentor)']  */},
+  schedulePreference: { type: Array, required: true },
+  specificNeeds: { type: Array, required: true },
   hasHelp: { type: Boolean, default: false },
   assignedVolunteers: [{ type: Schema.Types.ObjectId, ref: 'Volunteer'}], // Interligar com volunter.js
-  reports: { type: Schema.Types.ObjectId, ref: 'Report' } // Interligar com report.js
+  reports: { type: Schema.Types.ObjectId, ref: 'Report' }, // Interligar com report.js
+  notes: String
 }, {
   timestamps: true
 });
