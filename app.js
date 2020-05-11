@@ -37,7 +37,7 @@ app.use(cookieParser());
 // Setup authentication session
 app.use(session({
   secret: 'adopt-senior-youngster-secret',
-  cookie: { maxAge: 60000 } ,
+  cookie: { maxAge: 300000 } , /* 5min */
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     resave: true,

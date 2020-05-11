@@ -24,6 +24,7 @@
 
 <div class="specs">
   <nav class="nav_tabs">
+    <form>
     <ul>
       <li>
         <input type="radio" name="tabs" class="rd_tabs" id="tab1" checked>
@@ -61,7 +62,8 @@
           </article>
         </div>         
       </li>
-
+    </ul>
+    </form>
 </div>
 </div>
 
@@ -99,45 +101,51 @@
                     <input type="radio" name="tabs" class="rd_tabs" id="volReports">
                     <label for="volReports" class="field">REPORTS</label>
                     <div class="content reports-content">
+                      <article>
                       <p>Inserir aqui os relatorios d voluntario correspondentes ao utilizador</p>
+                      </article>
                     </div>
                   </li>
                   <li class="row">
                     <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
                     <label for="volSchedules" class="field">SCHEDULES</label>
                     <div class="content schedules-content">
-                      <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
+                      <article>
+                        <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
+                      </article>
                     </div>
                   </li>
                   <li class="row">
                     <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
                     <label for="volRevew" class="field">REVIEW</label>
                     <div class="content ratting-content">
-                      <form action="" method="post">
-                        <label>User Name</label>
-                        <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
-                        {{!-- To be poppulated --}}
-                        <label>Volunteer Name</label>
-                        <input type="text" name="subject" id="subject" value="{{firstName}}">
-                        {{!-- To be poppulated with the respectiv volunteer data --}}
-                        <div class="ratting">
-                          <h5>How do you rate the help?</h5>
-                          <label for="one">1</label>
-                          <input type="radio" name="rate" id="one" value="1">
-                          <label for="two">2</label>
-                          <input type="radio" name="rate" id="two" value="2">
-                          <label for="three">3</label>
-                          <input type="radio" name="rate" id="three" value="3">
-                          <label for="fuor">4</label>
-                          <input type="radio" name="rate" id="fuor" value="4">
-                          <label for="five">5</label>
-                          <input type="radio" name="rate" id="five" value="5">
-                        </div>
-                        <label> Your Review</label>
-                        <textarea name="text" id="tex" cols="150" rows="10"></textarea>
+                      <article>
+                        <form action="" method="post">
+                          <label>User Name</label>
+                          <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
+                          {{!-- To be poppulated --}}
+                          <label>Volunteer Name</label>
+                          <input type="text" name="subject" id="subject" value="{{firstName}}">
+                          {{!-- To be poppulated with the respectiv volunteer data --}}
+                          <div class="ratting">
+                            <h5>How do you rate the help?</h5>
+                            <label for="one">1</label>
+                            <input type="radio" name="rate" id="one" value="1">
+                            <label for="two">2</label>
+                            <input type="radio" name="rate" id="two" value="2">
+                            <label for="three">3</label>
+                            <input type="radio" name="rate" id="three" value="3">
+                            <label for="fuor">4</label>
+                            <input type="radio" name="rate" id="fuor" value="4">
+                            <label for="five">5</label>
+                            <input type="radio" name="rate" id="five" value="5">
+                          </div>
+                          <label> Your Review</label>
+                          <textarea name="text" id="tex" cols="150" rows="10"></textarea>
 
-                        <button type="submit">Submit Review</button>
-                      </form>
+                          <button type="submit">Submit Review</button>
+                        </form>
+                      </article>
                     </div>
                   </li>
                 </ul>
