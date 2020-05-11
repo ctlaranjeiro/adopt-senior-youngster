@@ -487,6 +487,7 @@ footer {
 .edit-container {
   background-color: #d1d3d4;
   width: 85%;
+  margin-top: 5em;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -531,5 +532,11 @@ footer {
       font-size: 0.8em; }
   .edit-container hr {
     margin: 0.3em 0; }
+  .edit-container .volunteer-photo {
+    background-color: white;
+    border-radius: 50%; }
+    .edit-container .volunteer-photo img {
+      display: block;
+      border-radius: 5em; }
 
 /*# sourceMappingURL=style.css.map */

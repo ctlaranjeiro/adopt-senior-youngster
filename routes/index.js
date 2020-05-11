@@ -52,15 +52,18 @@ router.get('/user/:id/edit', (req,res, next) => {
     //     res.render('user-edit', { user, volunteers });
     //   });
     .then(user => {
-      const schedulePreference = user.schedulePreference;
+      Volunteer.find().then(volunteers => {
+        console.log('Volunteers result: ', volunteers);
+        const schedulePreference = user.schedulePreference;
 
-      schedulePreference.forEach(element => {
-        if(element === 'Afternoon: 12pm - 4pm'){
-          
-        }
+        schedulePreference.forEach(element => {
+          if(element === 'Afternoon: 12pm - 4pm'){
+            
+          }
+        });
+
+        res.render('user-edit', { user, volunteers });
       });
-
-      res.render('user-edit', { user });
     })
     .catch(err => {
       next(err);

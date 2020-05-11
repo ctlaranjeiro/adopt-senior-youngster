@@ -65,7 +65,7 @@ router.get('/login/volunteer', (req, res, next) => {
 /* GET logout */
 router.get('/logout', (req, res, next) => {
   req.session.destroy(() => {
-    res.redirect('/login');
+    res.redirect('/');
   });
 });
 

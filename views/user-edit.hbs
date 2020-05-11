@@ -35,27 +35,27 @@
     <form class="form edit-details" action="/user/{{user._id}}/updateSchedule" method="POST">
       <label class="labels">Schedule Preference:</label>
       <div class="align-checkbox">
-        <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm">
+        <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm" {{{isChecked "Morning: 8am - 12pm" user.schedulePreference}}}>
         <label for="morning">Morning: 8am - 12pm</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm">
+        <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm" {{{isChecked "Afternoon: 12pm - 4pm" user.schedulePreference}}}>
         <label for="afternoon">Afternoon: 12pm - 4pm</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm">
+        <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm" {{{isChecked "Evening: 4pm - 8pm" user.schedulePreference}}}>
         <label for="evening">Evening: 4pm - 8pm</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am">
+        <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am" {{{isChecked "Night: 8pm - 12am" user.schedulePreference}}}>
         <label for="night">Night: 8pm - 12am</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am">
+        <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am" {{{isChecked "Over Night: 12am - 8am" user.schedulePreference}}}>
         <label for="overNight">Over Night: 12am - 8am</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="24hours" name="fullDay" value="24 hours">
+        <input type="checkbox" id="24hours" name="fullDay" value="24 hours" {{{isChecked "24 hours" user.schedulePreference}}}>
         <label for="24hours">24 hours</label>
       </div>
       <div class="center-btn">
@@ -67,23 +67,23 @@
     <form class="form edit-details" action="/user/{{user._id}}/updateNeeds" method="POST">
       <label class="labels">Specific Needs:</label>
       <div class="align-checkbox">
-        <input type="checkbox" id="healthCare" name="healthCare" value="Health Care">
+        <input type="checkbox" id="healthCare" name="healthCare" value="Health Care" {{{isChecked "Health Care" user.specificNeeds}}}>
         <label for="healthCare">Health Care</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance">
+        <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance" {{{isChecked "House Care/Maintenance" user.specificNeeds}}}>
         <label for="houseCare">House Care/Maintenance</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="displacements" name="displacements" value="Displacement">
+        <input type="checkbox" id="displacements" name="displacements" value="Displacement" {{{isChecked "Displacement" user.specificNeeds}}}>
         <label for="displacements">Displacement</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping">
+        <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping" {{{isChecked "Grocery Shopping" user.specificNeeds}}}>
         <label for="grocery">Grocery Shopping</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="pupil" name="pupil" value="Pupil">
+        <input type="checkbox" id="pupil" name="pupil" value="Pupil" {{{isChecked "Pupil" user.specificNeeds}}}>
         <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
       </div>
       <div class="center-btn">
@@ -144,6 +144,22 @@
       </div>
       <div class="center-btn">
         <button type="submit" class="submit-btn">Change password</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/user/{{user._id}}/assignVolunteers" method="POST">
+      <label class="labels">Choose volunteers that match your needs:</label>
+      {{#each volunteers}}
+        <div class="align-checkbox">
+          <input type="checkbox" class="volunteer" name="{{_id}}" value="{{_id}}">
+          <div class="volunteer-photo"><img src="{{imgPath}}"></div>
+          <label for="volunteer">{{firstName}} {{lastName}}</label>
+        </div>
+      {{/each}}
+
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Submit volunteers</button>
       </div>
     </form>
     <hr>

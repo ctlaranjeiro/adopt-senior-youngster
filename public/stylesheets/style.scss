@@ -688,6 +688,7 @@ footer {
 .edit-container {
   background-color: #d1d3d4;
   width: 85%;
+  margin-top: 5em;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -756,5 +757,17 @@ footer {
 
   hr{
     margin:0.3em 0;
+  }
+
+  .volunteer-photo{
+    background-color: white;
+    border-radius: 50%;
+
+    img{
+      display: block;
+      // height: 3em;
+      // width:auto;
+      border-radius: 5em;
+    }
   }
 }
