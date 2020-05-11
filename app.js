@@ -8,10 +8,22 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const helpers = require('handlebars-helpers')();
+const helpers      = require('handlebars-helpers')();
 hbs.registerHelper(helpers);
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
+
+hbs.registerHelper('isChecked', (checkboxOption, userList) => {
+  for (let i = 0; i<userList.length; i++) {
+    //console.log('schdule i', userList[i]);
+    if (checkboxOption === userList[i]) {
+      //console.log('found!');
+      return 'checked';
+    } else {
+      return '';
+    }
+  }
+});
 
 
 mongoose
@@ -37,7 +49,7 @@ app.use(cookieParser());
 // Setup authentication session
 app.use(session({
   secret: 'adopt-senior-youngster-secret',
-  cookie: { maxAge: 60000 } ,
+  cookie: { maxAge: 300000 } , /* 5min */
   store: new MongoStore({
     mongooseConnection: mongoose.connection,
     resave: true,
