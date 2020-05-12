@@ -52,17 +52,42 @@ router.get('/user/:id/edit', (req,res, next) => {
     //     res.render('user-edit', { user, volunteers });
     //   });
     .then(user => {
-      Volunteer.find().then(volunteers => {
+      Volunteer.find({isHelping: false})
+        .then(volunteers => {
         console.log('Volunteers result: ', volunteers);
-        const schedulePreference = user.schedulePreference;
+        
+        //check for matching needs/skills
+        let needsMatchingVolunteers = [];
 
-        schedulePreference.forEach(element => {
-          if(element === 'Afternoon: 12pm - 4pm'){
-            
+        volunteers.forEach(volunteer => {
+          for (let i = 0; i < user.specificNeeds.length; i++){
+            for (let j = 0; j < volunteer.skills.length; j++){
+              if(user.specificNeeds[i] === volunteer.skills[j]){
+                if(!needsMatchingVolunteers.includes(volunteer)){
+                  needsMatchingVolunteers.push(volunteer);
+                }
+              }
+            }
           }
         });
 
-        res.render('user-edit', { user, volunteers });
+        //check for matching schedule/availability based on the needs already matched
+        let finalMatchVolunteers = [];
+
+        needsMatchingVolunteers.forEach(volunteer => {
+          for (let i = 0; i < user.schedulePreference.length; i++){
+            for (let j = 0; j < volunteer.availablePeriods.length; j++){
+              if(user.schedulePreference[i] === volunteer.availablePeriods[j]){
+                if(!finalMatchVolunteers.includes(volunteer)){
+                  finalMatchVolunteers.push(volunteer);
+                }
+              }
+            }
+          }
+        });
+        
+
+        res.render('user-edit', { user, volunteers: finalMatchVolunteers });
       });
     })
     .catch(err => {

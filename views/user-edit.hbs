@@ -149,17 +149,26 @@
     <hr>
 
     <form class="form edit-details" action="/user/{{user._id}}/assignVolunteers" method="POST">
-      <label class="labels">Choose volunteers that match your needs:</label>
-      {{#each volunteers}}
-        <div class="align-checkbox">
-          <input type="checkbox" class="volunteer" name="{{_id}}" value="{{_id}}">
+      <label class="labels volunteers-label">Choose volunteers that match your needs:</label>
+      <div class="volunteers-list">
+        {{#each volunteers}}
+        <label class="volunteer-btn" for="{{_id}}">
+          <div>
+            <img src="{{imgPath}}">
+            <span>{{firstName}} {{lastName}}</span>
+          </div>
+          <input type="checkbox" id="{{_id}}" name="volunteer" value="{{_id}}">
+        </label>
+        {{!-- <div class="align-checkbox volunteer-btn">
+          <input type="checkbox" id="{{_id}}" name="{{_id}}" value="{{_id}}">
           <div class="volunteer-photo"><img src="{{imgPath}}"></div>
-          <label for="volunteer">{{firstName}} {{lastName}}</label>
-        </div>
-      {{/each}}
+          <label for="{{_id}}">{{firstName}} {{lastName}}</label>
+        </div> --}}
+        {{/each}}
+      </div>
 
       <div class="center-btn">
-        <button type="submit" class="submit-btn">Submit volunteers</button>
+        <button type="submit" class="submit-btn">Assign volunteers</button>
       </div>
     </form>
     <hr>

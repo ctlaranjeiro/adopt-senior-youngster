@@ -501,6 +501,8 @@ footer {
       margin-top: -1em; }
       .edit-container .edit-details .labels .center {
         text-align: center; }
+    .edit-container .edit-details .volunteers-label {
+      margin-bottom: 1em; }
   .edit-container .edit-labels {
     width: 100%;
     display: flex;
@@ -532,11 +534,28 @@ footer {
       font-size: 0.8em; }
   .edit-container hr {
     margin: 0.3em 0; }
-  .edit-container .volunteer-photo {
+  .edit-container .volunteer-btn {
     background-color: white;
-    border-radius: 50%; }
-    .edit-container .volunteer-photo img {
-      display: block;
-      border-radius: 5em; }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3em;
+    height: 4.5em;
+    margin: 0.8em 0; }
+    .edit-container .volunteer-btn input {
+      margin: 0;
+      padding: 0;
+      width: 2em;
+      margin-right: 5%; }
+    .edit-container .volunteer-btn img {
+      background-color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      margin-left: 0.5em;
+      padding: 0.3em; }
+  .edit-container .volunteers-list {
+    max-height: 50vh;
+    overflow: scroll; }
 
 /*# sourceMappingURL=style.css.map */
