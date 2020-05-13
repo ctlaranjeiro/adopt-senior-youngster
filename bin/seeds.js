@@ -10,8 +10,8 @@ mongoose.connect(`mongodb://localhost/${DB_NAME}`, {
   useUnifiedTopology: true
 });
 
-// User.collection.drop();
-// Volunteer.collection.drop();
+User.collection.drop();
+Volunteer.collection.drop();
 
 const users = [
 {
@@ -59,7 +59,7 @@ const users = [
   specificNeeds: ['House Care/Maintnense'],
   assignedVolunteers:[
     {
-      _id: Object("5eb6dca9a8cf0231d0cd4ed7") // <----------
+      _id: Object("5ebc8400c3178767644cae4f") // <----------
     }
 ]
 },
@@ -159,7 +159,12 @@ const volunteers = [
     occupation: 'nurse',
     skills:[ 'Health Care', 'House Care/Maintnense', 'Grocery Shopping'],
     availablePeriods: ['Afternoon: 12pm - 4pm'],
-    aboutMe: "I am a nurse at a hospital. I like to help people."
+    aboutMe: "I am a nurse at a hospital. I like to help people.",
+    assignedUsers:[
+      {
+        _id:Object("5ebc8400c3178767644cae4a")
+      }
+    ]
   },
   {
     accountType: 'Volunteer',
@@ -234,13 +239,13 @@ User.create(users, err => {
   mongoose.connection.close();
 });
 
-// Volunteer.create(volunteers, err => {
-//   if (err) {
-//     throw err;
-//   }
-//   console.log(`Created ${volunteers.length} voluntees`);
-//   mongoose.connection.close();
-// });
+Volunteer.create(volunteers, err => {
+  if (err) {
+    throw err;
+  }
+  console.log(`Created ${volunteers.length} voluntees`);
+  mongoose.connection.close();
+});
 
 // Institution.create(institutions, err => {
 //   if(err) {

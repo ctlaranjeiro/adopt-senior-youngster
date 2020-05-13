@@ -26,12 +26,10 @@ const volunteerSchema = new Schema({
   address: { type: String, required: true },
   volPhoneNumber: { type: Number, required: true, minlength: 9, maxlength: 9 },
   occupation: { type: String },
-  // skills: { type: String, required: true, enum: ['Health Care', 'House Care/Maintnense', 'Displacements', 'Grocery Shopping', 'Mentor (for at-risk youth in need of a mentor)'] },
   skills: { type: Array, required: true/* , enum: ['Health Care', 'House Care/Maintnense', 'Displacements', 'Grocery Shopping', 'Mentor (for at-risk youth in need of a mentor)']  */},
-  // availablePeriods: { type: String, required: true, enum: ['Morning: 8am - 12pm', 'Afternoon: 12pm - 4pm', 'Evening: 4pm - 8pm', 'Night: 8pm - 12am', 'Over Night: 12am - 8am', '24 hours'] },
   availablePeriods: { type: Array, required: true/* , enum: ['Morning: 8am - 12pm', 'Afternoon: 12pm - 4pm', 'Evening: 4pm - 8pm', 'Night: 8pm - 12am', 'Over Night: 12am - 8am', '24 hours'] */ },
   isHelping: { type: Boolean, default: false },
-  assignedUsers: { type: Schema.Types.ObjectId, ref: 'User' }, // Interligar com user.js
+  assignedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }], // Interligar com user.js
   aboutMe: { type: String, maxlength: 250 },
   evaluation: {
     averageRate: { type: Number, min:1, max: 5},

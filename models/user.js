@@ -37,8 +37,8 @@ const userSchema = new Schema({
   schedulePreference: { type: Array, required: true },
   specificNeeds: { type: Array, required: true },
   hasHelp: { type: Boolean, default: false },
-  assignedVolunteers: [{ type: Schema.Types.ObjectId, ref: 'Volunteer'}], // Interligar com volunter.js
-  reports: { type: Schema.Types.ObjectId, ref: 'Report' }, // Interligar com report.js
+  assignedVolunteers: [{ type: Schema.Types.ObjectId, ref: 'Volunteer' }], // Interligar com volunter.js
+  reports: [{ type: Schema.Types.ObjectId, ref: 'Report' }], // Interligar com report.js
   notes: String
 }, {
   timestamps: true

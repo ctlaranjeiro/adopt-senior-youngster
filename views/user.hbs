@@ -68,18 +68,23 @@
 </div>
 
 <div class="assigned-person">
+  <div class="title">
+    <h2>ASSIGNED VOLUNTEERS</h2>
+  </div>
   <div class="user-volunteers" id="userVolunteers">
     {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
-    <div class="title">
-      <h2>ASSIGNED VOLUNTEERS</h2>
-    </div>
     <nav class="col">
       {{#if user.assignedVolunteers}}
       <ul id="volunteersList">
         {{#each user.assignedVolunteers}}
         <li class="column">
           <input type="checkbox" name="tabs" id="volTab" class="chk_tabs">
-          <label for="volTab" class="banner">{{firstName}} <img src={{imgPath}} class="avatarImg"></label>
+          <label for="volTab" class="banner">
+            <span>{{firstName}}</span>
+
+            
+            <img src={{imgPath}} class="avatarImg">
+          </label>
           <div class="assignedVolunteerContent">
             <article class="assigned">
               <nav class="nav_tabs">
@@ -102,7 +107,18 @@
                     <label for="volReports" class="field">REPORTS</label>
                     <div class="content reports-content">
                       <article>
-                      <p>Inserir aqui os relatorios d voluntario correspondentes ao utilizador</p>
+                        {{#if user.reports}}
+                          {{#each this.reports}} {{!-- os reports têm que corresponder entre o user e o volunteer --}}
+                            <p>
+                              <strong>Author:</strong> {{author}}
+                            </p>
+                            <p>
+                              <strong>Report:</strong> {{text}}
+                            </p>
+                          {{/each}}
+                        {{else}}
+                          <p>There are no reports available!</p>
+                        {{/if}}
                       </article>
                     </div>
                   </li>
@@ -111,12 +127,14 @@
                     <label for="volSchedules" class="field">SCHEDULES</label>
                     <div class="content schedules-content">
                       <article>
-                        <p>inserir aqui os horários corrspondentes entre utilizador e voluntario</p>
+                        {{#each availablePeriods}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
+                         <p>{{availablePeriods}}</p>
+                        {{/each}}
                       </article>
                     </div>
                   </li>
                   <li class="row">
-                    <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
+                    <input type="radio" name="tabs" class="rd_tabs" id="volRevew" checked>
                     <label for="volRevew" class="field">REVIEW</label>
                     <div class="content ratting-content">
                       <article>
@@ -125,23 +143,25 @@
                           <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
                           {{!-- To be poppulated --}}
                           <label>Volunteer Name</label>
-                          <input type="text" name="subject" id="subject" value="{{firstName}}">
+                          <input type="text" name="subject" id="subject" value="{{firstName}} {{lastName}}">
                           {{!-- To be poppulated with the respectiv volunteer data --}}
                           <div class="ratting">
                             <h5>How do you rate the help?</h5>
-                            <label for="one">1</label>
-                            <input type="radio" name="rate" id="one" value="1">
-                            <label for="two">2</label>
-                            <input type="radio" name="rate" id="two" value="2">
-                            <label for="three">3</label>
-                            <input type="radio" name="rate" id="three" value="3">
-                            <label for="fuor">4</label>
-                            <input type="radio" name="rate" id="fuor" value="4">
-                            <label for="five">5</label>
-                            <input type="radio" name="rate" id="five" value="5">
+                            <div>
+                              <label for="one" class="eval">1</label>
+                              <input type="radio" name="rate" id="one" class="eval-rd" value="1">
+                              <label for="two" class="eval">2</label>
+                              <input type="radio" name="rate" id="two" class="eval-rd" value="2">
+                              <label for="three" class="eval">3</label>
+                              <input type="radio" name="rate" id="three" class="eval-rd" value="3">
+                              <label for="fuor" class="eval">4</label>
+                              <input type="radio" name="rate" id="fuor" class="eval-rd" value="4">
+                              <label for="five" class="eval">5</label>
+                              <input type="radio" name="rate" id="five" class="eval-rd" value="5">
+                            </div>
                           </div>
                           <label> Your Review</label>
-                          <textarea name="text" id="tex" cols="150" rows="10"></textarea>
+                          <textarea name="text" id="tex" cols="50" rows="10"></textarea>
 
                           <button type="submit">Submit Review</button>
                         </form>
@@ -166,5 +186,3 @@
 </div>
 
 {{!-- TO DO: If we have time add INSTITUTIONS block --}}
-
-<script src="/javascripts/userPage.js"></script>
