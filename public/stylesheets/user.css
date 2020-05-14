@@ -227,15 +227,44 @@ h3 {
 
 .needs {
   left: 0;
+  height: 100%;
+}
+
+.needs ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: space-around;
 }
 
 .notes {
   right: 0;
   top: 0;
   width: 50%;
-  height: 100%;
+  height: 95%;
   background-color: #fff;
   overflow: scroll;
+}
+
+.noteBanner {
+  width: 150px;
+  height: 50px;
+  border-radius: 25px;
+  border: 2px solid #36a8c2;
+  background-color: #36a8c2;
+}
+
+.noteContent {
+  display: none;
+}
+
+#noteTab:checked ~ .noteBanner {
+  background-color: #fff;
+}
+
+#noteTab:checked ~ .noteContent {
+  display: block;
 }
 
 /* ASSIGNED PERSON (3RD FIELD) */
@@ -266,7 +295,6 @@ h3 {
 }
 
 .column {
-  /* position: relative; */
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -360,13 +388,13 @@ h3 {
 .row .content {
   background-color: #36a8c2;
   height: 32vh;
-  width: 75vw;
+  width: 70vw;
   padding: 0;
   margin: 0;
   display: none;
   overflow: auto;
   position: absolute;
-  right: 25px;
+  left: 0;
   top: 50px;
 }
 
@@ -398,7 +426,7 @@ h3 {
   width: 20px;
   height: 20px;
   transform: translateY(-25%);
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .ratting div .eval {

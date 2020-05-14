@@ -1,0 +1,25 @@
+<header class="profile-header">
+  <img id="logo" src="/images/Logo.png">
+  <div class="profile-menu">
+    <h2>Hello, {{volunteer.firstName}}</h2>
+    
+    {{!-- Dropdown menu --}}
+    <div class="dropDownContainer">
+      <input type="checkbox" id="menu-toggle">
+      <label for="menu-toggle" class="menu-avatar">
+        <img src="{{volunteer.imgPath}}" class="avatarImg" >
+      </label>
+
+      <div class="dropDownMenu">
+        <ul>
+          <li>
+            <a href="/volunteer/{{volunteer._id}}/edit">Edit Profile</a>
+          </li>
+          <li>
+            <a href="/logout">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>    
+  </div>
+</header>

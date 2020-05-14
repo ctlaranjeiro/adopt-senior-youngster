@@ -162,7 +162,7 @@ const volunteers = [
     aboutMe: "I am a nurse at a hospital. I like to help people.",
     assignedUsers:[
       {
-        _id:Object("5ebc8400c3178767644cae4a")
+        _id: Object("5ebc8400c3178767644cae4a")
       }
     ]
   },
