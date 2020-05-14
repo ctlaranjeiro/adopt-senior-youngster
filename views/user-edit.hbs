@@ -32,30 +32,44 @@
     </form>
     <hr>
 
+    <form class="form edit-details" action="/user/{{user._id}}/updateUserNotes" method="POST">
+      <label class="labels" for="userNotes">Notes about your needs:</label>
+      <textarea id="userNotes" name="userNotes" rows="10" cols="50">{{user.notes}}</textarea>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update notes</button>
+      </div>
+    </form>
+
     <form class="form edit-details" action="/user/{{user._id}}/updateSchedule" method="POST">
       <label class="labels">Schedule Preference:</label>
       <div class="align-checkbox">
-        <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm" {{{isChecked "Morning: 8am - 12pm" user.schedulePreference}}}>
+        <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm"
+          {{{isChecked "Morning: 8am - 12pm" user.schedulePreference}}}>
         <label for="morning">Morning: 8am - 12pm</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm" {{{isChecked "Afternoon: 12pm - 4pm" user.schedulePreference}}}>
+        <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm"
+          {{{isChecked "Afternoon: 12pm - 4pm" user.schedulePreference}}}>
         <label for="afternoon">Afternoon: 12pm - 4pm</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm" {{{isChecked "Evening: 4pm - 8pm" user.schedulePreference}}}>
+        <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm"
+          {{{isChecked "Evening: 4pm - 8pm" user.schedulePreference}}}>
         <label for="evening">Evening: 4pm - 8pm</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am" {{{isChecked "Night: 8pm - 12am" user.schedulePreference}}}>
+        <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am"
+          {{{isChecked "Night: 8pm - 12am" user.schedulePreference}}}>
         <label for="night">Night: 8pm - 12am</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am" {{{isChecked "Over Night: 12am - 8am" user.schedulePreference}}}>
+        <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am"
+          {{{isChecked "Over Night: 12am - 8am" user.schedulePreference}}}>
         <label for="overNight">Over Night: 12am - 8am</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="24hours" name="fullDay" value="24 hours" {{{isChecked "24 hours" user.schedulePreference}}}>
+        <input type="checkbox" id="24hours" name="fullDay" value="24 hours"
+          {{{isChecked "24 hours" user.schedulePreference}}}>
         <label for="24hours">24 hours</label>
       </div>
       <div class="center-btn">
@@ -67,19 +81,23 @@
     <form class="form edit-details" action="/user/{{user._id}}/updateNeeds" method="POST">
       <label class="labels">Specific Needs:</label>
       <div class="align-checkbox">
-        <input type="checkbox" id="healthCare" name="healthCare" value="Health Care" {{{isChecked "Health Care" user.specificNeeds}}}>
+        <input type="checkbox" id="healthCare" name="healthCare" value="Health Care"
+          {{{isChecked "Health Care" user.specificNeeds}}}>
         <label for="healthCare">Health Care</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance" {{{isChecked "House Care/Maintenance" user.specificNeeds}}}>
+        <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance"
+          {{{isChecked "House Care/Maintenance" user.specificNeeds}}}>
         <label for="houseCare">House Care/Maintenance</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="displacements" name="displacements" value="Displacement" {{{isChecked "Displacement" user.specificNeeds}}}>
-        <label for="displacements">Displacement</label>
+        <input type="checkbox" id="displacements" name="displacements" value="Displacements"
+          {{{isChecked "Displacements" user.specificNeeds}}}>
+        <label for="displacements">Displacements</label>
       </div>
       <div class="align-checkbox">
-        <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping" {{{isChecked "Grocery Shopping" user.specificNeeds}}}>
+        <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping"
+          {{{isChecked "Grocery Shopping" user.specificNeeds}}}>
         <label for="grocery">Grocery Shopping</label>
       </div>
       <div class="align-checkbox">
@@ -146,32 +164,78 @@
         <button type="submit" class="submit-btn">Change password</button>
       </div>
     </form>
-    <hr>
+    <hr class="hr-thicker">
+
+    <h3>Edit Volunteers</h3>
+
+    {{#if user.assignedVolunteers}}
+      <form class="form edit-details" action="/user/{{user._id}}/deleteAssignedVolunteer" method="POST">
+        <label class="labels volunteers-label">Assigned volunteers:</label>
+        <div class="volunteers-list">
+          <ul>
+            {{#each user.assignedVolunteers}}
+            <li>
+              <input type="checkbox" id="{{_id}}" name="assignedVolunteer" value="{{_id}}">
+              <label class="delete-volunteer-btn" for="{{_id}}">
+                <div>
+                  <img src="{{imgPath}}">
+                  <span>{{firstName}} {{lastName}}</span>
+                </div>
+                <div class="delete-sign">&#10006</div>
+              </label>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class="center-btn">
+          <button type="submit" class="submit-btn red">Delete selected</button>
+        </div>
+      </form>
+
+      <hr>
+      {{!-- {{else}}
+      <span>No volunteers assigned yet</span> --}}
+    {{/if}}
 
     <form class="form edit-details" action="/user/{{user._id}}/assignVolunteers" method="POST">
       <label class="labels volunteers-label">Choose volunteers that match your needs:</label>
       <div class="volunteers-list">
-        {{#each volunteers}}
-        <label class="volunteer-btn" for="{{_id}}">
-          <div>
-            <img src="{{imgPath}}">
-            <span>{{firstName}} {{lastName}}</span>
-          </div>
-          <input type="checkbox" id="{{_id}}" name="volunteer" value="{{_id}}">
-        </label>
-        {{!-- <div class="align-checkbox volunteer-btn">
-          <input type="checkbox" id="{{_id}}" name="{{_id}}" value="{{_id}}">
-          <div class="volunteer-photo"><img src="{{imgPath}}"></div>
-          <label for="{{_id}}">{{firstName}} {{lastName}}</label>
-        </div> --}}
-        {{/each}}
+        <ul>
+          {{#each volunteers}}
+          <li>
+            <input type="checkbox" id="{{_id}}" name="volunteer" value="{{_id}}">
+            <label class="volunteer-btn" for="{{_id}}">
+              <div>
+                <img src="{{imgPath}}">
+                <span>{{firstName}} {{lastName}}</span>
+              </div>
+              <div class="assigned-sign">&#10003</div>
+            </label>
+            <div class="par">
+              <section>
+                <h6>Skills:</h6>
+                <ul>
+                  {{#each skills}}
+                    <li><span>{{this}}</span></li>
+                  {{/each}}
+                </ul>
+              </section>
+              <section>
+                <h6>About Me:</h6>
+                <p>{{aboutMe}}</p>
+              </section>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
       </div>
 
       <div class="center-btn">
         <button type="submit" class="submit-btn">Assign volunteers</button>
       </div>
     </form>
-    <hr>
+    <hr class="hr-thicker">
 
     <a href="/user/{{user._id}}">Back to profile</a>
 

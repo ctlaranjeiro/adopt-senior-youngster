@@ -1,13 +1,14 @@
 /* jshint esversion: 9*/
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const uploadCloud = require('../config/cloudinary');
+const bcrypt = require('bcrypt');
+const bcryptSalt = 10;
+
 const User = require('../models/user');
 const Volunteer = require('../models/volunteer');
 
-const uploadCloud = require('../config/cloudinary');
-
-const bcrypt = require('bcrypt');
-const bcryptSalt = 10;
 
 /* GET home page */
 router.get('/', (req, res, next) => {
@@ -51,10 +52,11 @@ router.get('/user/:id/edit', (req,res, next) => {
     //     //console.log('Volunteers: ', volunteers);
     //     res.render('user-edit', { user, volunteers });
     //   });
+    .populate('assignedVolunteers')
     .then(user => {
-      Volunteer.find({isHelping: false})
+      Volunteer.find()
         .then(volunteers => {
-        console.log('Volunteers result: ', volunteers);
+        //console.log('Volunteers result: ', volunteers);
         
         //check for matching needs/skills
         let needsMatchingVolunteers = [];
@@ -85,7 +87,6 @@ router.get('/user/:id/edit', (req,res, next) => {
             }
           }
         });
-        
 
         res.render('user-edit', { user, volunteers: finalMatchVolunteers });
       });
@@ -107,6 +108,7 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
     email,
     address,
     phoneNumber,
+    userNotes,
     //schedule preferences
     morning,
     afternoon,
@@ -126,8 +128,11 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
     emergPhoneNumber,
     emergEmail,
     emergAddress,
-    password
+    password,
+    assignedVolunteer,
+    volunteer
   } = req.body;
+
 
   // ---- CHECKBOX VALUES 
   const schedulePreference = [];
@@ -183,6 +188,19 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
       })
       .catch(err => {
         console.log('Error while updating user personal details in DB:', err);
+      });
+  }
+
+  if(action === 'updateUserNotes'){
+    User.updateOne({ _id: uid }, { $set: { 
+      notes: userNotes
+    }})
+      .then(user => {
+        console.log('User notes updated!');
+        res.redirect(`/user/${uid}/edit`);
+      })
+      .catch(err => {
+        console.log('Error while updating user notes in DB:', err);
       });
   }
 
@@ -256,6 +274,144 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
       })
       .catch(err => {
         console.log('Error while updating user password in DB:', err);
+      });
+  }
+  
+  if(action === 'deleteAssignedVolunteer'){
+    console.log('req.body assignedVolunteer for delete', assignedVolunteer);
+
+    const userObjectId = mongoose.Types.ObjectId(uid);
+
+    let deleteSelected = [];
+
+    if(typeof assignedVolunteer === 'string'){
+      let objectId = mongoose.Types.ObjectId(assignedVolunteer);
+      deleteSelected.push(objectId);
+    } else{
+      assignedVolunteer.forEach(element => {
+        let objectId = mongoose.Types.ObjectId(element);
+        deleteSelected.push(objectId);
+      });
+    }
+
+    deleteSelected.forEach(objectId => {
+
+      Volunteer.updateOne({ _id: objectId }, { $pull: {
+        assignedUsers: { $in: [ userObjectId ] }
+      }})
+        .then(volunteer => {
+          console.log('user deleted from volunteer!')
+
+          if(!volunteer.assignedUsers){
+            Volunteer.updateOne({ _id: objectId }, { $set: {
+              isHelping: false
+            }})
+            .then(volunteer => {
+              User.updateOne({ _id: uid }, { $pull: {
+                assignedVolunteers: { $in: [ objectId ] }
+              }})
+                .then (user => {
+                  console.log('Selected volunteers deleted!');
+
+                  if(!user.assignedVolunteers){
+                    User.updateOne({ _id: uid }, { $set: {
+                      hasHelp: false
+                    }})
+                    .then(user => {
+                      res.redirect(`/user/${uid}/edit`);
+                    });
+                  }else{
+                    res.redirect(`/user/${uid}/edit`);
+                  }
+                })
+                .catch(err => {
+                  console.log('error deleting assignVolunteer from user', err);
+                });
+            });
+          } else{
+            User.updateOne({ _id: uid }, { $pull: {
+              assignedVolunteers: { $in: [ objectId ] }
+            }})
+              .then (user => {
+                console.log('Selected volunteers deleted!');
+                res.redirect(`/user/${uid}/edit`);
+              })
+              .catch(err => {
+                console.log('error deleting assignVolunteer from user', err);
+              });
+          }
+
+        })
+        .catch(err => {
+          console.log('error deleting assignUser from volunteer', err);
+        });
+    });
+   
+  }
+
+  if(action === 'assignVolunteers'){
+    console.log('req.body volunteer:', volunteer);
+    console.log(typeof volunteer);
+
+    let selectedVolunteers = [];
+
+    if(typeof volunteer === 'string'){
+      let objectId = mongoose.Types.ObjectId(volunteer);
+      selectedVolunteers.push(objectId);
+    } else{
+      volunteer.forEach(element => {
+        let objectId = mongoose.Types.ObjectId(element);
+        selectedVolunteers.push(objectId);
+      });
+    }
+
+    //console.log('selectedVolunteers ObjectId:', selectedVolunteers);
+
+    //push assigned volunteers to users' assingedVolunteers key
+    User.updateOne({ _id: uid }, { $push: { 
+      assignedVolunteers: selectedVolunteers
+    }})
+      .then(user => {
+        console.log('User assigned volunteers updated with push')
+        //set users' hasHelp to true
+        User.updateOne({ _id: uid }, { $set: { 
+          hasHelp: true
+        }})
+          .then(user => {
+            console.log('User hasHelp updated!');
+
+            //set isHelping to true, on selected volunteers
+            selectedVolunteers.forEach(objectId => {
+              Volunteer.updateOne({ _id: objectId }, { $set: { 
+                isHelping: true
+              }})
+                .then(volunteer => {
+                  console.log('volunteer ishelping set to true');
+                  
+                  let userObjectId = mongoose.Types.ObjectId(uid);
+
+                  //push user ID to volunteer assigned users
+                  Volunteer.updateOne({ _id: objectId }, { $push: {
+                    assignedUsers: userObjectId
+                  }})
+                    .then(volunteer => {
+                      console.log('volunteer assignedUsers updated with userObjectId');
+                    })
+                    .catch(err => {
+                      console.log('error while assigning user to volunteer');
+                    });
+                  
+                })
+                .catch(err => {
+                  console.log('error while updating isHelping in volunteer DB', err);
+                });
+            });
+
+            res.redirect(`/user/${uid}/edit`);
+          });
+      })
+      .catch(err => {
+        console.log('Error while updating user assigned volunteers in DB:', err);
       });
   }
 
