@@ -13,16 +13,28 @@ hbs.registerHelper(helpers);
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
 
+// hbs.registerHelper('isChecked', (checkboxOption, userList) => {
+//   for (let i = 0; i<userList.length; i++) {
+//     //console.log('schdule i', userList[i]);
+//     if (checkboxOption === userList[i]) {
+//       //console.log('found!');
+//       return 'checked';
+//     } else {
+//       return '';
+//     }
+//   }
+// });
+
 hbs.registerHelper('isChecked', (checkboxOption, userList) => {
-  for (let i = 0; i<userList.length; i++) {
-    //console.log('schdule i', userList[i]);
-    if (checkboxOption === userList[i]) {
-      //console.log('found!');
-      return 'checked';
-    } else {
-      return '';
+  let isChecked = '';
+  //console.log(userList);
+  userList.forEach((element) => {
+    if (element === checkboxOption) {
+      //console.log('HERE!!!');
+      return (isChecked = 'checked');
     }
-  }
+  });
+  return isChecked;
 });
 
 

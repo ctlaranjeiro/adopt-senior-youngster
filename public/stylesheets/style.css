@@ -534,28 +534,71 @@ footer {
       font-size: 0.8em; }
   .edit-container hr {
     margin: 0.3em 0; }
-  .edit-container .volunteer-btn {
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 3em;
-    height: 4.5em;
-    margin: 0.8em 0; }
-    .edit-container .volunteer-btn input {
-      margin: 0;
-      padding: 0;
-      width: 2em;
-      margin-right: 5%; }
-    .edit-container .volunteer-btn img {
-      background-color: white;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      margin-left: 0.5em;
-      padding: 0.3em; }
   .edit-container .volunteers-list {
     max-height: 50vh;
     overflow: scroll; }
+    .edit-container .volunteers-list .assigned-sign {
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      border: 2px solid #69bdcf;
+      text-align: center;
+      margin-right: 1em;
+      color: white; }
+    .edit-container .volunteers-list .volunteer-btn {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 3em;
+      height: 4.5em;
+      margin: 0.8em 0; }
+      .edit-container .volunteers-list .volunteer-btn img {
+        background-color: white;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        margin-left: 0.5em;
+        padding: 0.3em; }
+    .edit-container .volunteers-list .par {
+      display: none;
+      background-color: white;
+      padding: 1.5em; }
+      .edit-container .volunteers-list .par section {
+        width: 50%;
+        text-align: left; }
+      .edit-container .volunteers-list .par p {
+        margin: 0;
+        font-size: 0.9em;
+        text-align: left; }
+      .edit-container .volunteers-list .par ul {
+        list-style: disc outside;
+        padding-left: 1.5em;
+        text-indent: 0.4em; }
+        .edit-container .volunteers-list .par ul li {
+          font-size: 0.9em; }
+        .edit-container .volunteers-list .par ul li span {
+          margin-left: -5px; }
+      .edit-container .volunteers-list .par h6 {
+        font-size: 0.9em; }
+    .edit-container .volunteers-list input {
+      display: none; }
+    .edit-container .volunteers-list input:checked ~ .par {
+      display: flex;
+      justify-content: space-between; }
+    .edit-container .volunteers-list input:checked ~ .volunteer-btn {
+      background-color: #69bdcf;
+      color: white;
+      font-weight: bold;
+      border-radius: 2.3em;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      margin-bottom: 0; }
+      .edit-container .volunteers-list input:checked ~ .volunteer-btn .assigned-sign {
+        border: none;
+        background-color: green;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
 
 /*# sourceMappingURL=style.css.map */
