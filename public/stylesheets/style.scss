@@ -763,6 +763,11 @@ footer {
     margin:0.3em 0;
   }
 
+  .hr-thicker{
+    border: 1px solid #2b7283;
+    margin: 1.5em 0; 
+  }
+
   .volunteers-list{
     max-height: 50vh;
     overflow: scroll;
@@ -777,7 +782,17 @@ footer {
       color: white;
     }
 
-    .volunteer-btn{
+    .delete-sign{
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      border: 2px solid red;
+      text-align: center;
+      margin-right: 1em;
+      color: white;
+    }
+
+    .volunteer-btn, .delete-volunteer-btn{
       background-color: white;
       display: flex;
       align-items: center;
@@ -853,6 +868,21 @@ footer {
       .assigned-sign{
         border: none;
         background-color: green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    input:checked ~ .delete-volunteer-btn{
+      background-color: rgba(255, 0, 0, 0.3);
+      color: white;
+      font-weight: bold;
+      margin-bottom: 0;
+
+      .delete-sign{
+        border: none;
+        background-color: red;
         display: flex;
         align-items: center;
         justify-content: center;

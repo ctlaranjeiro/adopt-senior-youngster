@@ -52,8 +52,9 @@ router.get('/user/:id/edit', (req,res, next) => {
     //     //console.log('Volunteers: ', volunteers);
     //     res.render('user-edit', { user, volunteers });
     //   });
+    .populate('assignedVolunteers')
     .then(user => {
-      Volunteer.find({isHelping: false})
+      Volunteer.find()
         .then(volunteers => {
         //console.log('Volunteers result: ', volunteers);
         
@@ -86,7 +87,6 @@ router.get('/user/:id/edit', (req,res, next) => {
             }
           }
         });
-        
 
         res.render('user-edit', { user, volunteers: finalMatchVolunteers });
       });
@@ -129,6 +129,7 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
     emergEmail,
     emergAddress,
     password,
+    assignedVolunteer,
     volunteer
   } = req.body;
 
@@ -274,6 +275,78 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
       .catch(err => {
         console.log('Error while updating user password in DB:', err);
       });
+  }
+  
+  if(action === 'deleteAssignedVolunteer'){
+    console.log('req.body assignedVolunteer for delete', assignedVolunteer);
+
+    const userObjectId = mongoose.Types.ObjectId(uid);
+
+    let deleteSelected = [];
+
+    if(typeof assignedVolunteer === 'string'){
+      let objectId = mongoose.Types.ObjectId(assignedVolunteer);
+      deleteSelected.push(objectId);
+    } else{
+      assignedVolunteer.forEach(element => {
+        let objectId = mongoose.Types.ObjectId(element);
+        deleteSelected.push(objectId);
+      });
+    }
+
+    deleteSelected.forEach(objectId => {
+
+      Volunteer.updateOne({ _id: objectId }, { $pull: {
+        assignedUsers: { $in: [ userObjectId ] }
+      }})
+        .then(volunteer => {
+          console.log('user deleted from volunteer!')
+
+          if(!volunteer.assignedUsers){
+            Volunteer.updateOne({ _id: objectId }, { $set: {
+              isHelping: false
+            }})
+            .then(volunteer => {
+              User.updateOne({ _id: uid }, { $pull: {
+                assignedVolunteers: { $in: [ objectId ] }
+              }})
+                .then (user => {
+                  console.log('Selected volunteers deleted!');
+
+                  if(!user.assignedVolunteers){
+                    User.updateOne({ _id: uid }, { $set: {
+                      hasHelp: false
+                    }})
+                    .then(user => {
+                      res.redirect(`/user/${uid}/edit`);
+                    });
+                  }else{
+                    res.redirect(`/user/${uid}/edit`);
+                  }
+                })
+                .catch(err => {
+                  console.log('error deleting assignVolunteer from user', err);
+                });
+            });
+          } else{
+            User.updateOne({ _id: uid }, { $pull: {
+              assignedVolunteers: { $in: [ objectId ] }
+            }})
+              .then (user => {
+                console.log('Selected volunteers deleted!');
+                res.redirect(`/user/${uid}/edit`);
+              })
+              .catch(err => {
+                console.log('error deleting assignVolunteer from user', err);
+              });
+          }
+
+        })
+        .catch(err => {
+          console.log('error deleting assignUser from volunteer', err);
+        });
+    });
+   
   }
 
   if(action === 'assignVolunteers'){

@@ -534,6 +534,9 @@ footer {
       font-size: 0.8em; }
   .edit-container hr {
     margin: 0.3em 0; }
+  .edit-container .hr-thicker {
+    border: 1px solid #2b7283;
+    margin: 1.5em 0; }
   .edit-container .volunteers-list {
     max-height: 50vh;
     overflow: scroll; }
@@ -545,7 +548,15 @@ footer {
       text-align: center;
       margin-right: 1em;
       color: white; }
-    .edit-container .volunteers-list .volunteer-btn {
+    .edit-container .volunteers-list .delete-sign {
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      border: 2px solid red;
+      text-align: center;
+      margin-right: 1em;
+      color: white; }
+    .edit-container .volunteers-list .volunteer-btn, .edit-container .volunteers-list .delete-volunteer-btn {
       background-color: white;
       display: flex;
       align-items: center;
@@ -553,7 +564,7 @@ footer {
       border-radius: 3em;
       height: 4.5em;
       margin: 0.8em 0; }
-      .edit-container .volunteers-list .volunteer-btn img {
+      .edit-container .volunteers-list .volunteer-btn img, .edit-container .volunteers-list .delete-volunteer-btn img {
         background-color: white;
         width: 44px;
         height: 44px;
@@ -597,6 +608,17 @@ footer {
       .edit-container .volunteers-list input:checked ~ .volunteer-btn .assigned-sign {
         border: none;
         background-color: green;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+    .edit-container .volunteers-list input:checked ~ .delete-volunteer-btn {
+      background-color: rgba(255, 0, 0, 0.3);
+      color: white;
+      font-weight: bold;
+      margin-bottom: 0; }
+      .edit-container .volunteers-list input:checked ~ .delete-volunteer-btn .delete-sign {
+        border: none;
+        background-color: red;
         display: flex;
         align-items: center;
         justify-content: center; }

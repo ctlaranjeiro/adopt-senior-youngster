@@ -164,7 +164,39 @@
         <button type="submit" class="submit-btn">Change password</button>
       </div>
     </form>
-    <hr>
+    <hr class="hr-thicker">
+
+    <h3>Edit Volunteers</h3>
+
+    {{#if user.assignedVolunteers}}
+      <form class="form edit-details" action="/user/{{user._id}}/deleteAssignedVolunteer" method="POST">
+        <label class="labels volunteers-label">Assigned volunteers:</label>
+        <div class="volunteers-list">
+          <ul>
+            {{#each user.assignedVolunteers}}
+            <li>
+              <input type="checkbox" id="{{_id}}" name="assignedVolunteer" value="{{_id}}">
+              <label class="delete-volunteer-btn" for="{{_id}}">
+                <div>
+                  <img src="{{imgPath}}">
+                  <span>{{firstName}} {{lastName}}</span>
+                </div>
+                <div class="delete-sign">&#10006</div>
+              </label>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class="center-btn">
+          <button type="submit" class="submit-btn red">Delete selected</button>
+        </div>
+      </form>
+
+      <hr>
+      {{!-- {{else}}
+      <span>No volunteers assigned yet</span> --}}
+    {{/if}}
 
     <form class="form edit-details" action="/user/{{user._id}}/assignVolunteers" method="POST">
       <label class="labels volunteers-label">Choose volunteers that match your needs:</label>
@@ -194,17 +226,6 @@
                 <p>{{aboutMe}}</p>
               </section>
             </div>
-
-            {{!-- <label class="volunteer-btn" for="test">
-              <div>
-                <img src="{{imgPath}}">
-                <span>{{firstName}} {{lastName}}</span>
-              </div>
-              <input type="checkbox" id="test" name="volunteer" value="{{_id}}">
-            </label>
-            <div class="par">
-              <p>TEST</p>
-            </div> --}}
           </li>
           {{/each}}
         </ul>
@@ -214,7 +235,7 @@
         <button type="submit" class="submit-btn">Assign volunteers</button>
       </div>
     </form>
-    <hr>
+    <hr class="hr-thicker">
 
     <a href="/user/{{user._id}}">Back to profile</a>
 
