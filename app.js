@@ -37,9 +37,10 @@ hbs.registerHelper('isChecked', (checkboxOption, userList) => {
   return isChecked;
 });
 
-
+//local connection
+//mongodb://localhost/adopt-senior-youngster
 mongoose
-  .connect('mongodb://localhost/adopt-senior-youngster', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })

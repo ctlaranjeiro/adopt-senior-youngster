@@ -111,9 +111,30 @@ router.get('/user/:id/edit', (req,res, next) => {
 });
 
 /*POST update user details*/
-router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) => {
+router.post('/user/:id/:action', uploadCloud.single('photo'), async (req,res, next) => {
   const uid = req.params.id;
   const action = req.params.action;
+
+  let userObject;
+
+  try {
+    userObject = await User.findById(uid)
+    .populate('assignedVolunteers');
+  } catch {
+    console.log('error fetching user');
+  }
+
+  //console.log('USER OBJECT:',userObject);
+
+  let allVolunteersObject;
+
+  try {
+    allVolunteersObject = await Volunteer.find()
+  } catch {
+    console.log('error fetching volunteers');
+  }
+
+  
 
   const {
     //personal details
@@ -190,20 +211,29 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
   }
 
   if(action === 'updatePersonalDetails'){
-    User.updateOne({ _id: uid }, { $set: { 
-      firstName,
-      lastName,
-      email,
-      address,
-      phoneNumber
-    }})
-      .then(user => {
-        console.log('User personal details updated!');
-        res.redirect(`/user/${uid}/edit`);
-      })
-      .catch(err => {
-        console.log('Error while updating user personal details in DB:', err);
+
+    if(!firstName || !lastName || !email || !address || !phoneNumber){
+      res.render('user-edit', {
+        user: userObject,  
+        volunteers: allVolunteersObject,  
+        errorMessage: 'This field is mandatory.'
       });
+    } else{
+      User.updateOne({ _id: uid }, { $set: { 
+        firstName,
+        lastName,
+        email,
+        address,
+        phoneNumber
+      }})
+        .then(user => {
+          console.log('User personal details updated!');
+          res.redirect(`/user/${uid}/edit`);
+        })
+        .catch(err => {
+          console.log('Error while updating user personal details in DB:', err);
+        });
+      }
   }
 
   if(action === 'updateUserNotes'){
@@ -279,17 +309,36 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), (req,res, next) =>
   }
   
   if(action === 'changePassword'){
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
 
-    User.updateOne({ _id: uid }, { $set: { password: hashPass }})
-      .then(user => {
-        console.log('User password updated!');
-        res.redirect(`/user/${uid}/edit`);
-      })
-      .catch(err => {
-        console.log('Error while updating user password in DB:', err);
-      });
+    if(!password || password.length < 6){
+      User.findById(uid)
+        .populate('assignedVolunteers')
+        .then(user => {
+          //console.log('USER object:',user);
+
+          Volunteer.find()
+            .then(volunteers => {
+              res.render('user-edit', {
+                user: user,  
+                volunteers: volunteers,  
+                errorMessage: 'Password must be at least 6 characters long. Please try another.'
+              });
+            });
+        });
+    } else{
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
+      User.updateOne({ _id: uid }, { $set: { password: hashPass }})
+        .then(user => {
+          //console.log('USER',uid)
+          console.log('User password updated!');
+          res.redirect(`/user/${uid}/edit`);
+        })
+        .catch(err => {
+          console.log('Error while updating user password in DB:', err);
+        });
+    }
   }
   
   if(action === 'deleteAssignedVolunteer'){

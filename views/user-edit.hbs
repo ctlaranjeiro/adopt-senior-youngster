@@ -8,7 +8,10 @@
       <label class="labels">Personal data:</label>
       <div class="edit-labels">
         <label for="firstName">First Name:</label>
-        <input type="firstName" name="firstName" value="{{user.firstName}}" id="firstName" required>
+        <input type="firstName" name="firstName" value="{{user.firstName}}" id="firstName">
+        {{#if errorMessage}}
+        <div class='error-message'>{{ errorMessage }}</div>
+        {{/if}}
       </div>
       <div class="edit-labels">
         <label for="lastName">Last Name:</label>
@@ -157,8 +160,11 @@
 
     <form class="form edit-details" action="/user/{{user._id}}/changePassword" method="POST">
       <label class="labels">Password:</label>
-      <div class="edit-labels">
-        <input type="password" name="password" placeholder="••••••••••" id="password" required>
+      <div class="edit-labels d-wrap">
+        <input type="password" name="password" placeholder="••••••••••" id="password">
+        {{#if errorMessage}}
+        <div class='error-message'>{{ errorMessage }}</div>
+        {{/if}}
       </div>
       <div class="center-btn">
         <button type="submit" class="submit-btn">Change password</button>

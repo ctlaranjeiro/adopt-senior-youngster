@@ -24,14 +24,14 @@ Black: #000
 body {
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
   font: 14px 'Open Sans', sans-serif;
-  background-color: #e9e9e9;
-  background-image: url("../public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
+  //background-color: #e9e9e9;
+  //background-image: url("../public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
 }
 
 main {
   width: 100vw;
   height: 100vh;
-  overflow: auto;
+  //overflow: auto;
   box-sizing: border-box;
 }
 
@@ -349,7 +349,7 @@ h6 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-bottom: 40px;
+  padding: 40px 0;
 }
 
 footer {
@@ -754,6 +754,10 @@ footer {
     }
   }
 
+  .d-wrap{
+    flex-wrap: wrap;
+  }
+
   p{
     font-size: 0.8em;
     text-align: center;
@@ -917,10 +921,14 @@ footer {
 
 @media(min-width: 1024px) {
   body {
-    background-image: url("./public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
-    background-size: contain;
+    //background-image: url("/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
+    background-color: #b6e0eb;
+    background-size: cover;
     background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
   }
+  
   main,
   header,
   .assigned-person,
@@ -928,4 +936,56 @@ footer {
     width: 1024px;
     margin: auto;
   }
+
+  header{
+    //background-color: purple;
+    display:flex;
+    justify-content: space-between;
+    align-self: center;
+
+    .menu-wrapper{
+      position: relative;
+    }
+  }
+
+  #carousel{
+    background-color: rgba(255, 255, 255, 0.5);
+
+    .carousel-inner{
+      .center{
+        display: flex;
+        justify-content: center;
+        //align-items: baseline;
+
+        #volunteer-carousel{
+          margin-top: -50vh;
+        }
+      }
+    }
+    
+  }
+
+  #account-types{
+    background-color:white;
+    height: 75vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin:0;
+
+    .account-float{
+      //background-color: #F02B63;
+      width: 100%;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+    }
+
+    #final-message{
+      background-color: #f8f8f8;
+      width: 100%;
+    }
+  }
+
 }

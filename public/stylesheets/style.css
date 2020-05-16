@@ -19,14 +19,11 @@ Black: #000
   padding: 0; }
 
 body {
-  font: 14px 'Open Sans', sans-serif;
-  background-color: #e9e9e9;
-  background-image: url("../public/images/mic-narra-RA3f0b26qwE-unsplash.jpg"); }
+  font: 14px 'Open Sans', sans-serif; }
 
 main {
   width: 100vw;
   height: 100vh;
-  overflow: auto;
   box-sizing: border-box; }
 
 .main-container {
@@ -260,7 +257,7 @@ h6 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding-bottom: 40px; }
+  padding: 40px 0; }
 
 footer {
   background-color: #69bdcf;
@@ -532,6 +529,8 @@ footer {
       margin-right: 1em;
       margin-top: 1.5em;
       width: 85px; }
+  .edit-container .d-wrap {
+    flex-wrap: wrap; }
   .edit-container p {
     font-size: 0.8em;
     text-align: center;
@@ -644,14 +643,45 @@ footer {
 
 @media (min-width: 1024px) {
   body {
-    background-image: url("./public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
-    background-size: contain;
-    background-repeat: no-repeat; }
+    background-color: #b6e0eb;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center; }
   main,
   header,
   .assigned-person,
   footer {
     width: 1024px;
-    margin: auto; } }
+    margin: auto; }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-self: center; }
+    header .menu-wrapper {
+      position: relative; }
+  #carousel {
+    background-color: rgba(255, 255, 255, 0.5); }
+    #carousel .carousel-inner .center {
+      display: flex;
+      justify-content: center; }
+      #carousel .carousel-inner .center #volunteer-carousel {
+        margin-top: -50vh; }
+  #account-types {
+    background-color: white;
+    height: 75vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0; }
+    #account-types .account-float {
+      width: 100%;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly; }
+    #account-types #final-message {
+      background-color: #f8f8f8;
+      width: 100%; } }
 
 /*# sourceMappingURL=style.css.map */
