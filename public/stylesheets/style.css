@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 -----COLOR SCHEMES
 Blue 1 (darkest): #2b7283
@@ -18,7 +19,15 @@ Black: #000
   padding: 0; }
 
 body {
-  font: 14px 'Open Sans', sans-serif; }
+  font: 14px 'Open Sans', sans-serif;
+  background-color: #e9e9e9;
+  background-image: url("../public/images/mic-narra-RA3f0b26qwE-unsplash.jpg"); }
+
+main {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box; }
 
 .main-container {
   display: flex;
@@ -26,10 +35,13 @@ body {
   align-content: center; }
 
 header {
-  width: 100vw; }
+  width: 100vw;
+  position: fixed;
+  z-index: 2; }
   header #logo {
     width: 160px;
-    padding: 5%; }
+    padding: 1rem;
+    /* se puseres percentagem ele fica mais pequeno com o tamanho de ecrã */ }
   header .menu-wrapper {
     position: fixed;
     top: 5px;
@@ -160,33 +172,38 @@ h6 {
   color: #3da8c2; }
 
 #carousel {
-  position: absolute;
-  z-index: -1;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-  width: 100%; }
+  margin: 0;
+  padding: 0;
+  z-index: -10;
+  width: 100%;
+  height: 50vh;
+  position: relative; }
   #carousel .carousel-item {
-    height: 290px; }
+    height: 50vh;
+    margin: auto 0; }
     #carousel .carousel-item #user-carousel {
-      height: 120%;
-      width: auto;
-      padding-bottom: 40px; }
+      height: 100%;
+      width: auto; }
     #carousel .carousel-item #volunteer-carousel {
       height: 100%;
       width: auto; }
 
 .caption {
-  position: absolute;
-  margin-top: 100px;
-  margin-left: 35px; }
+  position: relative;
+  top: -25vh;
+  left: 55vw;
+  transform: translateX(-50%);
+  z-index: 2; }
   .caption h5 {
     width: 30%;
     text-align: left; }
 
 #about {
   z-index: -2;
-  margin-top: 225px;
+  margin-top: -150px;
+  height: 50vh;
   background-color: #f8f8f8;
-  padding: 28px 43px;
+  padding: 0px 43px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -204,20 +221,22 @@ h6 {
     font-size: 0.9em; }
 
 #account-types {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 28px 43px; }
+  padding: 0px 43px; }
   #account-types .account-div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     text-align: center;
     font-size: 0.9em;
-    margin-bottom: 20px;
-    width: 200px; }
+    width: 200px;
+    height: 40vh;
+    /* 30 com intitution */ }
     #account-types .account-div .blue-bg {
       background-color: #b6e0eb;
       width: 105px;
@@ -228,7 +247,7 @@ h6 {
       align-items: center;
       margin: 20px 0; }
       #account-types .account-div .blue-bg img {
-        height: 58px;
+        height: 48px;
         width: auto; }
     #account-types .account-div h5 {
       margin-bottom: 15px; }
@@ -622,5 +641,17 @@ footer {
         display: flex;
         align-items: center;
         justify-content: center; }
+
+@media (min-width: 1024px) {
+  body {
+    background-image: url("./public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
+    background-size: contain;
+    background-repeat: no-repeat; }
+  main,
+  header,
+  .assigned-person,
+  footer {
+    width: 1024px;
+    margin: auto; } }
 
 /*# sourceMappingURL=style.css.map */

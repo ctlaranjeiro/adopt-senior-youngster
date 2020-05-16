@@ -24,6 +24,15 @@ Black: #000
 body {
   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
   font: 14px 'Open Sans', sans-serif;
+  background-color: #e9e9e9;
+  background-image: url("../public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .main-container {
@@ -34,10 +43,13 @@ body {
 
 header {
   width: 100vw;
+  position: fixed;
+  z-index: 2;
+
 
   #logo {
     width: 160px;
-    padding: 5%;
+    padding: 1rem; /* se puseres percentagem ele fica mais pequeno com o tamanho de ecrã */
   }
 
   .menu-wrapper {
@@ -214,18 +226,23 @@ h6 {
 ////////////////////////////
 
 #carousel {
-  position: absolute;
-  z-index: -1;
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  padding: 0;
+  z-index: -10;
+  // box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
+  height: 50vh;
+  position: relative;
+
 
   .carousel-item {
-    height: 290px;
+    // height: 290px;
+    height: 50vh;
+    margin: auto 0;
 
     #user-carousel {
-      height: 120%;
+      height: 100%;
       width: auto;
-      padding-bottom: 40px;
     }
 
     #volunteer-carousel {
@@ -236,9 +253,13 @@ h6 {
 }
 
 .caption {
-  position: absolute;
-  margin-top: 100px;
-  margin-left: 35px;
+  position: relative;
+  // margin-top: 100px;
+  // margin-left: 35px;
+  top: -25vh;
+  left: 55vw;
+  transform: translateX(-50%);
+  z-index: 2;
 
   h5 {
     width: 30%;
@@ -248,9 +269,10 @@ h6 {
 
 #about {
   z-index: -2;
-  margin-top: 225px;
+  margin-top: -150px;
+  height: 50vh;
   background-color: #f8f8f8;
-  padding: 28px 43px;
+  padding: 0px 43px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -275,21 +297,23 @@ h6 {
 }
 
 #account-types {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 28px 43px;
+  padding: 0px 43px;
 
   .account-div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     text-align: center;
     font-size: 0.9em;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     width: 200px;
+    height: 40vh; /* 30 com intitution */
 
     .blue-bg {
       background-color: #b6e0eb;
@@ -303,7 +327,7 @@ h6 {
       margin: 20px 0;
 
       img {
-        height: 58px;
+        height: 48px;
         width: auto;
       }
     }
@@ -888,5 +912,20 @@ footer {
         justify-content: center;
       }
     }
+  }
+}
+
+@media(min-width: 1024px) {
+  body {
+    background-image: url("./public/images/mic-narra-RA3f0b26qwE-unsplash.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  main,
+  header,
+  .assigned-person,
+  footer {
+    width: 1024px;
+    margin: auto;
   }
 }

@@ -1,180 +1,192 @@
+<main>
 {{> volunteerProfileHeader}}
 
-<div class="data-container">
-  <div class="title">
-    <h2>PERSONAL DATA</h2>
-  </div>
-  <div class="data-content">
-    <div>
-      <p><strong>NAME: </strong>{{volunteer.firstName}} {{user.lastName}}</p>
-      <p><strong>AGE: </strong>{{volunteer.age}}</p>
-      <p><strong>ADDRESS: </strong>{{volunteer.address}}</p>
-      <p><strong>EMAIL: </strong>{{volunteer.email}}</p>
-      <p><strong>PHONE NUMBER: </strong>{{volunteer.phoneNumber}}</p>
-      <p><strong>OCCUPATION: </strong>{{volunteer.occupation}}</p>
+  <div class="data-container">
+    <div class="title">
+      <h2>PERSONAL DATA</h2>
+    </div>
+    <div class="data-content">
+      <div>
+        <p><strong>NAME: </strong>{{volunteer.firstName}} {{user.lastName}}</p>
+        <p><strong>AGE: </strong>{{volunteer.age}}</p>
+        <p><strong>ADDRESS: </strong>{{volunteer.address}}</p>
+        <p><strong>EMAIL: </strong>{{volunteer.email}}</p>
+        <p><strong>PHONE NUMBER: </strong>{{volunteer.phoneNumber}}</p>
+        <p><strong>OCCUPATION: </strong>{{volunteer.occupation}}</p>
+        <h3>About Me:</h3>
+        <p>{{volunteer.aboutMe}}</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="specs">
-  <nav class="nav_tabs">
-    <form>
-    <ul>
-      <li>
-        <input type="radio" name="tabs" class="rd_tabs" id="tab1" checked>
-        <label for="tab1">VOLUNTEER<br>SKILLS</label>
-        <div class="content">
-          <article>
-            <div class="needs">
-              <ul>
-                {{#each volunteer.skills}}
-                <li>- {{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-            <div class="notes">
-              <form>
-              {{#each volunteer.assignedUsers}}
-              <input type="checkbox" name="tabs" id="noteTab" class="chk_tabs">
-              <label for="noteTab" class="noteBanner">
-                <span>{{firstName}}</span>
-                <img src={{imgPath}} class="avatarImg">
-              </label>
-              <div class="noteContent">
-                <article>
-                  {{#if notes}}
-                  <h3>USER NOTES</h3>
-                  <p>{{notes}}</p>
-                  {{else}}
-                  <p>This user has no notes!</p>
-                  {{/if}}
-                </article>
-              </div>
-              <hr>
-              {{/each}}
-              </form>
-            </div>
-          </article>
-        </div>
-          
-      </li>
-      <li>
-        <input type="radio" name="tabs" class="rd_tabs" id="tab2">
-        <label for="tab2">AVAILABILITY</label>
-        <div class="content">
-          <article>
-            <div class="needs">
-              <ul>
-                {{#each volunteer.availablePeriods}}
-                <li>{{this}}</li>
-                {{/each}}
-              </ul>
-            </div>
-          </article>
-        </div>
-      </li>
-    </ul>
-    </form>
-</div>
-</div>
-
-<div class="assigned-person">
-  <div class="title">
-    <h2>ASSIGNED USERS</h2>
-  </div>
-  <div class="user-volunteers" id="userVolunteers">
-    {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
-    <nav class="col">
-      {{#if volunteer.assignedUsers}}
-      <ul id="volunteersList">
-        {{#each volunteer.assignedUsers}}
-        <li class="column">
-          <input type="checkbox" name="tabs" id="volTab" class="chk_tabs">
-          <label for="volTab" class="banner">
-            <span>{{firstName}}</span>
-            <img src={{imgPath}} class="avatarImg">
-          </label>
-          <div class="assignedVolunteerContent">
-            <article class="assigned">
-              <nav class="nav_tabs">
+  <div class="specs">
+    <nav class="nav_tabs">
+      <form>
+      <ul>
+        <li>
+          <input type="radio" name="tabs" class="rd_tabs" id="tab1" checked>
+          <label for="tab1">VOLUNTEER<br>SKILLS</label>
+          <div class="content">
+            <article>
+              <div class="needs">
                 <ul>
-                  <li class="row">
-                    <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
-                    <label for="volProfile" class="field">PROFILE</label>
-                    <div class="content profile-content">
-                      <article>
-                        <p>Name: {{firstName}} {{lastName}}</p>
-                        <p>Age: {{age}}</p>
-                        <p>Phone Number: {{volPhoneNumber}}</p>
-                        <p>email: {{email}}</p>
-                        <h3>Emergency Contact</h3>
-                        <p>Name: {{emergencyContact.firstName}} {{emergencyContact.lastName}}</p>
-                        <p>Phone Number: {{emergencyContact.phoneNumber}}</p>
-                        <p>email: {{emergencyContact.email}}</p>
-                        <p>Address: {{emergencyContact.address}}</p>
-                      </article>
-                    </div>
-                  </li>
-                  <li class="row">
-                    <input type="radio" name="tabs" class="rd_tabs" id="volReports">
-                    <label for="volReports" class="field">REPORT</label>
-                    <div class="content reports-content">
-                      <article>
-                        <form action="" method="POST">
-                          <label>Volunteer Name</label>
-                          <input type="text" name="author" id="author" value="{{../volunteer.firstName}} {{../volunteer.lastName}}">
-                          <label>User Name</label>
-                          <input type="text" name="subject" id="subject" value="{{firstName}} {{lastName}}">
-                          <label>Your Report</label>
-                          <textarea name="text" id="text" cols="50" rows="10"></textarea>
-                           <button type="submit">Submit Report</button>
-                        </form>
-                      </article>
-                    </div>
-                  </li>
-                  <li class="row">
-                    <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
-                    <label for="volSchedules" class="field">SCHEDULES</label>
-                    <div class="content schedules-content">
-                      <article>
-                        {{#each availablePeriods}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
-                         <p>{{availablePeriods}}</p>
-                        {{/each}}
-                      </article>
-                    </div>
-                  </li>
-                  <li class="row">
-                    <input type="radio" name="tabs" class="rd_tabs" id="volReview">
-                    <label for="volReview" class="field">REVIEWs</label>
-                    <div class="content ratting-content">
-                      <article>
-                        <h3>Average Rate</h3>
-                        <p>{{volunteer.evaluation.averageRate}}                          
-                        </p>
-                        <h3>Reviews</h3>
-                        {{#each volunteer.evaluation.reviews}}
-                        <p>Rate: {{rate}}</p>
-                        <p>Author: {{author}}</p>
-                        <p>Content: {{text}}</p>
-                        {{/each}}
-                      </article>
-                    </div>
-                  </li>
+                  {{#each volunteer.skills}}
+                  <li>- {{this}}</li>
+                  {{/each}}
                 </ul>
-              </nav>
+              </div>
+              <div class="notes">
+                <form>
+                {{#each volunteer.assignedUsers}}
+                <input type="checkbox" name="tabs" id="noteTab" class="chk_tabs">
+                <label for="noteTab" class="banner">
+                  <span>{{firstName}}</span>
+                  <img src={{imgPath}} class="avatarImg">
+                </label>
+                <div class="noteContent">
+                  <article>
+                    {{#if notes}}
+                    <h3>USER NOTES</h3>
+                    <p>{{notes}}</p>
+                    {{else}}
+                    <p>This user has no notes!</p>
+                    {{/if}}
+                  </article>
+                </div>
+                <hr>
+                {{/each}}
+                </form>
+              </div>
+            </article>
+          </div>
+            
+        </li>
+        <li>
+          <input type="radio" name="tabs" class="rd_tabs" id="tab2">
+          <label for="tab2">AVAILABILITY</label>
+          <div class="content">
+            <article>
+              <div class="needs user-needs">
+                <ul>
+                  {{#each volunteer.availablePeriods}}
+                  <li>{{this}}</li>
+                  {{/each}}
+                </ul>
+              </div>
             </article>
           </div>
         </li>
-        {{/each}}
       </ul>
-      {{else}}
-      <p>You aren't helping anyone</p>
-      {{/if}}
-    </nav>
+      </form>
+  </div>
+  </div>
+
+  <div class="assigned-person">
+    <div class="title">
+      <h2>ASSIGNED USERS</h2>
+    </div>
+    <div class="user-volunteers" id="userVolunteers">
+      {{!--  overflow: auto creats a scroll bar if the content is too big for the div --}}
+      <nav class="col">
+        {{#if volunteer.assignedUsers}}
+        <ul id="volunteersList">
+          {{#each volunteer.assignedUsers}}
+          <li class="column">
+            <input type="checkbox" name="tabs" id="volTab" class="chk_tabs">
+            <label for="volTab" class="banner">
+              <span>{{firstName}}</span>
+              <img src={{imgPath}} class="avatarImg">
+            </label>
+            <div class="assignedVolunteerContent">
+              <article class="assigned">
+                <nav class="nav_tabs">
+                  <ul>
+                    <li class="row">
+                      <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
+                      <label for="volProfile" class="field">PROFILE</label>
+                      <div class="content profile-content">
+                        <article>
+                          <p>Name: {{firstName}} {{lastName}}</p>
+                          <p>Age: {{age}}</p>
+                          <p>Phone Number: {{volPhoneNumber}}</p>
+                          <p>email: {{email}}</p>
+                          <h3>Emergency Contact</h3>
+                          <p>Name: {{emergencyContact.firstName}} {{emergencyContact.lastName}}</p>
+                          <p>Phone Number: {{emergencyContact.phoneNumber}}</p>
+                          <p>email: {{emergencyContact.email}}</p>
+                          <p>Address: {{emergencyContact.address}}</p>
+                        </article>
+                      </div>
+                    </li>
+                    <li class="row">
+                      <input type="radio" name="tabs" class="rd_tabs" id="volReports">
+                      <label for="volReports" class="field">REPORT</label>
+                      <div class="content reports-content">
+                        <article>
+                          <form action="" method="POST">
+                            <label>Volunteer Name</label>
+                            <input type="text" name="author" id="author" value="{{../volunteer.firstName}} {{../volunteer.lastName}}">
+                            <label>User Name</label>
+                            <input type="text" name="subject" id="subject" value="{{firstName}} {{lastName}}">
+                            <label>Your Report</label>
+                            <textarea name="text" id="text" cols="50" rows="10"></textarea>
+                            <button type="submit">Submit Report</button>
+                          </form>
+                        </article>
+                      </div>
+                    </li>
+                    <li class="row">
+                      <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
+                      <label for="volSchedules" class="field">SCHEDULES</label>
+                      <div class="content schedules-content">
+                        <article>
+                          {{#each availablePeriods}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
+                          <p>{{availablePeriods}}</p>
+                          {{/each}}
+                        </article>
+                      </div>
+                    </li>
+                    <li class="row">
+                      <input type="radio" name="tabs" class="rd_tabs" id="volReview">
+                      <label for="volReview" class="field">REVIEWs</label>
+                      <div class="content ratting-content">
+                        <article>
+                          <h3>Average Rate</h3>
+                          <p>{{volunteer.evaluation.averageRate}}                          
+                          </p>
+                          <h3>Reviews</h3>
+                          {{#each volunteer.evaluation.reviews}}
+                          <p>Rate: {{rate}}</p>
+                          <p>Author: {{author}}</p>
+                          <p>Content: {{text}}</p>
+                          {{/each}}
+                        </article>
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </article>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+        {{else}}
+        <p>You aren't helping anyone</p>
+        {{/if}}
+      </nav>
+
+    </div>
+
 
   </div>
 
+  {{!-- TO DO: If we have time add INSTITUTIONS block --}}
 
-</div>
-
-{{!-- TO DO: If we have time add INSTITUTIONS block --}}
+  <footer>
+    <div>
+      <span>Ironhack Project #2</span>
+      <p>&copy; 2020 | Bruno &amp; Catarina</p>
+    </div>
+    <a href="https://www.facebook.com/" target="_blank"><img src="/images/icons/facebook-icon.png"></a>
+  </footer>
+</main>

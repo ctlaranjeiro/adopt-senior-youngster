@@ -49,7 +49,7 @@ h3 {
 .profile-header {
   width: 100vw;
   height: 55px;
-  padding: .75rem .5rem;
+  padding-right: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -132,6 +132,8 @@ h3 {
   padding-top: 60px;
   font-size: .75rem;
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   z-index: -1;
   line-height: .75rem;
 }
@@ -197,17 +199,10 @@ h3 {
   display: none;
 }
 
-.content {
-  display: none;
-  position: absolute;
-  height: 80%; /* alterar */
-  width: 100%;
-  padding: 0px 10px;
-  left: 0;
-}
-
 .rd_tabs:checked ~ .content {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content article {
@@ -221,21 +216,40 @@ h3 {
 
 .needs,
 .notes {
+  width: 45%;
+  height: 100%;
   padding: 5px;
   position: absolute;
 }
 
-.needs {
+.needs,
+.schedule {
   left: 0;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==== volunteer page ==== */
+.user-needs {
+  width: 100%;
+}
+/* ======================== */
+
+.schedule article {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule article ul {
+  margin: 0;
+  padding: 0;
 }
 
 .needs ul {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  justify-content: space-around;
+  margin: 0;
+  padding: 0;
 }
 
 .notes {
@@ -257,6 +271,19 @@ h3 {
 
 .noteContent {
   display: none;
+}
+
+.noteContent article {
+  display: block;
+}
+
+.content {
+  display: none;
+  position: absolute;
+  height: 75%; /* alterar */
+  width: 100%;
+  padding: 0px 10px;
+  left: 0;
 }
 
 #noteTab:checked ~ .noteBanner {
@@ -282,12 +309,24 @@ h3 {
 
 .col {
   margin: 0;
-  padding: 0;
+  padding: 0px 0px 45px 0px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #volunteersList {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  align-self: baseline;
+  width: 20%;
+  height: 100%;
   margin: 0;
+  padding: 0;
 }
 
 .chk_tabs {
@@ -297,6 +336,7 @@ h3 {
 .column {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -340,6 +380,7 @@ h3 {
 .assignedVolunteerContent .assigned {
   width: 100%;
   height: 100%;
+  padding: 15px;
   position: relative;
 }
 
@@ -351,6 +392,7 @@ h3 {
   align-items: center;
   margin: 0;
   padding-left: 5px;
+  padding-right: 5px;
   top: 0;
   left: 15px;
   width: 100%;
@@ -360,26 +402,25 @@ h3 {
 .row {
   width: 100%;
   height: 100%;
+  padding-left: 10px;
   display: block;
 }
 
 .row .ratting-content article label {
   background-color: transparent;
-  width: auto;
-  height: auto;
-  margin-left: 10px;
-  margin-top: 10px;
   padding: 0;
+  margin-top: 10px;
   font-size: .75rem;
-  align-items: baseline;
+  align-items: left;
   border: none;
+  text-align: left;
 }
 
 .row label {
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: baseline;
+  text-align: left;
   font-size: .75em;
   width: 15vw;
   margin-right: 1vw;
@@ -403,8 +444,25 @@ h3 {
   flex-direction: column;
   align-items: baseline;
   justify-content: space-between;
+  padding: 15px;
 }
 
+.row article form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  align-self: center;
+  margin-left: 55px;
+}
+
+button {
+  width: 100px;
+  height: 16px;
+  margin: 15px 0px;
+  border: none;
+  background-color: #fff;
+  border-radius: 8px;
+}
 
 .ratting h5 {
   color:#333;
@@ -418,7 +476,7 @@ h3 {
 }
 
 .ratting textarea {
-  margin-left: 35px;
+  width: 100%;
   overflow: auto;
 }
 
@@ -429,22 +487,67 @@ h3 {
   margin-right: 10px;
 }
 
-.ratting div .eval {
+.ratting div label {
+  text-align: left;
   width: 10px;
   height: auto;
   background-color: transparent;
   border: none;
 }
 
+.assignedVolunteerContent .assigned ul li .field {
+  text-align: center;
+  justify-content: center;
+}
 
 .chk_tabs:checked ~ .banner {
   background-color: #fff;
 }
 
 .chk_tabs:checked ~ .assignedVolunteerContent {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .row .rd_tabs:checked ~ .row .content {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media(min-width: 1024px) {
+  .profile-header,
+  .data-container,
+  .specs,
+  .assigned-person,
+  footer {
+    width: 1024px;
+    margin: auto;
+  }
+
+  .row,
+  .field {
+    max-width: 160px;
+  }
+
+  .assigned ul {
+    max-width: 720px;
+  }
+
+  /* .field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 0px;
+  } */
+
+  /* .nav_tabs ul {
+    padding-right: 20px;
+  } */
+
+  .row .content {
+    max-width: 740px;
+  }
 }
