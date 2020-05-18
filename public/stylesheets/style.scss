@@ -401,8 +401,12 @@ footer {
 .auth-container {
   background-color: #d1d3d4;
   width: 80%;
-  align-self: flex-start;
-  margin-top: 2em;
+  // align-self: flex-start;
+  position: absolute;
+  top: 25vh;
+  left: 50vw;
+  transform: translate(-50%);
+  // margin-top: 2em;
   display: flex;
   flex-direction: column;
 
@@ -985,6 +989,48 @@ footer {
     #final-message{
       background-color: #f8f8f8;
       width: 100%;
+    }
+  }
+
+  .auth-container {
+    width: 50%;
+    height: 50%;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+
+    .auth-div {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 20px 0px 60px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .75rem;
+
+      .select-account-type,
+      .social-networks,
+      .form {
+        margin: 0;
+        padding: 0;
+    
+        .white-bg {
+          margin: 0;
+          padding: 0;
+          background-color: transparent;
+          width: 50%;
+          height: auto;
+        }
+      }
+
+      .divide-auth {
+        margin: 20px 0px;
+      }
+
+      .form {
+        overflow: auto;
+      }
     }
   }
 

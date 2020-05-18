@@ -290,8 +290,10 @@ footer {
 .auth-container {
   background-color: #d1d3d4;
   width: 80%;
-  align-self: flex-start;
-  margin-top: 2em;
+  position: absolute;
+  top: 25vh;
+  left: 50vw;
+  transform: translate(-50%);
   display: flex;
   flex-direction: column; }
   .auth-container .buttons-div {
@@ -682,6 +684,38 @@ footer {
       justify-content: space-evenly; }
     #account-types #final-message {
       background-color: #f8f8f8;
-      width: 100%; } }
+      width: 100%; }
+  .auth-container {
+    width: 50%;
+    height: 50%;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box; }
+    .auth-container .auth-div {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 20px 0px 60px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .75rem; }
+      .auth-container .auth-div .select-account-type,
+      .auth-container .auth-div .social-networks,
+      .auth-container .auth-div .form {
+        margin: 0;
+        padding: 0; }
+        .auth-container .auth-div .select-account-type .white-bg,
+        .auth-container .auth-div .social-networks .white-bg,
+        .auth-container .auth-div .form .white-bg {
+          margin: 0;
+          padding: 0;
+          background-color: transparent;
+          width: 50%;
+          height: auto; }
+      .auth-container .auth-div .divide-auth {
+        margin: 20px 0px; }
+      .auth-container .auth-div .form {
+        overflow: auto; } }
 
 /*# sourceMappingURL=style.css.map */

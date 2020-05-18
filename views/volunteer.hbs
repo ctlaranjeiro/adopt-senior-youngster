@@ -123,14 +123,14 @@
                       <label for="volReports" class="field">REPORT</label>
                       <div class="content reports-content">
                         <article>
-                          <form action="" method="POST">
+                          <form action="/user/edit?user_id={{user._id}}/submit-report" method="POST">
                             <label>Volunteer Name</label>
                             <input type="text" name="author" id="author" value="{{../volunteer.firstName}} {{../volunteer.lastName}}">
                             <label>User Name</label>
                             <input type="text" name="subject" id="subject" value="{{firstName}} {{lastName}}">
                             <label>Your Report</label>
                             <textarea name="text" id="text" cols="50" rows="10"></textarea>
-                            <button type="submit">Submit Report</button>
+                            <button type="submit" class="review-btn">Submit Report</button>
                           </form>
                         </article>
                       </div>

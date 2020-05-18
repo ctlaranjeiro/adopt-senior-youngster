@@ -136,7 +136,7 @@
                       <label for="volRevew" class="field">REVIEW</label>
                       <div class="content ratting-content">
                         <article>
-                          <form action="" method="post">
+                          <form action="/volunteer/edit?volunteer_id={{volunteer._id}}/submit-ratting" method="post">
                             <label>User Name</label>
                             <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
                             {{!-- To be poppulated --}}
@@ -161,7 +161,7 @@
                             <label> Your Review</label>
                             <textarea name="text" id="text" cols="50" rows="10"></textarea>
 
-                            <button type="submit">Submit Review</button>
+                            <button type="submit" class="review-btn">Submit Review</button>
                           </form>
                         </article>
                       </div>
