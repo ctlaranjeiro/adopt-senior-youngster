@@ -77,7 +77,7 @@ hbs.registerHelper('isEqualPhone', (value1, value2) => {
 //heroku connection
 //process.env.MONGODB_URI
 mongoose
-  .connect('mongodb://localhost/adopt-senior-youngster', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
