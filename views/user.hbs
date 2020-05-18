@@ -1,6 +1,5 @@
 {{> userProfileHeader}}
-{{!-- <main>  --}}
-
+<div class="center-flex">
   <div class="data-container">
     <div class="title">
       <h2>PERSONAL DATA</h2>
@@ -91,12 +90,17 @@
                       <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
                       <label for="volProfile" class="field">PROFILE</label>
                       <div class="content profile-content">
-                        <article>
-                          <p>Name: {{firstName}} {{lastName}}</p>
-                          <p>Age: {{age}}</p>
-                          <p>Phone Number: {{volPhoneNumber}}</p>
-                          <p>email: {{email}}</p>
-                          <p>Occupation: {{occupation}}</p>
+                        <article class="data-article">
+                          <div class="pdata">
+                            <p>Name: {{firstName}} {{lastName}}</p>
+                            <p>Age: {{age}}</p>
+                            <p>Phone Number: {{volPhoneNumber}}</p>
+                            <p>email: {{email}}</p>
+                            <p>Occupation: {{occupation}}</p>
+                          </div>
+                          <div class="map">
+                            {{!-- for the google map --}}
+                          </div>
                         </article>
                       </div>
                     </li>
@@ -192,4 +196,4 @@
     </div>
     <a href="https://www.facebook.com/" target="_blank"><img src="/images/icons/facebook-icon.png"></a>
   </footer>
-{{!-- </main> --}}
+</div>

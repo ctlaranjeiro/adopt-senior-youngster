@@ -630,9 +630,8 @@ router.get('/volunteer/:id', (req, res, next) => {
   try {
     const vid = req.params.id;
     Volunteer.findById(vid)
-      .populate('user')
+      .populate('assignedUsers')
       .then(volunteer => {
-
         res.render('volunteer', { volunteer });
       });
   } catch(e){
