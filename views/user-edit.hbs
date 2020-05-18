@@ -9,26 +9,78 @@
       <div class="edit-labels">
         <label for="firstName">First Name:</label>
         <input type="firstName" name="firstName" value="{{user.firstName}}" id="firstName">
-        {{#if errorMessage}}
-        <div class='error-message'>{{ errorMessage }}</div>
-        {{/if}}
       </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqualFirstName msg 'First name must be filled'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
       <div class="edit-labels">
         <label for="lastName">Last Name:</label>
-        <input type="lastName" name="lastName" value="{{user.lastName}}" id="lastName" required>
+        <input type="lastName" name="lastName" value="{{user.lastName}}" id="lastName">
       </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul id="last-name-s">
+          {{#each errors}}
+            {{{isEqualLastName msg 'Last name must be filled'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
       <div class="edit-labels">
         <label for="email">Email:</label>
-        <input type="email" name="email" value="{{user.email}}" id="email" required>
+        <input type="email" name="email" value="{{user.email}}" id="email">
       </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqualEmail msg 'Invalid Email'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
       <div class="edit-labels">
         <label for="address">Address:</label>
-        <input type="address" name="address" value="{{user.address}}" id="address" required>
+        <input type="address" name="address" value="{{user.address}}" id="address">
       </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqualAddress msg 'Address must be filled'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
       <div class="edit-labels">
         <label for="phoneNumber">Phone Number:</label>
-        <input type="phoneNumber" name="phoneNumber" value="{{user.phoneNumber}}" id="phoneNumber" required>
+        <input type="phoneNumber" name="phoneNumber" value="{{user.phoneNumber}}" id="phoneNumber">
       </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqualPhone msg 'Phone number must have 9 digits'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
+
+      {{!-- {{#if errors}}
+        <div class='error-message'>
+          <ul>
+            {{#each errors}}
+              <li>{{msg}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      {{/if}} --}}
       <div class="center-btn">
         <button type="submit" class="submit-btn">Update details</button>
       </div>

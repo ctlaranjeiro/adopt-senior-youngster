@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const uploadCloud = require('../config/cloudinary');
 const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
+const { check, validationResult } = require('express-validator');
 
 const User = require('../models/user');
 const Volunteer = require('../models/volunteer');
@@ -102,7 +103,7 @@ router.get('/user/:id/edit', (req,res, next) => {
 
         
 
-        res.render('user-edit', { user, volunteers: finalMatchVolunteers });
+        res.render('user-edit', { user, volunteers: finalMatchVolunteers});
       });
     })
     .catch(err => {
@@ -111,7 +112,21 @@ router.get('/user/:id/edit', (req,res, next) => {
 });
 
 /*POST update user details*/
-router.post('/user/:id/:action', uploadCloud.single('photo'), async (req,res, next) => {
+router.post('/user/:id/:action', uploadCloud.single('photo'), [
+  check('firstName', 'First name must be filled')
+    .not().isEmpty(),
+  check('lastName', 'Last name must be filled')
+  .not().isEmpty(),
+  check('email')
+    .not().isEmpty().withMessage('Email is empty')
+    .isEmail().withMessage('Invalid email')
+    .normalizeEmail(),
+  check('address', 'Address must be filled')
+  .not().isEmpty(),
+  check('phoneNumber', 'Phone number must have 9 digits')
+  .not().isEmpty()
+  .isMobilePhone('pt-PT')
+], async (req,res, next) => {
   const uid = req.params.id;
   const action = req.params.action;
 
@@ -211,12 +226,16 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), async (req,res, ne
   }
 
   if(action === 'updatePersonalDetails'){
+    const errorsResult = validationResult(req);
+    const errors = errorsResult.errors;
 
-    if(!firstName || !lastName || !email || !address || !phoneNumber){
+    if(!errorsResult.isEmpty()){
+      console.log('ERRORS:', errors);
+      
       res.render('user-edit', {
         user: userObject,  
-        volunteers: allVolunteersObject,  
-        errorMessage: 'This field is mandatory.'
+        volunteers: allVolunteersObject,
+        errors: errors
       });
     } else{
       User.updateOne({ _id: uid }, { $set: { 
@@ -234,6 +253,80 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), async (req,res, ne
           console.log('Error while updating user personal details in DB:', err);
         });
       }
+
+    // if(!firstName | !lastName | !email | !address | !phoneNumber){
+    //   res.render('user-edit', {
+    //     user: userObject,  
+    //     volunteers: allVolunteersObject,  
+    //     firstNameErrMessage: 'This field is mandatory.',
+    //     lastNameErrMessage: 'This field is mandatory.',
+    //     emailErrMessage: 'This field is mandatory.',
+    //     addressErrMessage: 'You must fill in your address.',
+    //     phoneErrMessage: 'Phone number must have a total of 9 digits'
+    //   });
+    // } else{
+    //   User.updateOne({ _id: uid }, { $set: { 
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     address,
+    //     phoneNumber
+    //   }})
+    //     .then(user => {
+    //       console.log('User personal details updated!');
+    //       res.redirect(`/user/${uid}/edit`);
+    //     })
+    //     .catch(err => {
+    //       console.log('Error while updating user personal details in DB:', err);
+    //     });
+    //   }
+
+    // if(!firstName){
+    //   res.render('user-edit', {
+    //     user: userObject,  
+    //     volunteers: allVolunteersObject,  
+    //     firstNameErrMessage: 'This field is mandatory.'
+    //   });
+    // } else if(!lastName){
+    //   res.render('user-edit', {
+    //     user: userObject,  
+    //     volunteers: allVolunteersObject,  
+    //     lastNameErrMessage: 'This field is mandatory.'
+    //   });
+    // } else if(!email){
+    //   res.render('user-edit', {
+    //     user: userObject,  
+    //     volunteers: allVolunteersObject,  
+    //     emailErrMessage: 'This field is mandatory.'
+    //   });
+    // } else if(!address){
+    //   res.render('user-edit', {
+    //     user: userObject,  
+    //     volunteers: allVolunteersObject,  
+    //     addressErrMessage: 'You must fill in your address.'
+    //   });
+    // } else if(!phoneNumber || phoneNumber.length < 9){
+    //   res.render('user-edit', {
+    //     user: userObject,  
+    //     volunteers: allVolunteersObject,  
+    //     phoneErrMessage: 'Phone number must have a total of 9 digits'
+    //   });
+    // } else{
+    //   User.updateOne({ _id: uid }, { $set: { 
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     address,
+    //     phoneNumber
+    //   }})
+    //     .then(user => {
+    //       console.log('User personal details updated!');
+    //       res.redirect(`/user/${uid}/edit`);
+    //     })
+    //     .catch(err => {
+    //       console.log('Error while updating user personal details in DB:', err);
+    //     });
+    //   }
   }
 
   if(action === 'updateUserNotes'){
