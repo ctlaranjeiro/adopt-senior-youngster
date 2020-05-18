@@ -410,8 +410,9 @@ footer {
     font-size: 0.9em;
     color: #fff;
     margin: 0 auto 0.5em;
-    padding: 5px;
     width: 100%; }
+    .form .error-message ul li {
+      margin: 5px; }
   .form .success-message {
     background: #0aa50a;
     box-sizing: border-box;

@@ -116,19 +116,35 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
   check('firstName', 'First name must be filled')
     .not().isEmpty(),
   check('lastName', 'Last name must be filled')
-  .not().isEmpty(),
+    .not().isEmpty(),
   check('email')
-    .not().isEmpty().withMessage('Email is empty')
+    //.not().isEmpty().withMessage('Email is empty')
     .isEmail().withMessage('Invalid email')
     .normalizeEmail(),
   check('address', 'Address must be filled')
-  .not().isEmpty(),
-  check('phoneNumber', 'Phone number must have 9 digits')
-  .not().isEmpty()
-  .isMobilePhone('pt-PT')
+    .not().isEmpty(),
+  check('phoneNumber')
+    //.not().isEmpty().withMessage('Phone number must be filled')
+    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits'),
+  //---------- EMERGENCY CONTACT INFO
+  check('emergFirstName', `Emergency contact's first name must be filled`)
+    .not().isEmpty(),
+  check('emergLastName', `Emergency contact's last name must be filled`)
+    .not().isEmpty(),
+  check('emergPhoneNumber')
+    .isMobilePhone('pt-PT').withMessage(`Emergency contact's phone number must have 9 digits`),
+  check('emergEmail')
+    .isEmail().withMessage(`Emergency contact's invalid email`)
+    .normalizeEmail(),
+  check('emergAddress', `Emergency contact's address must be filled`)
+    .not().isEmpty()
 ], async (req,res, next) => {
   const uid = req.params.id;
   const action = req.params.action;
+
+  const errorsResult = validationResult(req);
+  const errors = errorsResult.errors;
+  
 
   let userObject;
 
@@ -226,11 +242,14 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
   }
 
   if(action === 'updatePersonalDetails'){
-    const errorsResult = validationResult(req);
-    const errors = errorsResult.errors;
+    // const errorsResult = validationResult(req);
+    // const errors = errorsResult.errors;
+
+    // console.log('Validation Result:', errorsResult);
+    // console.log('ERRORS:', errors);
 
     if(!errorsResult.isEmpty()){
-      console.log('ERRORS:', errors);
+      // console.log('ERRORS:', errors);
       
       res.render('user-edit', {
         user: userObject,  
@@ -253,80 +272,6 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
           console.log('Error while updating user personal details in DB:', err);
         });
       }
-
-    // if(!firstName | !lastName | !email | !address | !phoneNumber){
-    //   res.render('user-edit', {
-    //     user: userObject,  
-    //     volunteers: allVolunteersObject,  
-    //     firstNameErrMessage: 'This field is mandatory.',
-    //     lastNameErrMessage: 'This field is mandatory.',
-    //     emailErrMessage: 'This field is mandatory.',
-    //     addressErrMessage: 'You must fill in your address.',
-    //     phoneErrMessage: 'Phone number must have a total of 9 digits'
-    //   });
-    // } else{
-    //   User.updateOne({ _id: uid }, { $set: { 
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     address,
-    //     phoneNumber
-    //   }})
-    //     .then(user => {
-    //       console.log('User personal details updated!');
-    //       res.redirect(`/user/${uid}/edit`);
-    //     })
-    //     .catch(err => {
-    //       console.log('Error while updating user personal details in DB:', err);
-    //     });
-    //   }
-
-    // if(!firstName){
-    //   res.render('user-edit', {
-    //     user: userObject,  
-    //     volunteers: allVolunteersObject,  
-    //     firstNameErrMessage: 'This field is mandatory.'
-    //   });
-    // } else if(!lastName){
-    //   res.render('user-edit', {
-    //     user: userObject,  
-    //     volunteers: allVolunteersObject,  
-    //     lastNameErrMessage: 'This field is mandatory.'
-    //   });
-    // } else if(!email){
-    //   res.render('user-edit', {
-    //     user: userObject,  
-    //     volunteers: allVolunteersObject,  
-    //     emailErrMessage: 'This field is mandatory.'
-    //   });
-    // } else if(!address){
-    //   res.render('user-edit', {
-    //     user: userObject,  
-    //     volunteers: allVolunteersObject,  
-    //     addressErrMessage: 'You must fill in your address.'
-    //   });
-    // } else if(!phoneNumber || phoneNumber.length < 9){
-    //   res.render('user-edit', {
-    //     user: userObject,  
-    //     volunteers: allVolunteersObject,  
-    //     phoneErrMessage: 'Phone number must have a total of 9 digits'
-    //   });
-    // } else{
-    //   User.updateOne({ _id: uid }, { $set: { 
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     address,
-    //     phoneNumber
-    //   }})
-    //     .then(user => {
-    //       console.log('User personal details updated!');
-    //       res.redirect(`/user/${uid}/edit`);
-    //     })
-    //     .catch(err => {
-    //       console.log('Error while updating user personal details in DB:', err);
-    //     });
-    //   }
   }
 
   if(action === 'updateUserNotes'){
@@ -369,22 +314,38 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
   }
 
   if(action === 'updateEmergContact'){
-    User.updateOne({ _id: uid }, { $set: { 
-      emergencyContact: {
-        firstName: emergFirstName,
-        lastName: emergLastName,
-        phoneNumber: emergPhoneNumber,
-        email: emergEmail,
-        address: emergAddress
-      }
-    }})
-      .then(user => {
-        console.log('User emergency contact updated!');
-        res.redirect(`/user/${uid}/edit`);
-      })
-      .catch(err => {
-        console.log('Error while updating user emergency contact details in DB:', err);
+    // const errorsResult = validationResult(req);
+    // const errors = errorsResult.errors;
+
+    // console.log('Validation Result:', errorsResult);
+    // console.log('ERRORS:', errors);
+
+    if(!errorsResult.isEmpty()){
+      // console.log('ERRORS:', errors);
+      
+      res.render('user-edit', {
+        user: userObject,  
+        volunteers: allVolunteersObject,
+        errors: errors
       });
+    } else{
+      User.updateOne({ _id: uid }, { $set: { 
+        emergencyContact: {
+          firstName: emergFirstName,
+          lastName: emergLastName,
+          phoneNumber: emergPhoneNumber,
+          email: emergEmail,
+          address: emergAddress
+        }
+      }})
+        .then(user => {
+          console.log('User emergency contact updated!');
+          res.redirect(`/user/${uid}/edit`);
+        })
+        .catch(err => {
+          console.log('Error while updating user emergency contact details in DB:', err);
+        });
+    }
   }
 
   if(action === 'uploadPhoto'){
@@ -630,9 +591,8 @@ router.get('/volunteer/:id', (req, res, next) => {
   try {
     const vid = req.params.id;
     Volunteer.findById(vid)
-      .populate('user')
+      .populate('assignedUsers')
       .then(volunteer => {
-
         res.render('volunteer', { volunteer });
       });
   } catch(e){
