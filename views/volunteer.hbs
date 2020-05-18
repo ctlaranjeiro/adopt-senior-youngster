@@ -1,6 +1,6 @@
-<main>
 {{> volunteerProfileHeader}}
 
+<div class="center-flex">
   <div class="data-container">
     <div class="title">
       <h2>PERSONAL DATA</h2>
@@ -25,7 +25,7 @@
       <ul>
         <li>
           <input type="radio" name="tabs" class="rd_tabs" id="tab1" checked>
-          <label for="tab1">VOLUNTEER<br>SKILLS</label>
+          <label for="tab1" class="mainLabel">VOLUNTEER<br>SKILLS</label>
           <div class="content">
             <article>
               <div class="needs">
@@ -45,6 +45,7 @@
                 </label>
                 <div class="noteContent">
                   <article>
+                    
                     {{#if notes}}
                     <h3>USER NOTES</h3>
                     <p>{{notes}}</p>
@@ -63,7 +64,7 @@
         </li>
         <li>
           <input type="radio" name="tabs" class="rd_tabs" id="tab2">
-          <label for="tab2">AVAILABILITY</label>
+          <label for="tab2" class="mainLabel">AVAILABILITY</label>
           <div class="content">
             <article>
               <div class="needs user-needs">
@@ -105,16 +106,21 @@
                       <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
                       <label for="volProfile" class="field">PROFILE</label>
                       <div class="content profile-content">
-                        <article>
-                          <p>Name: {{firstName}} {{lastName}}</p>
-                          <p>Age: {{age}}</p>
-                          <p>Phone Number: {{volPhoneNumber}}</p>
-                          <p>email: {{email}}</p>
-                          <h3>Emergency Contact</h3>
-                          <p>Name: {{emergencyContact.firstName}} {{emergencyContact.lastName}}</p>
-                          <p>Phone Number: {{emergencyContact.phoneNumber}}</p>
-                          <p>email: {{emergencyContact.email}}</p>
-                          <p>Address: {{emergencyContact.address}}</p>
+                        <article class="data-article">
+                          <div class="pdata">
+                            <p>Name: {{firstName}} {{lastName}}</p>
+                            <p>Age: {{age}}</p>
+                            <p>Phone Number: {{volPhoneNumber}}</p>
+                            <p>email: {{email}}</p>
+                            <h3>Emergency Contact</h3>
+                            <p>Name: {{emergencyContact.firstName}} {{emergencyContact.lastName}}</p>
+                            <p>Phone Number: {{emergencyContact.phoneNumber}}</p>
+                            <p>email: {{emergencyContact.email}}</p>
+                            <p>Address: {{emergencyContact.address}}</p>
+                          </div>
+                          <div class="map">
+                            {{!-- for the google map --}}
+                          </div>
                         </article>
                       </div>
                     </li>
@@ -148,7 +154,7 @@
                     </li>
                     <li class="row">
                       <input type="radio" name="tabs" class="rd_tabs" id="volReview">
-                      <label for="volReview" class="field">REVIEWs</label>
+                      <label for="volReview" class="field">REVIEWS</label>
                       <div class="content ratting-content">
                         <article>
                           <h3>Average Rate</h3>
@@ -189,4 +195,4 @@
     </div>
     <a href="https://www.facebook.com/" target="_blank"><img src="/images/icons/facebook-icon.png"></a>
   </footer>
-</main>
+</div>
