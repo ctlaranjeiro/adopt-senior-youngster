@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 const uploadCloud = require('../config/cloudinary.js');
+const { check, validationResult } = require('express-validator');
 
 const User = require('../models/user');
 const Volunteer = require('../models/volunteer');
@@ -253,7 +254,31 @@ if(params === 'user'){
 
 
 /* POST signUp User */
-router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
+router.post('/signup/user', uploadCloud.single('photo'), [
+  check('email')
+    .isEmail().withMessage('Invalid email')
+    .normalizeEmail(),
+  check('password', 'Minimum length of 6 characters')
+    .isLength({ min: 6 }),
+  check('phoneNumber')
+    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits'),
+  check('emergPhoneNumber')
+    .isMobilePhone('pt-PT').withMessage(`Emergency contact's phone number must have 9 digits`),
+  check('emergEmail')
+    .isEmail().withMessage(`Emergency contact's invalid email`)
+],(req, res, next) => {
+
+  const errorsResult = validationResult(req);
+  const errors = errorsResult.errors;
+  
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function lowerCaseLetters(string) {
+    return string.toLowerCase();
+  }
+  
   try {
     const {
       email,
@@ -361,21 +386,21 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
     //console.log(age);
 
     const newUser = new User({
-      email,
+      email: lowerCaseLetters(email),
       password: hashPass,
-      firstName,
-      lastName,
+      firstName: capitalizeFirstLetter(firstName),
+      lastName: capitalizeFirstLetter(lastName),
       gender,
       birthDate,
       age: age,
-      address,
+      address: capitalizeFirstLetter(address),
       phoneNumber,
       emergencyContact: {
-        firstName: emergFirstName,
-        lastName: emergLastName,
+        firstName: capitalizeFirstLetter(emergFirstName),
+        lastName: capitalizeFirstLetter(emergLastName),
         phoneNumber: emergPhoneNumber,
-        email: emergEmail,
-        address: emergAddress
+        email: lowerCaseLetters(emergEmail),
+        address: capitalizeFirstLetter(emergAddress)
       },
       schedulePreference: schedulePreference,
       specificNeeds: specificNeeds,
@@ -384,39 +409,70 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
     });
 
 
-    User.findOne({'email': email})
-      .then(user => {
-        if (user) {
-          res.render('auth/user-signup', {
-            emailErrorMessage: 'Email already registered.'
-          });
-          return;
-        }
-
-        if (!morning && !afternoon && !evening && !night && !overNight && !fullDay) {
-          res.render('auth/user-signup', {
-            checkboxErrorMessage: 'Select at least one from the above.'
-          });
-          return;
-        }
-
-        if (!healthCare && !houseCare && !displacements && !grocery && !pupil) {
-          res.render('auth/user-signup', {
-            checkboxErrorMessage: 'Select at least one from the above.'
-          });
-          return;
-        }
-
-        newUser.save()
-          .then(user => {
-            req.session.currentUser = user;
-            const userId = user._id;
-            res.redirect(`/user/${userId}`);
-          })
-          .catch(err => {
-            console.log('An error occurred while saving user to DB:', err);
-          });
+    if(!errorsResult.isEmpty()){
+      //console.log('ERRORS:', errors);
+      
+      res.render('auth/user-signup', {
+        errors: errors,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        gender: gender,
+        birthDate: birthDate,
+        address: address,
+        phoneNumberr: phoneNumber, //typo is on purpose - hbs wasn't rendering this value due to variable's name
+        morning: morning,
+        afternoon: afternoon,
+        evening: evening,
+        night: night,
+        overNight: overNight,
+        fullDay: fullDay,
+        healthCare: healthCare,
+        houseCare: houseCare,
+        displacements: displacements,
+        grocery: grocery,
+        pupil: pupil,
+        emergFirstName: emergFirstName,
+        emergLastName: emergLastName,
+        emergPhoneNumber: emergPhoneNumber,
+        emergEmail: emergEmail,
+        emergAddress: emergAddress
       });
+    } else{
+      User.findOne({'email': email})
+        .then(user => {
+          if (user) {
+            res.render('auth/user-signup', {
+              emailErrorMessage: 'Email already registered.'
+            });
+            return;
+          }
+
+          if (!morning && !afternoon && !evening && !night && !overNight && !fullDay) {
+            res.render('auth/user-signup', {
+              checkboxErrorMessage: 'Select at least one from the above.'
+            });
+            return;
+          }
+
+          if (!healthCare && !houseCare && !displacements && !grocery && !pupil) {
+            res.render('auth/user-signup', {
+              checkboxErrorMessage: 'Select at least one from the above.'
+            });
+            return;
+          }
+
+          newUser.save()
+            .then(user => {
+              req.session.currentUser = user;
+              const userId = user._id;
+              res.redirect(`/user/${userId}`);
+            })
+            .catch(err => {
+              console.log('An error occurred while saving user to DB:', err);
+            });
+        });
+    }
   } catch (e) {
     next(e);
   }
@@ -426,7 +482,27 @@ router.post('/signup/user', uploadCloud.single('photo'), (req, res, next) => {
 
 
 /* POST signUp volunteer */
-router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) => {
+router.post('/signup/volunteer', uploadCloud.single('photo'), [
+  check('email')
+    .isEmail().withMessage('Invalid email')
+    .normalizeEmail(),
+  check('password', 'Minimum length of 6 characters')
+    .isLength({ min: 6 }),
+  check('volPhoneNumber')
+    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits')
+], (req, res, next) => {
+
+  const errorsResult = validationResult(req);
+  const errors = errorsResult.errors;
+  
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function lowerCaseLetters(string) {
+    return string.toLowerCase();
+  }
+  
   try {
     const {
       email,
@@ -514,16 +590,16 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
     //console.log(age);
 
     const newVolunteer = new Volunteer({
-      email,
+      email: lowerCaseLetters(email),
       password: hashPass,
-      firstName,
-      lastName,
+      firstName: capitalizeFirstLetter(firstName),
+      lastName: capitalizeFirstLetter(lastName),
       gender,
       birthDate,
       age: age,
-      address,
+      address: capitalizeFirstLetter(address),
       volPhoneNumber,
-      occupation,
+      occupation: capitalizeFirstLetter(occupation),
       availablePeriods: availablePeriods,
       skills: skills,
       aboutMe,
@@ -531,40 +607,67 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), (req, res, next) =
       imgName
     });
 
-
-    Volunteer.findOne({'email': email})
-      .then(volunteer => {
-        if (volunteer) {
-          res.render('auth/volunteer-signup', {
-            emailErrorMessage: 'Email already registered.'
-          });
-          return;
-        }
-
-        if (!morning && !afternoon && !evening && !night && !overNight && !fullDay) {
-          res.render('auth/volunteer-signup', {
-            checkboxErrorMessage: 'Select at least one from the above.'
-          });
-          return;
-        }
-
-        if (!healthCare && !houseCare && !displacements && !grocery && !pupil) {
-          res.render('auth/volunteer-signup', {
-            checkboxErrorMessage: 'Select at least one from the above.'
-          });
-          return;
-        }
-
-        newVolunteer.save()
-          .then(volunteer => {
-            req.session.currentUser = volunteer;
-            const volunteerId = volunteer._id;
-            res.redirect(`/volunteer/${volunteerId}`);
-          })
-          .catch(err => {
-            console.log('An error occurred while saving volunteer to DB:', err);
-          });
+    if(!errorsResult.isEmpty()){
+      //console.log('ERRORS:', errors);
+      
+      res.render('auth/volunteer-signup', {
+        errors: errors,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        gender: gender,
+        birthDate: birthDate,
+        address: address,
+        volPhoneNumber: volPhoneNumber,
+        occupation: occupation,
+        morning: morning,
+        afternoon: afternoon,
+        evening: evening,
+        night: night,
+        overNight: overNight,
+        fullDay: fullDay,
+        healthCare: healthCare,
+        houseCare: houseCare,
+        displacements: displacements,
+        grocery: grocery,
+        pupil: pupil,
+        aboutMe: aboutMe
       });
+    } else{
+      Volunteer.findOne({'email': email})
+        .then(volunteer => {
+          if (volunteer) {
+            res.render('auth/volunteer-signup', {
+              emailErrorMessage: 'Email already registered.'
+            });
+            return;
+          }
+
+          if (!morning && !afternoon && !evening && !night && !overNight && !fullDay) {
+            res.render('auth/volunteer-signup', {
+              checkboxErrorMessage: 'Select at least one from the above.'
+            });
+            return;
+          }
+
+          if (!healthCare && !houseCare && !displacements && !grocery && !pupil) {
+            res.render('auth/volunteer-signup', {
+              checkboxErrorMessage: 'Select at least one from the above.'
+            });
+            return;
+          }
+
+          newVolunteer.save()
+            .then(volunteer => {
+              req.session.currentUser = volunteer;
+              const volunteerId = volunteer._id;
+              res.redirect(`/volunteer/${volunteerId}`);
+            })
+            .catch(err => {
+              console.log('An error occurred while saving volunteer to DB:', err);
+            });
+        });
+    }
   } catch (e) {
     next(e);
   }

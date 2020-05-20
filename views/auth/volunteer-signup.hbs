@@ -16,18 +16,39 @@
       </div>
 
       <!-- Sign Up social networks -->
-      {{> signUpSocial}}
+      {{!-- {{> signUpSocial}} --}}
 
       <form class="signup-base-form form" action='/signup/volunteer' method='POST' enctype="multipart/form-data">
-        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="email" name="email" id="email" placeholder="Email" value="{{email}}" required>
         {{#if emailErrorMessage}}
         <div class='error-message'>{{ emailErrorMessage }}</div>
         {{/if}}
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Invalid email"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
         <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="firstName" placeholder="First name" required>
-        <input type="text" name="lastName" placeholder="Last name" required>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Minimum length of 6 characters"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
+        <input type="text" name="firstName" placeholder="First name" value="{{firstName}}" required>
+        <input type="text" name="lastName" placeholder="Last name" value="{{lastName}}" required>
 
         <select name="gender" id="gender-select" required>
+          {{#if gender}}
+          <option value="{{gender}}">{{gender}}</option>
+          {{/if}}
           <option value="">-- Select Gender --</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
@@ -36,39 +57,55 @@
 
         <div>
           <label for="date">Birth date:</label>
-          <input type="date" name="birthDate" id="birthdate" required>
+          <input type="date" name="birthDate" id="birthdate" value="{{birthDate}}" required>
         </div>
-        <input type="text" name="address" placeholder="Address" required>
-        <input type="number" name="volPhoneNumber" placeholder="Phone number" required>
-        <input type="text" name="occupation" placeholder="Occupation (optional)">
+        <input type="text" name="address" placeholder="Address" value="{{address}}" required>
+        <input type="number" name="volPhoneNumber" placeholder="Phone number" value="{{volPhoneNumber}}" required>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Phone number must have 9 digits"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
+        <input type="text" name="occupation" placeholder="Occupation (optional)" value="{{occupation}}">
 
         <!-- INPUT PHOTO -->
-        <input type="file" name="photo" id="upload-photo" required>
+        <input type="file" name="photo" id="upload-photo">
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            <li>Select photo again, please</li>
+          </ul>
+          </div>
+        {{/if}}
 
 
         <label class="labels">Available periods to help:</label>
         <div class="align-checkbox">
-          <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm">
+          <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm" {{#if morning}}checked{{/if}}>
           <label for="morning">Morning: 8am - 12pm</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm">
+          <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm" {{#if afternoon}}checked{{/if}}>
           <label for="afternoon">Afternoon: 12pm - 4pm</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm">
+          <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm" {{#if evening}}checked{{/if}}>
           <label for="evening">Evening: 4pm - 8pm</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am">
+          <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am" {{#if night}}checked{{/if}}>
           <label for="night">Night: 8pm - 12am</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am">
+          <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am" {{#if overNight}}checked{{/if}}>
           <label for="overNight">Over Night: 12am - 8am</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="24hours" name="fullDay" value="24 hours">
+          <input type="checkbox" id="24hours" name="fullDay" value="24 hours" {{#if fullDay}}checked{{/if}}>
           <label for="24hours">24 hours</label>
         </div>
         {{#if checkboxErrorMessage}}
@@ -78,23 +115,23 @@
 
         <label class="labels">Skills:</label>
         <div class="align-checkbox">
-          <input type="checkbox" id="healthCare" name="healthCare" value="Health Care">
+          <input type="checkbox" id="healthCare" name="healthCare" value="Health Care" {{#if healthCare}}checked{{/if}}>
           <label for="healthCare">Health Care</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance">
+          <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance" {{#if houseCare}}checked{{/if}}>
           <label for="houseCare">House Care/Maintenance</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="displacements" name="displacements" value="Displacements">
+          <input type="checkbox" id="displacements" name="displacements" value="Displacements" {{#if displacements}}checked{{/if}}>
           <label for="displacements">Displacements</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping">
+          <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping" {{#if grocery}}checked{{/if}}>
           <label for="grocery">Grocery Shopping</label>
         </div>
         <div class="align-checkbox">
-          <input type="checkbox" id="pupil" name="pupil" value="Pupil">
+          <input type="checkbox" id="pupil" name="pupil" value="Pupil" {{#if pupil}}checked{{/if}}>
           <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
         </div>
         {{#if checkboxErrorMessage}}
@@ -103,7 +140,7 @@
 
 
         <label class="labels">About me:</label>
-        <textarea id="aboutMe" name="aboutMe" rows="4" cols="50" placeholder="type here..."></textarea>
+        <textarea id="aboutMe" name="aboutMe" rows="4" cols="50" placeholder="type here..." required>{{#if aboutMe}}{{aboutMe}}{{/if}}</textarea>
 
         <div class="white-bg">
           <button type="submit" class="submit-btn">Sign Up</button>

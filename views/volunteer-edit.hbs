@@ -1,0 +1,228 @@
+{{> volunteerProfileHeader}}
+
+<div class="container">
+  <div class="edit-container">
+    <h3>Edit Details</h3>
+
+    <form class="form edit-details" action="/volunteer/{{volunteer._id}}/updatePersonalDetails" method="POST">
+      <label class="labels">Personal data:</label>
+      <div class="edit-labels">
+        <label for="firstName">First Name:</label>
+        <input type="firstName" name="firstName" value="{{volunteer.firstName}}" id="firstName">
+      </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqual msg 'First name must be filled'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
+      <div class="edit-labels">
+        <label for="lastName">Last Name:</label>
+        <input type="lastName" name="lastName" value="{{volunteer.lastName}}" id="lastName">
+      </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqual msg 'Last name must be filled'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
+      <div class="edit-labels">
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{volunteer.email}}" id="email">
+      </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqual msg 'Invalid email'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
+      <div class="edit-labels">
+        <label for="address">Address:</label>
+        <input type="address" name="address" value="{{volunteer.address}}" id="address">
+      </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqual msg 'Address must be filled'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
+      <div class="edit-labels">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="phoneNumber" name="volPhoneNumber" value="{{volunteer.volPhoneNumber}}" id="volPhoneNumber">
+      </div>
+      {{#if errors}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqual msg 'Phone number must have 9 digits'}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
+      <div class="edit-labels">
+        <label for="occupation">Occupation:</label>
+        <input type="text" name="occupation" value="{{volunteer.occupation}}" id="occupation">
+      </div>
+      <div class="edit-labels">
+        <label for="aboutMe">About Me:</label>
+        <textarea id="aboutMe" name="aboutMe" rows="10" cols="50">{{volunteer.aboutMe}}</textarea>
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update details</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/volunteer/{{volunteer._id}}/updateAvailability" method="POST">
+      <label class="labels">Available periods:</label>
+      <div class="align-checkbox">
+        <input type="checkbox" id="morning" name="morning" value="Morning: 8am - 12pm"
+          {{{isChecked "Morning: 8am - 12pm" volunteer.availablePeriods}}}>
+        <label for="morning">Morning: 8am - 12pm</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="afternoon" name="afternoon" value="Afternoon: 12pm - 4pm"
+          {{{isChecked "Afternoon: 12pm - 4pm" volunteer.availablePeriods}}}>
+        <label for="afternoon">Afternoon: 12pm - 4pm</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="evening" name="evening" value="Evening: 4pm - 8pm"
+          {{{isChecked "Evening: 4pm - 8pm" volunteer.availablePeriods}}}>
+        <label for="evening">Evening: 4pm - 8pm</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="night" name="night" value="Night: 8pm - 12am"
+          {{{isChecked "Night: 8pm - 12am" volunteer.availablePeriods}}}>
+        <label for="night">Night: 8pm - 12am</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="overNight" name="overNight" value="Over Night: 12am - 8am"
+          {{{isChecked "Over Night: 12am - 8am" volunteer.availablePeriods}}}>
+        <label for="overNight">Over Night: 12am - 8am</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="24hours" name="fullDay" value="24 hours"
+          {{{isChecked "24 hours" volunteer.availablePeriods}}}>
+        <label for="24hours">24 hours</label>
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update availability</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/volunteer/{{volunteer._id}}/updateSkill" method="POST">
+      <label class="labels">Skills:</label>
+      <div class="align-checkbox">
+        <input type="checkbox" id="healthCare" name="healthCare" value="Health Care"
+          {{{isChecked "Health Care" volunteer.skills}}}>
+        <label for="healthCare">Health Care</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="houseCare" name="houseCare" value="House Care/Maintenance"
+          {{{isChecked "House Care/Maintenance" volunteer.skills}}}>
+        <label for="houseCare">House Care/Maintenance</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="displacements" name="displacements" value="Displacements"
+          {{{isChecked "Displacements" volunteer.skills}}}>
+        <label for="displacements">Displacements</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="grocery" name="grocery" value="Grocery Shopping"
+          {{{isChecked "Grocery Shopping" volunteer.skills}}}>
+        <label for="grocery">Grocery Shopping</label>
+      </div>
+      <div class="align-checkbox">
+        <input type="checkbox" id="pupil" name="pupil" value="Pupil" {{{isChecked "Pupil" volunteer.skills}}}>
+        <label for="pupil">Pupil (for at-risk youth in need of a mentor)</label>
+      </div>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Update skills</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/volunteer/{{volunteer._id}}/uploadPhoto" method="POST" enctype="multipart/form-data">
+      <label class="labels">Profile picture:</label>
+      <div class="edit-labels">
+        <input type="file" name="photo" id="upload-photo">
+      </div>
+
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Upload photo</button>
+      </div>
+    </form>
+    <hr>
+
+    <form class="form edit-details" action="/volunteer/{{volunteer._id}}/changePassword" method="POST">
+      <label class="labels">Password:</label>
+      <div class="edit-labels d-wrap">
+        <input type="password" name="password" placeholder="••••••••••" id="password">
+      </div>
+      {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Minimum length of 6 characters"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
+      <div class="center-btn">
+        <button type="submit" class="submit-btn">Change password</button>
+      </div>
+    </form>
+    <hr class="hr-thicker">
+
+    <h3>Edit Assigned Users</h3>
+
+    {{#if volunteer.assignedUsers}}
+      <form class="form edit-details" action="/volunteer/{{volunteer._id}}/deleteAssignedUser" method="POST">
+        <div class="volunteers-list">
+          <ul>
+            {{#each volunteer.assignedUsers}}
+            <li>
+              <input type="checkbox" id="{{_id}}" name="assignedUser" value="{{_id}}">
+              <label class="delete-volunteer-btn" for="{{_id}}">
+                <div>
+                  <img src="{{imgPath}}">
+                  <span>{{firstName}} {{lastName}}</span>
+                </div>
+                <div class="delete-sign">&#10006</div>
+              </label>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
+
+        <div class="center-btn">
+          <button type="submit" class="submit-btn red">Delete selected</button>
+        </div>
+      </form>
+      {{/if}}
+      <hr class="hr-thicker">
+
+    <a href="/volunteer/{{volunteer._id}}">Back to profile</a>
+
+    <form class="form edit-details" action="/volunteer/{{volunteer._id}}/delete" method="POST">
+      <p>No longer wish to have an account?</p>
+      <div class="center-btn">
+        <button type="submit" class="submit-btn red">Delete account</button>
+      </div>
+    </form>
+
+  </div>
+</div>

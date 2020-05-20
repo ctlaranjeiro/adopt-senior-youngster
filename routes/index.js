@@ -137,7 +137,9 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
     .isEmail().withMessage(`Emergency contact's invalid email`)
     .normalizeEmail(),
   check('emergAddress', `Emergency contact's address must be filled`)
-    .not().isEmpty()
+    .not().isEmpty(),
+  check('password', 'Minimum length of 6 characters')
+  .isLength({ min: 6 })
 ], async (req,res, next) => {
   const uid = req.params.id;
   const action = req.params.action;
@@ -242,15 +244,11 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
   }
 
   if(action === 'updatePersonalDetails'){
-    // const errorsResult = validationResult(req);
-    // const errors = errorsResult.errors;
-
-    // console.log('Validation Result:', errorsResult);
-    // console.log('ERRORS:', errors);
+    // console.log('ERRORS RESULT:',errorsResult);
+    errorsResult.errors.splice(-6, 6);
+    // console.log('ERRORS RESULT:',errorsResult);
 
     if(!errorsResult.isEmpty()){
-      // console.log('ERRORS:', errors);
-      
       res.render('user-edit', {
         user: userObject,  
         volunteers: allVolunteersObject,
@@ -314,15 +312,12 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
   }
 
   if(action === 'updateEmergContact'){
-    // const errorsResult = validationResult(req);
-    // const errors = errorsResult.errors;
+    //console.log('ERRORS RESULT:',errorsResult);
+    errorsResult.errors.splice(0, 5);
+    errorsResult.errors.pop();
+    // console.log('ERRORS RESULT:',errorsResult);
 
-    // console.log('Validation Result:', errorsResult);
-    // console.log('ERRORS:', errors);
-
-    if(!errorsResult.isEmpty()){
-      // console.log('ERRORS:', errors);
-      
+    if(!errorsResult.isEmpty()){      
       res.render('user-edit', {
         user: userObject,  
         volunteers: allVolunteersObject,
@@ -363,35 +358,29 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
   }
   
   if(action === 'changePassword'){
+    // console.log('ERRORS RESULT:',errorsResult);
+    errorsResult.errors.splice(0, 10);
+    // console.log('ERRORS RESULT:',errorsResult);
 
-    if(!password || password.length < 6){
-      User.findById(uid)
-        .populate('assignedVolunteers')
-        .then(user => {
-          //console.log('USER object:',user);
-
-          Volunteer.find()
-            .then(volunteers => {
-              res.render('user-edit', {
-                user: user,  
-                volunteers: volunteers,  
-                errorMessage: 'Password must be at least 6 characters long. Please try another.'
-              });
-            });
-        });
+    if(!errorsResult.isEmpty()){
+      res.render('user-edit', {
+        user: userObject,  
+        volunteers: allVolunteersObject,
+        errors: errors
+      });
     } else{
-      const salt = bcrypt.genSaltSync(bcryptSalt);
-      const hashPass = bcrypt.hashSync(password, salt);
+        const salt = bcrypt.genSaltSync(bcryptSalt);
+        const hashPass = bcrypt.hashSync(password, salt);
 
-      User.updateOne({ _id: uid }, { $set: { password: hashPass }})
-        .then(user => {
-          //console.log('USER',uid)
-          console.log('User password updated!');
-          res.redirect(`/user/${uid}/edit`);
-        })
-        .catch(err => {
-          console.log('Error while updating user password in DB:', err);
-        });
+        User.updateOne({ _id: uid }, { $set: { password: hashPass }})
+          .then(user => {
+            //console.log('USER',uid)
+            console.log('User password updated!');
+            res.redirect(`/user/${uid}/edit`);
+          })
+          .catch(err => {
+            console.log('Error while updating user password in DB:', err);
+          });
     }
   }
   
@@ -598,6 +587,239 @@ router.get('/volunteer/:id', (req, res, next) => {
   } catch(e){
     next(e);
   }
+});
+
+
+/* GET volunteer edit page */
+router.get('/volunteer/:id/edit', (req, res, next) => {
+  const vid = req.params.id;
+
+  Volunteer.findById(vid)
+    .populate('assignedUsers')
+    .then(volunteer => {
+      res.render('volunteer-edit', {volunteer});
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+
+/*POST update volunteer details*/
+router.post('/volunteer/:id/:action', uploadCloud.single('photo'), [
+  check('firstName', 'First name must be filled')
+    .not().isEmpty(),
+  check('lastName', 'Last name must be filled')
+    .not().isEmpty(),
+  check('email')
+    .isEmail().withMessage('Invalid email')
+    .normalizeEmail(),
+  check('address', 'Address must be filled')
+    .not().isEmpty(),
+  check('volPhoneNumber')
+    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits'),
+  check('password', 'Minimum length of 6 characters')
+    .isLength({ min: 6 })
+], async (req,res, next) => {
+  const vid = req.params.id;
+  const action = req.params.action;
+
+  const errorsResult = validationResult(req);
+  const errors = errorsResult.errors;
+  
+  let volunteerObject;
+
+  try {
+    volunteerObject = await Volunteer.findById(vid)
+    .populate('assignedUsers');
+  } catch {
+    console.log('error fetching volunteer');
+  }
+
+  //console.log('VOLUNTEER OBJECT:', volunteerObject);
+
+
+  const {
+    firstName,
+    lastName,
+    email,
+    address,
+    volPhoneNumber,
+    occupation,
+    aboutMe,
+    //availability
+    morning,
+    afternoon,
+    evening,
+    night,
+    overNight,
+    fullDay,
+    //skills
+    healthCare,
+    houseCare,
+    displacements,
+    grocery,
+    pupil,
+    password
+  } = req.body;
+
+  // ---- CHECKBOX VALUES 
+  const availablePeriods = [];
+
+  if (morning) {
+    availablePeriods.push(morning);
+  }
+  if (afternoon) {
+    availablePeriods.push(afternoon);
+  }
+  if (evening) {
+    availablePeriods.push(evening);
+  }
+  if (night) {
+    availablePeriods.push(night);
+  }
+  if (overNight) {
+    availablePeriods.push(overNight);
+  }
+  if (fullDay) {
+    availablePeriods.push(fullDay);
+  }
+
+  const skills = [];
+
+  if (healthCare) {
+    skills.push(healthCare);
+  }
+  if (houseCare) {
+    skills.push(houseCare);
+  }
+  if (displacements) {
+    skills.push(displacements);
+  }
+  if (grocery) {
+    skills.push(grocery);
+  }
+  if (pupil) {
+    skills.push(pupil);
+  }
+
+
+  if(action === 'updatePersonalDetails'){
+    // console.log('ERRORS RESULT:',errorsResult);
+    errorsResult.errors.pop();
+    // console.log('errorsResult.error.pop(): (pops password)', errorsResult);
+
+    if(!errorsResult.isEmpty()){
+      res.render('volunteer-edit', {
+        volunteer: volunteerObject,  
+        errors: errors,
+      });
+
+    } else{
+      Volunteer.updateOne({ _id: vid }, { $set: { 
+        firstName,
+        lastName,
+        email,
+        address,
+        volPhoneNumber,
+        occupation,
+        aboutMe
+      }})
+        .then(volunteer => {
+          console.log('Volunteer personal details updated!');
+          res.redirect(`/volunteer/${vid}/edit`);
+        })
+        .catch(err => {
+          console.log('Error while updating volunteer personal details in DB:', err);
+        });
+      }
+  }
+
+  if(action === 'updateAvailability'){
+    Volunteer.updateOne({ _id: vid }, { $set: { 
+      availablePeriods: availablePeriods
+    }})
+      .then(volunteer => {
+        console.log('Volunteer available periods updated!');
+        res.redirect(`/volunteer/${vid}/edit`);
+      })
+      .catch(err => {
+        console.log('Error while updating volunteer available periods in DB:', err);
+      });
+  }
+
+  if(action === 'updateSkill'){
+    Volunteer.updateOne({ _id: vid }, { $set: { 
+      skills: skills
+    }})
+      .then(volunteer => {
+        console.log('Volunteer specific needs updated!');
+        res.redirect(`/volunteer/${vid}/edit`);
+      })
+      .catch(err => {
+        console.log('Error while updating volunteer skills in DB:', err);
+      });
+  }
+
+  if(action === 'uploadPhoto'){
+    const imgPath = req.file.url;
+    const imgName = req.file.originalname;
+
+    Volunteer.updateOne({ _id: vid }, { $set: { imgPath, imgName }})
+      .then(volunteer => {
+        console.log('Volunteer profile picture uploaded!');
+        res.redirect(`/volunteer/${vid}/edit`);
+      })
+      .catch(err => {
+        console.log('Error while updating volunteer profile picture in DB:', err);
+      });
+  }
+
+  if(action === 'changePassword'){
+    console.log('ERRORS RESULT:',errorsResult);
+    errorsResult.errors.splice(0, 5);
+    console.log('ERRORS RESULT:',errorsResult);
+
+    if(!errorsResult.isEmpty()){
+      res.render('volunteer-edit', {
+        volunteer: volunteerObject,  
+        errors: errors,
+      });
+    } else{
+        const salt = bcrypt.genSaltSync(bcryptSalt);
+        const hashPass = bcrypt.hashSync(password, salt);
+
+        Volunteer.updateOne({ _id: vid }, { $set: { password: hashPass }})
+          .then(volunteer => {
+            //console.log('VOLUNTEER',vid)
+            console.log('Volunteer password updated!');
+            res.redirect(`/volunteer/${vid}/edit`);
+          })
+          .catch(err => {
+            console.log('Error while updating volunteer password in DB:', err);
+          });
+    }
+  }
+
+
+});
+
+/* DELETE volunteer account */
+router.post('/volunteer/:id/delete', (req,res, next) => {
+  const vid = req.params.id;
+  console.log("testing delete account");
+
+  req.session.destroy(() => {
+    Volunteer.deleteOne({ _id: vid })
+      .then(result => {
+        console.log('Volunteer deleted: ', result);
+        res.redirect('/');
+      })
+      .catch (err => {
+        console.log('An error occurred while deleting volunteer from DB: ', err);
+      });
+  });
+  
 });
 
 module.exports = router;

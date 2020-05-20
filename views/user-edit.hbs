@@ -47,7 +47,7 @@
       {{/if}}
       <div class="edit-labels">
         <label for="address">Address:</label>
-        <input type="address" name="address" value="{{user.address}}" id="address">
+        <input type="text" name="address" value="{{user.address}}" id="address">
       </div>
       {{#if errors}}
         <div class='error-message'>
@@ -259,10 +259,16 @@
       <label class="labels">Password:</label>
       <div class="edit-labels d-wrap">
         <input type="password" name="password" placeholder="••••••••••" id="password">
-        {{#if errorMessage}}
-        <div class='error-message'>{{ errorMessage }}</div>
-        {{/if}}
       </div>
+      {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Minimum length of 6 characters"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
       <div class="center-btn">
         <button type="submit" class="submit-btn">Change password</button>
       </div>
