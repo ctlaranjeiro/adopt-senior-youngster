@@ -31,6 +31,20 @@ router.use((req, res, next) => {
 /* GET user page */
 router.get('/user/:id', (req, res, next) => {
   try {
+    // ====Google Maps====
+    function startMap() {
+      const map = new google.maps.Map(
+        document.getElementById('map'),
+        {
+          zoom: 5,
+          center: ironhackBCN
+        }
+      );
+    }
+     
+    startMap();
+
+    // ===================
     const uid = req.params.id;
     User.findById(uid)
       .populate('assignedVolunteers')
