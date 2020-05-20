@@ -573,8 +573,11 @@ footer {
     font-size: 0.9em;
     color: #fff;
     margin: 0 auto 0.5em;
-    padding: 5px;
     width: 100%;
+
+    ul li{
+      margin: 5px;
+    }
   }
 
   .success-message{

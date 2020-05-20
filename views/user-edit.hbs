@@ -14,7 +14,7 @@
         <div class='error-message'>
           <ul>
           {{#each errors}}
-            {{{isEqualFirstName msg 'First name must be filled'}}}
+            {{{isEqual msg 'First name must be filled'}}}
           {{/each}}
         </ul>
         </div>
@@ -25,9 +25,9 @@
       </div>
       {{#if errors}}
         <div class='error-message'>
-          <ul id="last-name-s">
+          <ul>
           {{#each errors}}
-            {{{isEqualLastName msg 'Last name must be filled'}}}
+            {{{isEqual msg 'Last name must be filled'}}}
           {{/each}}
         </ul>
         </div>
@@ -40,20 +40,20 @@
         <div class='error-message'>
           <ul>
           {{#each errors}}
-            {{{isEqualEmail msg 'Invalid Email'}}}
+            {{{isEqual msg 'Invalid email'}}}
           {{/each}}
         </ul>
         </div>
       {{/if}}
       <div class="edit-labels">
         <label for="address">Address:</label>
-        <input type="address" name="address" value="{{user.address}}" id="address">
+        <input type="text" name="address" value="{{user.address}}" id="address">
       </div>
       {{#if errors}}
         <div class='error-message'>
           <ul>
           {{#each errors}}
-            {{{isEqualAddress msg 'Address must be filled'}}}
+            {{{isEqual msg 'Address must be filled'}}}
           {{/each}}
         </ul>
         </div>
@@ -66,7 +66,7 @@
         <div class='error-message'>
           <ul>
           {{#each errors}}
-            {{{isEqualPhone msg 'Phone number must have 9 digits'}}}
+            {{{isEqual msg 'Phone number must have 9 digits'}}}
           {{/each}}
         </ul>
         </div>
@@ -171,24 +171,69 @@
         <legend>Emergency contact information:</legend>
         <div class="edit-labels">
           <label for="address">First Name:</label>
-          <input type="text" name="emergFirstName" value="{{user.emergencyContact.firstName}}" required>
+          <input type="text" name="emergFirstName" value="{{user.emergencyContact.firstName}}">
         </div>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Emergency contact's first name must be filled"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
         <div class="edit-labels">
           <label for="address">Last Name:</label>
-          <input type="text" name="emergLastName" value="{{user.emergencyContact.lastName}}" required>
+          <input type="text" name="emergLastName" value="{{user.emergencyContact.lastName}}">
         </div>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Emergency contact's last name must be filled"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
         <div class="edit-labels">
           <label for="address">Phone Number:</label>
-          <input type="number" name="emergPhoneNumber" value="{{user.emergencyContact.phoneNumber}}" required>
+          <input type="number" name="emergPhoneNumber" value="{{user.emergencyContact.phoneNumber}}">
         </div>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Emergency contact's phone number must have 9 digits"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
         <div class="edit-labels">
           <label for="address">Email:</label>
-          <input type="email" name="emergEmail" value="{{user.emergencyContact.email}}" required>
+          <input type="email" name="emergEmail" value="{{user.emergencyContact.email}}">
         </div>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Emergency contact's invalid email"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
         <div class="edit-labels">
           <label for="address">Address:</label>
-          <input type="text" name="emergAddress" value="{{user.emergencyContact.address}}" required>
+          <input type="text" name="emergAddress" value="{{user.emergencyContact.address}}">
         </div>
+        {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Emergency contact's address must be filled"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
       </fieldset>
       <div class="center-btn">
         <button type="submit" class="submit-btn">Update contact</button>
@@ -214,10 +259,16 @@
       <label class="labels">Password:</label>
       <div class="edit-labels d-wrap">
         <input type="password" name="password" placeholder="••••••••••" id="password">
-        {{#if errorMessage}}
-        <div class='error-message'>{{ errorMessage }}</div>
-        {{/if}}
       </div>
+      {{#if errors}}
+          <div class='error-message'>
+            <ul>
+            {{#each errors}}
+              {{{isEqual msg "Minimum length of 6 characters"}}}
+            {{/each}}
+          </ul>
+          </div>
+        {{/if}}
       <div class="center-btn">
         <button type="submit" class="submit-btn">Change password</button>
       </div>
@@ -250,15 +301,16 @@
           <button type="submit" class="submit-btn red">Delete selected</button>
         </div>
       </form>
-
-      <hr>
       {{!-- {{else}}
       <span>No volunteers assigned yet</span> --}}
+      <hr>
     {{/if}}
 
+    
     <form class="form edit-details" action="/user/{{user._id}}/assignVolunteers" method="POST">
       <label class="labels volunteers-label">Choose volunteers that match your needs:</label>
       <div class="volunteers-list">
+        {{#if volunteers}}
         <ul>
           {{#each volunteers}}
           <li>
@@ -293,6 +345,9 @@
         <button type="submit" class="submit-btn">Assign volunteers</button>
       </div>
     </form>
+    {{else}}
+    <span>No matches found.</span>
+    {{/if}}
     <hr class="hr-thicker">
 
     <a href="/user/{{user._id}}">Back to profile</a>

@@ -38,36 +38,13 @@ hbs.registerHelper('isChecked', (checkboxOption, userList) => {
   return isChecked;
 });
 
-// CUSTOM HELPERS FOR USER-EDIT PERSONAL DATA ----------------
-hbs.registerHelper('isEqualFirstName', (value1, value2) => {
+// CUSTOM HELPERS FOR USER-EDIT
+hbs.registerHelper('isEqual', (value1, value2) => {
   if(value1 === value2){
-    return '<li>First name must be filled</li>';
+    return `<li>${value1}</li>`;
   }
 });
 
-hbs.registerHelper('isEqualLastName', (value1, value2) => {
-  if(value1 === value2){
-    return '<li>Last name must be filled</li>';
-  }
-});
-
-hbs.registerHelper('isEqualEmail', (value1, value2) => {
-  if(value1 === value2){
-    return '<li>Invalid Email</li>';
-  }
-});
-
-hbs.registerHelper('isEqualAddress', (value1, value2) => {
-  if(value1 === value2){
-    return '<li>Address must be filled</li>';
-  }
-});
-
-hbs.registerHelper('isEqualPhone', (value1, value2) => {
-  if(value1 === value2){
-    return '<li>Phone number must have 9 digits</li>';
-  }
-});
 
 
 
@@ -77,7 +54,7 @@ hbs.registerHelper('isEqualPhone', (value1, value2) => {
 //heroku connection
 //process.env.MONGODB_URI
 mongoose
-  .connect('mongodb://localhost/adopt-senior-youngster', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })
