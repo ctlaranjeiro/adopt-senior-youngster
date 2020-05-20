@@ -111,6 +111,23 @@ router.get('/user/:id/edit', (req,res, next) => {
     });
 });
 
+/* DELETE user account */
+router.post('/user/:id/delete', (req,res, next) => {
+  const uid = req.params.id;
+
+  req.session.destroy(() => {
+    User.deleteOne({ _id: uid })
+      .then(result => {
+        console.log('User deleted: ', result);
+        res.redirect('/');
+      })
+      .catch (err => {
+        console.log('An error occurred while deleting user from DB: ', err);
+      });
+  });
+  
+});
+
 /*POST update user details*/
 router.post('/user/:id/:action', uploadCloud.single('photo'), [
   check('firstName', 'First name must be filled')
@@ -550,28 +567,6 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
 
 });
 
-/* DELETE user account */
-router.post('/user/:id/delete', (req,res, next) => {
-  const uid = req.params.id;
-
-  req.session.destroy(() => {
-    User.deleteOne({ _id: uid })
-      .then(result => {
-        console.log('User deleted: ', result);
-        res.redirect('/');
-      })
-      .catch (err => {
-        console.log('An error occurred while deleting user from DB: ', err);
-      });
-  });
-  
-});
-
-
-
-
-
-
 
 //---------------- VOLUNTEER PAGE
 
@@ -602,6 +597,27 @@ router.get('/volunteer/:id/edit', (req, res, next) => {
     .catch(err => {
       next(err);
     });
+});
+
+/* DELETE volunteer account */
+router.post('/volunteer/:id/delete', (req,res, next) => {
+  const vid = req.params.id;
+  console.log("testing delete account");
+
+  try{
+    req.session.destroy(() => {
+      Volunteer.deleteOne({ _id: vid })
+        .then(result => {
+          console.log('Volunteer deleted: ', result);
+          res.redirect('/');
+        })
+        .catch (err => {
+          console.log('An error occurred while deleting volunteer from DB: ', err);
+        });
+    });
+  } catch{
+    console.log('error delete');
+  }
 });
 
 
@@ -802,24 +818,6 @@ router.post('/volunteer/:id/:action', uploadCloud.single('photo'), [
   }
 
 
-});
-
-/* DELETE volunteer account */
-router.post('/volunteer/:id/delete', (req,res, next) => {
-  const vid = req.params.id;
-  console.log("testing delete account");
-
-  req.session.destroy(() => {
-    Volunteer.deleteOne({ _id: vid })
-      .then(result => {
-        console.log('Volunteer deleted: ', result);
-        res.redirect('/');
-      })
-      .catch (err => {
-        console.log('An error occurred while deleting volunteer from DB: ', err);
-      });
-  });
-  
 });
 
 module.exports = router;

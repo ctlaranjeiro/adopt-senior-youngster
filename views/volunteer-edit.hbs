@@ -173,23 +173,22 @@
         <input type="password" name="password" placeholder="••••••••••" id="password">
       </div>
       {{#if errors}}
-          <div class='error-message'>
-            <ul>
-            {{#each errors}}
-              {{{isEqual msg "Minimum length of 6 characters"}}}
-            {{/each}}
-          </ul>
-          </div>
-        {{/if}}
+        <div class='error-message'>
+          <ul>
+          {{#each errors}}
+            {{{isEqual msg "Minimum length of 6 characters"}}}
+          {{/each}}
+        </ul>
+        </div>
+      {{/if}}
       <div class="center-btn">
         <button type="submit" class="submit-btn">Change password</button>
       </div>
     </form>
     <hr class="hr-thicker">
 
-    <h3>Edit Assigned Users</h3>
-
     {{#if volunteer.assignedUsers}}
+    <h3>Edit Assigned Users</h3>
       <form class="form edit-details" action="/volunteer/{{volunteer._id}}/deleteAssignedUser" method="POST">
         <div class="volunteers-list">
           <ul>
@@ -212,8 +211,8 @@
           <button type="submit" class="submit-btn red">Delete selected</button>
         </div>
       </form>
-      {{/if}}
       <hr class="hr-thicker">
+      {{/if}}
 
     <a href="/volunteer/{{volunteer._id}}">Back to profile</a>
 
@@ -223,7 +222,6 @@
         <button type="submit" class="submit-btn red">Delete account</button>
       </div>
     </form>
-    
 
   </div>
 </div>

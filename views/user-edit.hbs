@@ -301,15 +301,16 @@
           <button type="submit" class="submit-btn red">Delete selected</button>
         </div>
       </form>
-
-      <hr>
       {{!-- {{else}}
       <span>No volunteers assigned yet</span> --}}
+      <hr>
     {{/if}}
 
+    
     <form class="form edit-details" action="/user/{{user._id}}/assignVolunteers" method="POST">
       <label class="labels volunteers-label">Choose volunteers that match your needs:</label>
       <div class="volunteers-list">
+        {{#if volunteers}}
         <ul>
           {{#each volunteers}}
           <li>
@@ -344,6 +345,9 @@
         <button type="submit" class="submit-btn">Assign volunteers</button>
       </div>
     </form>
+    {{else}}
+    <span>No matches found.</span>
+    {{/if}}
     <hr class="hr-thicker">
 
     <a href="/user/{{user._id}}">Back to profile</a>
