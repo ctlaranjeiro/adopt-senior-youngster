@@ -9,6 +9,8 @@ const { check, validationResult } = require('express-validator');
 
 const User = require('../models/user');
 const Volunteer = require('../models/volunteer');
+const Review = require('../models/review');
+const Report = require('../models/report');
 
 
 /* GET home page */
@@ -35,12 +37,163 @@ router.get('/user/:id', (req, res, next) => {
     const uid = req.params.id;
     User.findById(uid)
       .populate('assignedVolunteers')
+      .populate('reports')
+      .populate('reports.')
       .then(user => {
         res.render('user', { user });
       });
   } catch(e){
     next(e);
   }
+});
+
+/* POST user submit rating */
+router.post('/user/:id/submit-ratting', (req, res, next) => {
+  const uid = req.params.id;
+
+  const {
+    subject,
+    rate,
+    review
+  } = req.body;
+
+  // console.log('Rated Volunteer id:', subject);
+  // console.log('Rate', rate);
+  // console.log('Review:', review);
+
+  const vid = subject;
+
+  const userObjectId = mongoose.Types.ObjectId(uid);
+  const volunteerObjectId = mongoose.Types.ObjectId(vid);
+
+  
+
+  const newReview = new Review({
+    rate: rate,
+    author: userObjectId,
+    subject: volunteerObjectId,
+    text: review,
+  });
+
+  Review.findOne({ $and: [{ 'author': userObjectId }, { 'subject': volunteerObjectId}] })
+    .then(reviewFromDB => {
+      if(reviewFromDB){
+        Review.updateOne({ $and: [{ 'author': userObjectId }, { 'subject': volunteerObjectId}] }, { $set: { 
+          rate: rate, 
+          text: review
+        }})
+          .then(result => {
+            res.redirect(`/user/${uid}`);
+          })
+          .catch(err =>{
+            console.log('Error while updating review on DB', err);
+          });
+      } else{
+        newReview.save()
+          .then(review => {
+            console.log('New Review saved:', review);
+
+            const volunteerId = review.subject;
+            const reviewId = review._id;
+            const reviewObjectId = mongoose.Types.ObjectId(reviewId);
+            const newRate = review.rate;
+
+            function average(array){
+              const reducer = (accumulator, currentValue) => accumulator + currentValue;
+              const sum = array.reduce(reducer);
+
+              const avg = sum/array.length;
+
+              return avg;
+            }
+
+            Volunteer.findById(volunteerId)
+              .then(volunteer => {
+                if(!volunteer.evaluation){
+                  Volunteer.updateOne({ _id: volunteerId }, { $set: { 
+                    evaluation: {
+                      rates: newRate,
+                      reviews: reviewObjectId
+                    }
+                  }})
+                    .then(result => {
+                      console.log('volunteer reviews updated! Result:', result);
+      
+                      Volunteer.findById(volunteerId)
+                        .then(volunteer => {
+                          console.log('Volunteer in DB after rates', volunteer);
+      
+                          const rates = volunteer.evaluation.rates;
+                          console.log('Rates in volunteer DB:', rates);
+                          const avgRate = average(rates);
+                          
+                          Volunteer.updateOne({ _id: volunteerId }, { $set: { 
+                            'evaluation.averageRate': avgRate
+                          }})
+                            .then(result =>{
+                              console.log('Average rate of volunteer result:', result);
+                              res.redirect(`/user/${uid}`);
+                            })
+                            .catch(err => {
+                              console.log('Error while updating average rate of volunteer in DB', err);
+                            });
+                        })
+                        .catch(err => {
+                          console.log('Error while finding volunteer in DB', err);
+                        });
+                    })
+                    .catch(err => {
+                      console.log('Error while updating reviews in volunteer', err);
+                    });
+                }else{
+                  Volunteer.updateOne({ _id: volunteerId }, { $push: { 
+                    'evaluation.rates': newRate,
+                    'evaluation.reviews': reviewObjectId
+                  }})
+                    .then(result => {
+                      console.log('volunteer reviews updated! Result:', result);
+      
+                      Volunteer.findById(volunteerId)
+                        .then(volunteer => {
+                          console.log('Volunteer in DB after rates', volunteer);
+      
+                          const rates = volunteer.evaluation.rates;
+                          console.log('Rates in volunteer DB:', rates);
+                          const avgRate = average(rates);
+                          
+                          Volunteer.updateOne({ _id: volunteerId }, { $set: { 
+                            'evaluation.averageRate': avgRate
+                          }})
+                            .then(result =>{
+                              console.log('Average rate of volunteer result:', result);
+                              res.redirect(`/user/${uid}`);
+                            })
+                            .catch(err => {
+                              console.log('Error while updating average rate of volunteer in DB', err);
+                            });
+                        })
+                        .catch(err => {
+                          console.log('Error while finding volunteer in DB', err);
+                        });
+                    })
+                    .catch(err => {
+                      console.log('Error while updating reviews in volunteer', err);
+                    });
+                }
+              })
+              .catch(err => {
+                console.log('Error while retrieving volunteer from DB', err);
+              });
+          })
+          .catch(err => {
+            console.log('Error while saving review to DB', err);
+          });
+      }
+    })
+    .catch(err => {
+      console.log('Error finding review on DB', err);
+    });
+
 });
 
 /* GET user edit page */
@@ -597,6 +750,72 @@ router.get('/volunteer/:id/edit', (req, res, next) => {
     })
     .catch(err => {
       next(err);
+    });
+});
+
+/* POST volunteer submit report */
+router.post('/volunteer/:id/submit-report', (req, res, next) => {
+  const vid = req.params.id;
+  
+  const {
+    user,
+    report
+  } = req.body;
+
+  const uid = user;
+
+  const volunteerObjectId = mongoose.Types.ObjectId(vid);
+  const userObjectId = mongoose.Types.ObjectId(uid);
+
+  const newReport = new Report({
+    author: volunteerObjectId,
+    subject: userObjectId,
+    text: report
+  });
+
+  Report.findOne({ $and: [{ 'author': volunteerObjectId }, { 'subject': userObjectId}] })
+    .then(reportFromDB => {
+      //console.log('report from DB: ', reportFromDB);
+      if(reportFromDB){
+        Report.updateOne({ $and: [{ 'author': volunteerObjectId }, { 'subject': userObjectId}] }, { $push: { 
+          text: report
+        }})
+          .then(result => {
+            res.redirect(`/volunteer/${vid}`);
+          })
+          .catch(err => {
+            console.log('Error while pushing report to DB', err);
+          });
+      } else{
+        newReport.save()
+          .then(report => {
+            //console.log('New Report saved:', report);
+
+            const userId = report.subject;
+            const reportId = report._id;
+            const reportObjectId = mongoose.Types.ObjectId(reportId);
+            
+            // console.log('userObjectId', userId);
+            // console.log('Report ID: ', report._id);
+  
+            User.updateOne({ _id: userId }, { $push: { 
+              reports: reportObjectId,
+            }})
+              .then(result => {
+                console.log('user reports updated! Result:', result);
+                res.redirect(`/volunteer/${vid}`);
+              })
+              .catch(err => {
+                console.log('Error while updating reports in user', err);
+              });
+          })
+          .catch(err => {
+            console.log('Error while saving report to DB', err);
+          });
+      }
+    })
+    .catch(err =>{
+      console.log('Error while retrieving report from DB', err);
     });
 });
 
