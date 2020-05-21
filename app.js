@@ -103,6 +103,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 // default value for title local
 app.locals.title = 'adopt-senior-youngster';
+app.locals.googleMapsKey = process.env.GOOGLEMAPS_API_KEY;
 
 
 const auth = require('./routes/auth');

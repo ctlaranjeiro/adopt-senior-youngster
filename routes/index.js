@@ -33,6 +33,7 @@ router.use((req, res, next) => {
 /* GET user page */
 router.get('/user/:id', (req, res, next) => {
   try {
+
     const uid = req.params.id;
     User.findById(uid)
       .populate('assignedVolunteers')
