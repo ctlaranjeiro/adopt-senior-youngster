@@ -473,10 +473,12 @@ h3 {
   border-radius: 8px;
 }
 
-.ratting h5 {
+.ratting h5 , .reports-content h5{
   color:#333;
   font-size: 1rem;
 }
+
+
 
 .ratting div {
   display: inline-flex;

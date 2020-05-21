@@ -93,8 +93,8 @@
         <ul id="volunteersList">
           {{#each volunteer.assignedUsers}}
           <li class="column">
-            <input type="checkbox" name="tabs" id="volTab" class="chk_tabs">
-            <label for="volTab" class="banner">
+            <input type="radio" name="volAssignedBtn" id="{{_id}}" class="chk_tabs">
+            <label for="{{_id}}" class="banner">
               <span>{{firstName}}</span>
               <img src={{imgPath}} class="avatarImg">
             </label>
@@ -103,8 +103,8 @@
                 <nav class="nav_tabs">
                   <ul>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
-                      <label for="volProfile" class="field">PROFILE</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volProfile" checked>
+                      <label for="{{_id}}volProfile" class="field">PROFILE</label>
                       <div class="content profile-content">
                         <article class="data-article">
                           <div class="pdata">
@@ -125,11 +125,11 @@
                       </div>
                     </li>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volReports">
-                      <label for="volReports" class="field">REPORT</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volReports">
+                      <label for="{{_id}}volReports" class="field">REPORT</label>
                       <div class="content reports-content">
                         <article>
-                          <form action="/user/edit?user_id={{user._id}}/submit-report" method="POST">
+                          {{!-- <form action="/user/edit?user_id={{user._id}}/submit-report" method="POST">
                             <label>Volunteer Name</label>
                             <input type="text" name="author" id="author" value="{{../volunteer.firstName}} {{../volunteer.lastName}}">
                             <label>User Name</label>
@@ -137,13 +137,25 @@
                             <label>Your Report</label>
                             <textarea name="text" id="text" cols="50" rows="10"></textarea>
                             <button type="submit" class="review-btn">Submit Report</button>
+                          </form> --}}
+
+
+                          <form action="/volunteer/{{../volunteer._id}}/submit-report" method="POST">
+                            <input type="hidden" name="user" value="{{_id}}" checked>
+                            <h5>Create a report for {{firstName}} {{lastName}}</h5>
+                            <label> Your Report</label>
+                            <textarea name="report" id="text" cols="50" rows="10" maxlength="1500" required></textarea>
+                            <button type="submit" class="review-btn">Submit Report</button>
                           </form>
+
+
+
                         </article>
                       </div>
                     </li>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
-                      <label for="volSchedules" class="field">SCHEDULES</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volSchedules">
+                      <label for="{{_id}}volSchedules" class="field">SCHEDULES</label>
                       <div class="content schedules-content">
                         <article>
                           {{#each availablePeriods}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
@@ -153,8 +165,8 @@
                       </div>
                     </li>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volReview">
-                      <label for="volReview" class="field">REVIEWS</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volReview">
+                      <label for="{{_id}}volReview" class="field">REVIEWS</label>
                       <div class="content ratting-content">
                         <article>
                           <h3>Average Rate</h3>

@@ -75,8 +75,8 @@
         <ul id="volunteersList">
           {{#each user.assignedVolunteers}}
           <li class="column">
-            <input type="checkbox" name="tabs" id="volTab" class="chk_tabs">
-            <label for="volTab" class="banner">
+            <input type="radio" name="UserAssignedBtn" id="{{_id}}" class="chk_tabs">
+            <label for="{{_id}}" class="banner">
               <span>{{firstName}}</span>
 
               
@@ -87,8 +87,8 @@
                 <nav class="nav_tabs">
                   <ul>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
-                      <label for="volProfile" class="field">PROFILE</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volProfile" checked>
+                      <label for="{{_id}}volProfile" class="field">PROFILE</label>
                       <div class="content profile-content">
                         <article class="data-article">
                           <div class="pdata">
@@ -105,18 +105,20 @@
                       </div>
                     </li>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volReports">
-                      <label for="volReports" class="field">REPORTS</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volReports">
+                      <label for="{{_id}}volReports" class="field">REPORTS</label>
                       <div class="content reports-content">
                         <article>
-                          {{#if user.reports}}
-                            {{#each this.reports}} {{!-- os reports têm que corresponder entre o user e o volunteer --}}
+                          {{#if ../user.reports}}
+                            {{#each ../user.reports}} {{!-- os reports têm que corresponder entre o user e o volunteer --}}
+                              {{!-- {{#eq author "5eb6df6cbe8991338bf1a370"}} --}}
                               <p>
                                 <strong>Author:</strong> {{author}}
                               </p>
                               <p>
                                 <strong>Report:</strong> {{text}}
                               </p>
+                              {{!-- {{/eq}} --}}
                             {{/each}}
                           {{else}}
                             <p>There are no reports available!</p>
@@ -125,22 +127,25 @@
                       </div>
                     </li>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volSchedules">
-                      <label for="volSchedules" class="field">SCHEDULES</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volSchedules">
+                      <label for="{{_id}}volSchedules" class="field">SCHEDULES</label>
                       <div class="content schedules-content">
                         <article>
                           {{#each availablePeriods}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
-                          <p>{{availablePeriods}}</p>
+                          <p>{{this}}</p>
                           {{/each}}
                         </article>
                       </div>
                     </li>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="volRevew">
-                      <label for="volRevew" class="field">REVIEW</label>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volRevew">
+                      <label for="{{_id}}volRevew" class="field">REVIEW</label>
                       <div class="content ratting-content">
                         <article>
-                          <form action="/volunteer/edit?volunteer_id={{volunteer._id}}/submit-ratting" method="post">
+
+
+
+                          <!-- <form action="/user/{{../user._id}}/submit-ratting" method="POST">
                             <label>User Name</label>
                             <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
                             {{!-- To be poppulated --}}
@@ -151,22 +156,53 @@
                               <h5>How do you rate the help?</h5>
                               <div>
                                 <label for="one" class="eval">1</label>
-                                <input type="radio" name="rate" id="one" class="eval-rd" value="1">
+                                <input type="radio" name="rate1" id="rate1" class="eval-rd" value="1">
                                 <label for="two" class="eval">2</label>
-                                <input type="radio" name="rate" id="two" class="eval-rd" value="2">
+                                <input type="radio" name="rate2" id="rate2" class="eval-rd" value="2">
                                 <label for="three" class="eval">3</label>
-                                <input type="radio" name="rate" id="three" class="eval-rd" value="3">
+                                <input type="radio" name="rate3" id="rate3" class="eval-rd" value="3">
                                 <label for="fuor" class="eval">4</label>
-                                <input type="radio" name="rate" id="fuor" class="eval-rd" value="4">
+                                <input type="radio" name="rate4" id="rate4" class="eval-rd" value="4">
                                 <label for="five" class="eval">5</label>
-                                <input type="radio" name="rate" id="five" class="eval-rd" value="5">
+                                <input type="radio" name="rate5" id="rate5" class="eval-rd" value="5">
                               </div>
                             </div>
                             <label> Your Review</label>
                             <textarea name="text" id="text" cols="50" rows="10"></textarea>
 
                             <button type="submit" class="review-btn">Submit Review</button>
+                          </form> -->
+
+
+
+
+
+                          <form action="/user/{{../user._id}}/submit-ratting" method="POST">
+                            <div class="ratting">
+                              <input type="hidden" name="subject" value="{{_id}}" checked>
+                              <h5>How do you rate {{firstName}} {{lastName}}'s help?</h5>
+                              <div>
+                                <label for="rate1" class="eval">1</label>
+                                <input type="radio" name="rate" id="rate1" class="eval-rd" value="1">
+                                <label for="rate2" class="eval">2</label>
+                                <input type="radio" name="rate" id="rate2" class="eval-rd" value="2">
+                                <label for="rate3" class="eval">3</label>
+                                <input type="radio" name="rate" id="rate3" class="eval-rd" value="3">
+                                <label for="rate4" class="eval">4</label>
+                                <input type="radio" name="rate" id="rate4" class="eval-rd" value="4">
+                                <label for="rate5" class="eval">5</label>
+                                <input type="radio" name="rate" id="rate5" class="eval-rd" value="5">
+                              </div>
+                            </div>
+                            <label> Your Review</label>
+                            <textarea name="review" id="text" cols="50" rows="10" maxlength="1500" required></textarea>
+
+                            <button type="submit" class="review-btn">Submit Review</button>
                           </form>
+
+
+
+
                         </article>
                       </div>
                     </li>
