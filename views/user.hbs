@@ -5,6 +5,12 @@
       <h2>PERSONAL DATA</h2>
     </div>
     <div class="data-content">
+      {{!-- *****SERVS ONLY FOR JS REFERENCE***** --}}
+      <div id="activSubject">
+        <div id="activName">Me</div>
+        <div id="activAdress">{{user.address}}</div>
+      </div>
+      {{!-- ************************************* --}}
       <div class="personal">
         <p><strong>NAME: </strong>{{user.firstName}} {{user.lastName}}</p>
         <p><strong>AGE: </strong>{{user.age}}</p>
@@ -90,6 +96,12 @@
                       <input type="radio" name="tabs" class="rd_tabs" id="volProfile" checked>
                       <label for="volProfile" class="field">PROFILE</label>
                       <div class="content profile-content">
+                        {{!-- *****SERVS ONLY FOR JS REFERENCE***** --}}
+                        <div id="passivSubject">
+                          <div id="passivName">{{firstName}} {{lastName}}</div>
+                          <div id="passivAddress">{{address}}</div>
+                        </div>
+                        {{!-- ************************************* --}}
                         <article class="data-article">
                           <div class="pdata">
                             <p>Name: {{firstName}} {{lastName}}</p>
@@ -98,7 +110,7 @@
                             <p>email: {{email}}</p>
                             <p>Occupation: {{occupation}}</p>
                           </div>
-                          <div class="map" id="map"
+                          <div class="map" id="map">
                             {{!-- for the google map --}}
                           </div>
                         </article>
