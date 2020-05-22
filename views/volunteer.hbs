@@ -143,9 +143,9 @@
 
                           <form action="/volunteer/{{../volunteer._id}}/submit-report" method="POST">
                             <input type="hidden" name="user" value="{{_id}}" checked>
-                            <h5>Create a report for {{firstName}} {{lastName}}</h5>
-                            <label> Your Report</label>
-                            <textarea name="report" id="{{firstName}}text" cols="50" rows="10" maxlength="1500" required></textarea>
+                            <p><strong>Create a report for {{firstName}} {{lastName}}</strong></p>
+                            {{!-- <label> Your Report</label> --}}
+                            <textarea name="report" id="text" cols="50" rows="10" maxlength="1500" required></textarea>
                             <button type="submit" class="review-btn">Submit Report</button>
                           </form>
 
@@ -170,15 +170,28 @@
                       <label for="{{_id}}volReview" class="field">REVIEWS</label>
                       <div class="content ratting-content">
                         <article>
-                          <h3>Average Rate</h3>
-                          <p>{{volunteer.evaluation.averageRate}}                          
+                          {{#if ../reviews}}
+                          <p><strong>Average Rate</strong></p>
+                          <p>{{../volunteer.evaluation.averageRate}}                          
                           </p>
-                          <h3>Reviews</h3>
-                          {{#each volunteer.evaluation.reviews}}
-                          <p>Rate: {{rate}}</p>
-                          <p>Author: {{author}}</p>
-                          <p>Content: {{text}}</p>
-                          {{/each}}
+                          <p><strong>Reviews from {{firstName}} {{lastName}}</strong></p>
+                            {{#each ../reviews}}
+                              {{#if (matches this.author._id ../_id) }}
+                                {{#each review}}
+                                  <span class="italic-bold">Posted on {{{date createdAt}}}</span>
+                                  <div class="reviews-posts">
+                                    <span><strong>Rate:</strong></span>
+                                    <p><strong>{{rate}}</strong></p>
+                                    <span><strong>Content:</strong></span>
+                                    <p>{{text}}</p>
+                                  </div>
+                                {{/each}}
+                              {{/if}}
+                            {{/each}}
+
+                            {{else}}
+                            <p>No reviews given yet.</p>
+                          {{/if}}
                         </article>
                       </div>
                     </li>

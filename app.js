@@ -45,7 +45,32 @@ hbs.registerHelper('isEqual', (value1, value2) => {
   }
 });
 
+// CUSTOM HELPERS FOR USER PAGE - DISPLAY REPORTS FROM VOLUNTEER
+hbs.registerHelper('matches', (value1, value2) => {
+  // console.log('valu1', value1);
+  // console.log('valu2', value2);
+  if(value1.toString() === value2.toString()){
+    // console.log('found');
+    return true;
+  } else{
+    return false;
+  }
+});
 
+// CUSTOM HELPERS FOR USER PAGE - DISPLAY REPORTS DATE with specific format
+hbs.registerHelper('date', (value) => {
+  const date = new Date(value);
+  // console.log('DATE:',date);
+
+  const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: '2-digit' });
+  const [
+    { value: month },,{ value: day },,{ value: year }] 
+    = dateTimeFormat.formatToParts(date); 
+
+  // console.log(`${day}-${month}-${year}`);
+
+  return `${month} ${day}, ${year}`;
+});
 
 
 
@@ -54,7 +79,7 @@ hbs.registerHelper('isEqual', (value1, value2) => {
 //heroku connection
 //process.env.MONGODB_URI
 mongoose
-  .connect('mongodb://localhost/adopt-senior-youngster', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`);
   })

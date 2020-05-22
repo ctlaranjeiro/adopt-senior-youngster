@@ -91,7 +91,7 @@ if(params === 'user'){
       // Check if the user exists
       if (!user) {
         res.render('auth/user-login', {
-          errorMessage: "The email doesn't exist."
+          errorMessage: "The email doesn't exist or you have to login as volunteer."
         });
       }
 
@@ -130,7 +130,7 @@ if(params === 'user'){
       // Check if the volunteer exists
       if (!volunteer) {
         res.render('auth/volunteer-login', {
-          errorMessage: "The email doesn't exist."
+          errorMessage: "The email doesn't exist or you have to login as user."
         });
       }
 
