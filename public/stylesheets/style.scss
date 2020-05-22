@@ -812,6 +812,20 @@ footer {
     max-height: 50vh;
     overflow: scroll;
 
+    .rate-assigned{
+      // background-color: purple;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      align-items: center;
+      width: 85px;
+      text-align: right;
+      
+      span{
+        margin-right: 10px;
+      }
+    }
+
     .assigned-sign{
       width: 2em;
       height: 2em;

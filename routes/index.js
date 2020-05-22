@@ -61,7 +61,9 @@ router.post('/user/:id/submit-ratting', (req, res, next) => {
 
     const avg = sum/array.length;
 
-    return avg;
+    const roundNumber = Math.round(avg * 10) / 10;
+
+    return roundNumber;
   }
 
   const {

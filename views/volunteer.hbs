@@ -11,7 +11,7 @@
         <p><strong>AGE: </strong>{{volunteer.age}}</p>
         <p><strong>ADDRESS: </strong>{{volunteer.address}}</p>
         <p><strong>EMAIL: </strong>{{volunteer.email}}</p>
-        <p><strong>PHONE NUMBER: </strong>{{volunteer.phoneNumber}}</p>
+        <p><strong>PHONE NUMBER: </strong>{{volunteer.volPhoneNumber}}</p>
         <p><strong>OCCUPATION: </strong>{{volunteer.occupation}}</p>
         <h3>About Me:</h3>
         <p>{{volunteer.aboutMe}}</p>
@@ -159,8 +159,8 @@
                       <label for="{{_id}}volSchedules" class="field">SCHEDULES</label>
                       <div class="content schedules-content">
                         <article>
-                          {{#each availablePeriods}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
-                          <p>{{availablePeriods}}</p>
+                          {{#each schedulePreference}} {{!-- fazer helper para comparar e exibir os periodos corrspondentes entre o user e o volunteer --}}
+                          <p>{{this}}</p>
                           {{/each}}
                         </article>
                       </div>
@@ -171,9 +171,8 @@
                       <div class="content ratting-content">
                         <article>
                           {{#if ../reviews}}
-                          <p><strong>Average Rate</strong></p>
-                          <p>{{../volunteer.evaluation.averageRate}}                          
-                          </p>
+                          <p><strong>Your Average Rate</strong></p>
+                          <p class="avg-rate">{{../volunteer.evaluation.averageRate}} <span class="normal-text"> / 5</span></p>
                           <p><strong>Reviews from {{firstName}} {{lastName}}</strong></p>
                             {{#each ../reviews}}
                               {{#if (matches this.author._id ../_id) }}
