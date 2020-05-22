@@ -290,7 +290,14 @@
                   <img src="{{imgPath}}">
                   <span>{{firstName}} {{lastName}}</span>
                 </div>
-                <div class="delete-sign">&#10006</div>
+                <div class="rate-assigned">
+                  {{#if evaluation.averageRate}}
+                    <span>rate: <strong>{{evaluation.averageRate}}</strong></span>
+                    {{else}}
+                    <span>rate: <strong>0</strong></span>
+                  {{/if}}
+                  <div class="delete-sign">&#10006</div>
+                </div>
               </label>
             </li>
             {{/each}}
@@ -320,7 +327,14 @@
                 <img src="{{imgPath}}">
                 <span>{{firstName}} {{lastName}}</span>
               </div>
-              <div class="assigned-sign">&#10003</div>
+              <div class="rate-assigned">
+                {{#if evaluation.averageRate}}
+                  <span>rate: <strong>{{evaluation.averageRate}}</strong></span>
+                  {{else}}
+                  <span>rate: <strong>0</strong></span>
+                {{/if}}
+                <div class="assigned-sign">&#10003</div>
+              </div>
             </label>
             <div class="par">
               <section>

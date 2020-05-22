@@ -564,6 +564,15 @@ footer {
   .edit-container .volunteers-list {
     max-height: 50vh;
     overflow: scroll; }
+    .edit-container .volunteers-list .rate-assigned {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      align-items: center;
+      width: 85px;
+      text-align: right; }
+      .edit-container .volunteers-list .rate-assigned span {
+        margin-right: 10px; }
     .edit-container .volunteers-list .assigned-sign {
       width: 2em;
       height: 2em;
