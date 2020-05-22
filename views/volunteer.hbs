@@ -95,7 +95,7 @@
           <li class="column">
             <input type="radio" name="volAssignedBtn" id="{{_id}}" class="chk_tabs">
             <label for="{{_id}}" class="banner">
-              <span>{{firstName}}</span>
+              <span id="theName">{{firstName}}</span>
               <img src={{imgPath}} class="avatarImg">
             </label>
             <div class="assignedVolunteerContent">
@@ -110,6 +110,7 @@
                           <div class="pdata">
                             <p>Name: {{firstName}} {{lastName}}</p>
                             <p>Age: {{age}}</p>
+                            <p>Address: <span id="{{firstName}}">{{address}}</span></p>
                             <p>Phone Number: {{volPhoneNumber}}</p>
                             <p>email: {{email}}</p>
                             <h3>Emergency Contact</h3>
@@ -144,7 +145,7 @@
                             <input type="hidden" name="user" value="{{_id}}" checked>
                             <h5>Create a report for {{firstName}} {{lastName}}</h5>
                             <label> Your Report</label>
-                            <textarea name="report" id="text" cols="50" rows="10" maxlength="1500" required></textarea>
+                            <textarea name="report" id="{{firstName}}text" cols="50" rows="10" maxlength="1500" required></textarea>
                             <button type="submit" class="review-btn">Submit Report</button>
                           </form>
 
@@ -209,4 +210,5 @@
   </footer>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key='process.env.GOOGLEMAPS-API-KEY'&callback=startMap">MONGODB_URI</script>
+
+<script src="/javascripts/map.js"></script>

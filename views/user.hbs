@@ -34,7 +34,7 @@
       <ul>
         <li>
           <input type="radio" name="tabs" class="rd_tabs" id="tab1" checked>
-          <label for="tab1">USER<br>NEEDS</label>
+          <label for="tab1" class="mainLabel">USER<br>NEEDS</label>
           <div class="content">
             <article>
               <div class="needs">
@@ -54,7 +54,7 @@
         </li>
         <li>
           <input type="radio" name="tabs" class="rd_tabs" id="tab2">
-          <label for="tab2">SCHEDULE PREFERENCES</label>
+          <label for="tab2" class="mainLabel">SCHEDULE PREFERENCES</label>
           <div class="content schedule">
             <article>
               <ul>
@@ -80,10 +80,10 @@
         {{#if user.assignedVolunteers}}
         <ul id="volunteersList">
           {{#each user.assignedVolunteers}}
-          <li class="column">
+          <li class="column" id="{{lastName}}">
             <input type="radio" name="UserAssignedBtn" id="{{_id}}" class="chk_tabs">
             <label for="{{_id}}" class="banner">
-              <span>{{firstName}}</span>
+              <span id="theName">{{firstName}}</span>
 
               
               <img src={{imgPath}} class="avatarImg">
@@ -95,18 +95,14 @@
                     <li class="row">
                       <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volProfile" checked>
                       <label for="{{_id}}volProfile" class="field">PROFILE</label>
+                      <div id="_id" style="display: none;">{{_id}}</div>
                       <div class="content profile-content">
-                        {{!-- *****SERVS ONLY FOR JS REFERENCE***** --}}
-                        <div id="passivSubject">
-                          <div id="passivName">{{firstName}} {{lastName}}</div>
-                          <div id="passivAddress">{{address}}</div>
-                        </div>
-                        {{!-- ************************************* --}}
                         <article class="data-article">
                           <div class="pdata">
                             <p>Name: {{firstName}} {{lastName}}</p>
                             <p>Age: {{age}}</p>
                             <p>Phone Number: {{volPhoneNumber}}</p>
+                            <p>Address: <span id="{{firstName}}">{{address}}</span></p>
                             <p>email: {{email}}</p>
                             <p>Occupation: {{occupation}}</p>
                           </div>
@@ -194,20 +190,20 @@
                               <input type="hidden" name="subject" value="{{_id}}" checked>
                               <h5>How do you rate {{firstName}} {{lastName}}'s help?</h5>
                               <div>
-                                <label for="rate1" class="eval">1</label>
-                                <input type="radio" name="rate" id="rate1" class="eval-rd" value="1">
-                                <label for="rate2" class="eval">2</label>
-                                <input type="radio" name="rate" id="rate2" class="eval-rd" value="2">
-                                <label for="rate3" class="eval">3</label>
-                                <input type="radio" name="rate" id="rate3" class="eval-rd" value="3">
-                                <label for="rate4" class="eval">4</label>
-                                <input type="radio" name="rate" id="rate4" class="eval-rd" value="4">
-                                <label for="rate5" class="eval">5</label>
-                                <input type="radio" name="rate" id="rate5" class="eval-rd" value="5">
+                                <label for="{{firstName}}rate1" class="eval">1</label>
+                                <input type="radio" name="rate" id="{{firstName}}rate1" class="eval-rd" value="1">
+                                <label for="{{firstName}}rate2" class="eval">2</label>
+                                <input type="radio" name="rate" id="{{firstName}}rate2" class="eval-rd" value="2">
+                                <label for="{{firstName}}rate3" class="eval">3</label>
+                                <input type="radio" name="rate" id="{{firstName}}rate3" class="eval-rd" value="3">
+                                <label for="{{firstName}}rate4" class="eval">4</label>
+                                <input type="radio" name="rate" id="{{firstName}}rate4" class="eval-rd" value="4">
+                                <label for="{{firstName}}rate5" class="eval">5</label>
+                                <input type="radio" name="rate" id="{{firstName}}rate5" class="eval-rd" value="5">
                               </div>
                             </div>
                             <label> Your Review</label>
-                            <textarea name="review" id="text" cols="50" rows="10" maxlength="1500" required></textarea>
+                            <textarea name="review" id="{{firstName}}text" cols="50" rows="10" maxlength="1500" required></textarea>
 
                             <button type="submit" class="review-btn">Submit Review</button>
                           </form>
@@ -245,3 +241,6 @@
     <a href="https://www.facebook.com/" target="_blank"><img src="/images/icons/facebook-icon.png"></a>
   </footer>
 </div>
+
+
+<script src="/javascripts/map.js"></script>
