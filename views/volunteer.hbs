@@ -110,7 +110,7 @@
                           <div class="pdata">
                             <p>Name: {{firstName}} {{lastName}}</p>
                             <p>Age: {{age}}</p>
-                            <p>Address: {{address}}</p>
+                            <p>Address: <span id="{{_id}}morada">{{address}}</span></p>
                             <p>Phone Number: {{volPhoneNumber}}</p>
                             <p>email: {{email}}</p>
                             <h3>Emergency Contact</h3>
@@ -119,9 +119,7 @@
                             <p>email: {{emergencyContact.email}}</p>
                             <p>Address: {{emergencyContact.address}}</p>
                           </div>
-                          <div class="map">
-                            {{!-- for the google map --}}
-                          </div>
+
                         </article>
                       </div>
                     </li>
@@ -130,17 +128,6 @@
                       <label for="{{_id}}volReports" class="field">REPORT</label>
                       <div class="content reports-content">
                         <article>
-                          {{!-- <form action="/user/edit?user_id={{user._id}}/submit-report" method="POST">
-                            <label>Volunteer Name</label>
-                            <input type="text" name="author" id="author" value="{{../volunteer.firstName}} {{../volunteer.lastName}}">
-                            <label>User Name</label>
-                            <input type="text" name="subject" id="subject" value="{{firstName}} {{lastName}}">
-                            <label>Your Report</label>
-                            <textarea name="text" id="text" cols="50" rows="10"></textarea>
-                            <button type="submit" class="review-btn">Submit Report</button>
-                          </form> --}}
-
-
                           <form action="/volunteer/{{../volunteer._id}}/submit-report" method="POST">
                             <input type="hidden" name="user" value="{{_id}}" checked>
                             <p><strong>Create a report for {{firstName}} {{lastName}}</strong></p>
@@ -148,9 +135,6 @@
                             <textarea name="report" id="text" cols="50" rows="10" maxlength="1500" required></textarea>
                             <button type="submit" class="review-btn">Submit Report</button>
                           </form>
-
-
-
                         </article>
                       </div>
                     </li>
@@ -208,7 +192,9 @@
       </nav>
 
     </div>
-
+    <div class="map" id="map">
+      {{!-- for the google map --}}
+    </div>
 
   </div>
 

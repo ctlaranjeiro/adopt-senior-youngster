@@ -5,12 +5,6 @@
       <h2>PERSONAL DATA</h2>
     </div>
     <div class="data-content">
-      {{!-- *****SERVS ONLY FOR JS REFERENCE***** --}}
-      <div id="activSubject">
-        <div id="activName">Me</div>
-        <div id="activAdress">{{user.address}}</div>
-      </div>
-      {{!-- ************************************* --}}
       <div class="personal">
         <p><strong>NAME: </strong>{{user.firstName}} {{user.lastName}}</p>
         <p><strong>AGE: </strong>{{user.age}}</p>
@@ -145,41 +139,6 @@
                       <label for="{{_id}}volRevew" class="field">REVIEW</label>
                       <div class="content ratting-content">
                         <article>
-
-
-
-                          <!-- <form action="/user/{{../user._id}}/submit-ratting" method="POST">
-                            <label>User Name</label>
-                            <input type="text" name="author" id="author" value="{{../user.firstName}} {{../user.lastName}}">
-                            {{!-- To be poppulated --}}
-                            <label>Volunteer Name</label>
-                            <input type="text" name="subject" id="subject" value="{{firstName}} {{lastName}}">
-                            {{!-- To be poppulated with the respectiv volunteer data --}}
-                            <div class="ratting">
-                              <h5>How do you rate the help?</h5>
-                              <div>
-                                <label for="one" class="eval">1</label>
-                                <input type="radio" name="rate1" id="rate1" class="eval-rd" value="1">
-                                <label for="two" class="eval">2</label>
-                                <input type="radio" name="rate2" id="rate2" class="eval-rd" value="2">
-                                <label for="three" class="eval">3</label>
-                                <input type="radio" name="rate3" id="rate3" class="eval-rd" value="3">
-                                <label for="fuor" class="eval">4</label>
-                                <input type="radio" name="rate4" id="rate4" class="eval-rd" value="4">
-                                <label for="five" class="eval">5</label>
-                                <input type="radio" name="rate5" id="rate5" class="eval-rd" value="5">
-                              </div>
-                            </div>
-                            <label> Your Review</label>
-                            <textarea name="text" id="text" cols="50" rows="10"></textarea>
-
-                            <button type="submit" class="review-btn">Submit Review</button>
-                          </form> -->
-
-
-
-
-
                           <form action="/user/{{../user._id}}/submit-ratting" method="POST">
                             <div class="ratting">
                               <input type="hidden" name="subject" value="{{_id}}" checked>
@@ -202,10 +161,6 @@
 
                             <button type="submit" class="review-btn">Submit Review</button>
                           </form>
-
-
-
-
                         </article>
                       </div>
                     </li>
