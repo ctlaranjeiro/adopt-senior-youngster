@@ -80,12 +80,10 @@
         {{#if user.assignedVolunteers}}
         <ul id="volunteersList">
           {{#each user.assignedVolunteers}}
-          <li class="column" id="{{lastName}}">
+          <li class="column">
             <input type="radio" name="UserAssignedBtn" id="{{_id}}" class="chk_tabs">
             <label for="{{_id}}" class="banner">
               <span id="theName">{{firstName}}</span>
-
-              
               <img src={{imgPath}} class="avatarImg">
             </label>
             <div class="assignedVolunteerContent">
@@ -93,22 +91,17 @@
                 <nav class="nav_tabs">
                   <ul>
                     <li class="row">
-                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volProfile" checked>
+                      <input type="radio" name="tabs" class="rd_tabs" id="{{_id}}volProfile" checked=true>
                       <label for="{{_id}}volProfile" class="field">PROFILE</label>
-                      <div id="_id" style="display: none;">{{_id}}</div>
+                      <div class="_id" style="display: none;">{{_id}}</div>
                       <div class="content profile-content">
                         <article class="data-article">
-                          <div class="pdata">
-                            <p>Name: {{firstName}} {{lastName}}</p>
-                            <p>Age: {{age}}</p>
-                            <p>Phone Number: {{volPhoneNumber}}</p>
-                            <p>Address: <span id="{{firstName}}">{{address}}</span></p>
-                            <p>email: {{email}}</p>
-                            <p>Occupation: {{occupation}}</p>
-                          </div>
-                          <div class="map" id="map">
-                            {{!-- for the google map --}}
-                          </div>
+                          <p>Name: {{firstName}} {{lastName}}</p>
+                          <p>Age: {{age}}</p>
+                          <p>Phone Number: {{volPhoneNumber}}</p>
+                          <p>Address: <span id="{{_id}}morada">{{address}}</span></p>
+                          <p>email: {{email}}</p>
+                          <p>Occupation: {{occupation}}</p>
                         </article>
                       </div>
                     </li>
@@ -229,7 +222,9 @@
       </nav>
 
     </div>
-
+    <div class="map" id="map">
+      {{!-- for the google map --}}
+    </div>
 
   </div>
 

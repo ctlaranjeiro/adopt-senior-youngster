@@ -1,26 +1,41 @@
-let subject = document.querySelectorAll('li.column');
-// let lastName = document.getElementById('_id').innerHTML;
 
-// let subject = document.getElementById(`${lastName}`);
-console.log(subject);
+function address() {
+  let subjects = document.querySelectorAll('div._id');
+  console.log(subjects);
+  
+  let moradas = [];
+  for(let j = 0; j < subjects.length; j ++) {
+    
+    let id = subjects[j].innerHTML;
+    console.log('ID:', id);
+    let morada = document.getElementById(id+'morada').innerHTML;
+    console.log('Morada:', morada);
+    moradas.push(morada);
+    // geocode();
+    // initMap();
+    
+  }
+   console.log(moradas);
+  // let adress;
+  for (let i = 0; i < moradas.length; i ++) {
+    let address = moradas[i];
+    return address;
+  }
+}
 
 function geocode() {
-  let theName = document.getElementById('theName').innerHTML;
-  console.log('o nome:', theName);
-
-  let location = document.getElementById(`${theName}`).innerHTML;
-  console.log('location:', location);
   axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
     params: {
-      adress: location,
-      key: process.env.GOOGLEMAPS_API_KEY
+      adress: address(),
+      // key: app.locals.googleMapsKey //NÃO ESTÁ A ASSUMIR
+      key: 'AIzaSyDmvhJhg_f-9Tozc1F_XkMOcaHfGCy14Nc'
     }
   })
   .then((res) => {
     console.log(res);
     let formattedAddress = res.data.results[0].formatted_address;
-    let latitude = res.data.results[0].reometry.location.lat;
-    let longitude = res.data.results[0].reometry.location.lng;
+    let latitude = res.data.results[0].reometry.morada.lat;
+    let longitude = res.data.results[0].reometry.morada.lng;
 
     console.log(formattedAddress);
 
@@ -49,18 +64,15 @@ function initMap() {
   // identifier marker
   let marker = new google.maps.Marker({
     position: geocode(),
+    // position: {lat: 38.7166700, lng: -9.1333300},
     map: map
   });
 }
 
-// initMap();
+initMap();
 
-for(let j = 0; j < subject.length; j ++) {
-  subject[j].addEventListener('click', () => {
-    let name = document.subject[j].getElementById('theName').innerHTML;
-    console.log('subject name:', name);
-    // console.log('subject adress:',subject[j].childNodes[5].childNodes[1].childNodes[1].childNodes[1].childNodes[1].childNodes[5].childNodes[3].childNodes[1].childNodes[7].textContent.split('Address: ')[1]);
-    // console.log('subject adress:',subject[j].childNodes[5][1][1][1][1][5][3][1][7].textContent.split('Address: ')[1]);
-    initMap();
-  });
-}
+// subjects.forEach(subject => {
+//   let id = subject.innerHTML;
+//   console.log('ID:', id);
+//   initMap();
+// });
