@@ -447,6 +447,26 @@ h3 {
   padding: 15px;
 }
 
+.row .reports-content article, .row .ratting-content article{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reports-content span, .ratting-content .italic-bold{
+  font-size: 0.9em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.reports-content .report-text, .ratting-content .reviews-posts{
+  display: block;
+  width: 100%;
+  background-color: white;
+  padding: 5px;
+  margin: 5px 0 10px 0;
+}
+
+
 .row .content .data-article {
   overflow: auto;
 }
@@ -487,7 +507,7 @@ h3 {
   border-radius: 8px;
 }
 
-.ratting h5 , .reports-content h5{
+.ratting h5 {
   color:#333;
   font-size: 1rem;
 }

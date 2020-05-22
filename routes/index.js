@@ -37,9 +37,14 @@ router.get('/user/:id', (req, res, next) => {
     const uid = req.params.id;
     User.findById(uid)
       .populate('assignedVolunteers')
-      .populate('reports')
       .then(user => {
-        res.render('user', { user });
+        Report.find({ 'subject': user._id})
+          .populate('author')
+          .then(reports => {
+            // console.log('Found reports with subject eq to user._id', reports);
+
+            res.render('user', { user, reports: reports});
+          });
       });
   } catch(e){
     next(e);
@@ -49,6 +54,15 @@ router.get('/user/:id', (req, res, next) => {
 /* POST user submit rating */
 router.post('/user/:id/submit-ratting', (req, res, next) => {
   const uid = req.params.id;
+
+  function average(array){
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const sum = array.reduce(reducer);
+
+    const avg = sum/array.length;
+
+    return avg;
+  }
 
   const {
     subject,
@@ -68,43 +82,82 @@ router.post('/user/:id/submit-ratting', (req, res, next) => {
   
 
   const newReview = new Review({
-    rate: rate,
+    review:[
+      {
+        rate: rate,
+        text: review,
+        createdAt: new Date()
+      }
+    ],
     author: userObjectId,
     subject: volunteerObjectId,
-    text: review,
   });
 
   Review.findOne({ $and: [{ 'author': userObjectId }, { 'subject': volunteerObjectId}] })
     .then(reviewFromDB => {
       if(reviewFromDB){
-        Review.updateOne({ $and: [{ 'author': userObjectId }, { 'subject': volunteerObjectId}] }, { $set: { 
-          rate: rate, 
-          text: review
+        Review.updateOne({ $and: [{ 'author': userObjectId }, { 'subject': volunteerObjectId}] }, { $push: { 
+          review: {
+            $each: [
+              {
+                rate: rate,
+                text: review,
+                createdAt: new Date()
+              }
+            ],
+            $position: 0
+          }
         }})
           .then(result => {
-            res.redirect(`/user/${uid}`);
+            Volunteer.updateOne({ _id: vid}, { $push: {
+              'evaluation.rates': {
+                $each: [rate],
+                $position: 0
+              }
+            }})
+              .then(result => {
+                console.log('push new rate to volunteer', result);
+
+                Volunteer.findById(vid)
+                  .then(volunteer => {
+                    console.log('Volunteer in DB after pushing new rate', volunteer);
+
+                    const rates = volunteer.evaluation.rates;
+                    console.log('Rates in volunteer DB:', rates);
+                    const avgRate = average(rates);
+                    
+                    Volunteer.updateOne({ _id: vid }, { $set: { 
+                      'evaluation.averageRate': avgRate
+                    }})
+                      .then(result =>{
+                        console.log('Average rate of volunteer result after pushing new rate:', result);
+                        res.redirect(`/user/${uid}`);
+                      })
+                      .catch(err => {
+                        console.log('Error while updating average rate of volunteer in DB, after pushing new rate', err);
+                      });
+                  })
+                  .catch(err => {
+                    console.log('Error while finding volunteer in DB', err);
+                  });
+              })
+              .catch(err =>{
+                console.log('Error while updating push volunteers rate', err);
+              });
           })
           .catch(err =>{
             console.log('Error while updating review on DB', err);
           });
       } else{
         newReview.save()
-          .then(review => {
-            console.log('New Review saved:', review);
+          .then(reviewFromDB => {
+            console.log('New Review saved:', reviewFromDB);
 
-            const volunteerId = review.subject;
-            const reviewId = review._id;
+            const volunteerId = reviewFromDB.subject;
+            const reviewId = reviewFromDB._id;
             const reviewObjectId = mongoose.Types.ObjectId(reviewId);
-            const newRate = review.rate;
-
-            function average(array){
-              const reducer = (accumulator, currentValue) => accumulator + currentValue;
-              const sum = array.reduce(reducer);
-
-              const avg = sum/array.length;
-
-              return avg;
-            }
+            const newRate = reviewFromDB.review[0].rate;
+            console.log('newRate:', newRate);
 
             Volunteer.findById(volunteerId)
               .then(volunteer => {
@@ -730,7 +783,12 @@ router.get('/volunteer/:id', (req, res, next) => {
     Volunteer.findById(vid)
       .populate('assignedUsers')
       .then(volunteer => {
-        res.render('volunteer', { volunteer });
+        Review.find({'subject': volunteer._id})
+        .populate('author')
+          .then(reviews =>{
+            //console.log('Reviews: ',reviews);
+            res.render('volunteer', { volunteer, reviews: reviews });
+          });
       });
   } catch(e){
     next(e);
@@ -745,7 +803,15 @@ router.get('/volunteer/:id/edit', (req, res, next) => {
   Volunteer.findById(vid)
     .populate('assignedUsers')
     .then(volunteer => {
-      res.render('volunteer-edit', {volunteer});
+      Review.find({'subject': volunteer._id})
+        .populate('author')
+        .then(reviews => {
+          console.log('Found reviews with subject eq to volunteer._id', reviews);
+          res.render('volunteer-edit', {volunteer, reviews: reviews});
+        })
+        .catch(err => {
+          console.log('Error while getting volunteer reviews from DB', err);
+        });
     })
     .catch(err => {
       next(err);
@@ -769,7 +835,12 @@ router.post('/volunteer/:id/submit-report', (req, res, next) => {
   const newReport = new Report({
     author: volunteerObjectId,
     subject: userObjectId,
-    text: report
+    text: [
+      {
+        report: report,
+        createdAt: new Date()
+      }
+    ]
   });
 
   Report.findOne({ $and: [{ 'author': volunteerObjectId }, { 'subject': userObjectId}] })
@@ -777,7 +848,15 @@ router.post('/volunteer/:id/submit-report', (req, res, next) => {
       //console.log('report from DB: ', reportFromDB);
       if(reportFromDB){
         Report.updateOne({ $and: [{ 'author': volunteerObjectId }, { 'subject': userObjectId}] }, { $push: { 
-          text: report
+          text: {
+            $each: [
+              {
+                report: report,
+                createdAt: new Date()
+              }
+            ],
+            $position: 0
+          }
         }})
           .then(result => {
             res.redirect(`/volunteer/${vid}`);

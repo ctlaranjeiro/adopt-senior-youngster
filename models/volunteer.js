@@ -32,7 +32,7 @@ const volunteerSchema = new Schema({
   assignedUsers: [{ type: Schema.Types.ObjectId, ref: 'User' }], // Interligar com user.js
   aboutMe: { type: String, maxlength: 250 },
   evaluation: {
-    rates: Array,
+    rates: [{ type: Number, min:1, max: 5}],
     averageRate: { type: Number, min:1, max: 5},
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }] // Interligar com review.js
   }

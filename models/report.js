@@ -6,7 +6,7 @@ const reportSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: 'Volunteer' }, // referente ao volunteer
     subject: { type: Schema.Types.ObjectId, ref: 'User' }, // referent ao user
-    text: [{ type: String, required: true, maxlength: 1500 }]
+    text: [{ type: Object, required: true, maxlength: 1500 }]
   }, {
     timestamps: true
   }

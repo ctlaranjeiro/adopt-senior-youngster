@@ -121,14 +121,18 @@
                       <label for="{{_id}}volReports" class="field">REPORTS</label>
                       <div class="content reports-content">
                         <article>
-                          {{#if ../user.reports}}
+                          {{#if ../reports}}
                             <p>
                               <strong>Reports from {{firstName}} {{lastName}}</strong>
                             </p>
-                            {{#each ../user.reports}} {{!-- os reports têm que corresponder entre o user e o volunteer --}}
-                              <p>
-                                <strong>Report:</strong> {{text}}
-                              </p>
+                            {{#each ../reports}} {{!-- os reports têm que corresponder entre o user e o volunteer --}}
+                              {{#if (matches this.author._id ../_id) }}
+                                {{!-- <p>MATCHED FOUND!</p> --}}
+                                {{#each text}}
+                                  <span>Posted on {{{date createdAt}}}</span>
+                                  <p class="report-text">{{report}}</p>
+                                {{/each}}
+                              {{/if}}
                             {{/each}}
                           {{else}}
                             <p>There are no reports available!</p>
