@@ -89,7 +89,7 @@
 
     <form class="form edit-details" action="/user/{{user._id}}/updateUserNotes" method="POST">
       <label class="labels" for="userNotes">Notes about your needs:</label>
-      <textarea id="userNotes" name="userNotes" rows="10" cols="50">{{user.notes}}</textarea>
+      <textarea id="userNotes" name="userNotes" rows="10" cols="50" maxlength="500">{{user.notes}}</textarea>
       <div class="center-btn">
         <button type="submit" class="submit-btn">Update notes</button>
       </div>
