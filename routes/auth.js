@@ -483,8 +483,7 @@ router.post('/signup/user', uploadCloud.single('photo'), [
 /* POST signUp volunteer */
 router.post('/signup/volunteer', uploadCloud.single('photo'), [
   check('email')
-    .isEmail().withMessage('Invalid email')
-    .normalizeEmail(),
+    .isEmail().withMessage('Invalid email'),
   check('password', 'Minimum length of 6 characters')
     .isLength({ min: 6 }),
   check('volPhoneNumber', 'Phone number must have 9 digits')
