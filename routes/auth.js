@@ -256,14 +256,13 @@ if(params === 'user'){
 /* POST signUp User */
 router.post('/signup/user', uploadCloud.single('photo'), [
   check('email')
-    .isEmail().withMessage('Invalid email')
-    .normalizeEmail(),
+    .isEmail().withMessage('Invalid email'),
   check('password', 'Minimum length of 6 characters')
     .isLength({ min: 6 }),
-  check('phoneNumber')
-    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits'),
-  check('emergPhoneNumber')
-    .isMobilePhone('pt-PT').withMessage(`Emergency contact's phone number must have 9 digits`),
+  check('phoneNumber', 'Phone number must have 9 digits')
+    .isLength({ min: 9, max: 9 }),
+  check('emergPhoneNumber', `Emergency contact's phone number must have 9 digits`)
+    .isLength({ min: 9, max: 9 }),
   check('emergEmail')
     .isEmail().withMessage(`Emergency contact's invalid email`)
 ],(req, res, next) => {
@@ -488,8 +487,8 @@ router.post('/signup/volunteer', uploadCloud.single('photo'), [
     .normalizeEmail(),
   check('password', 'Minimum length of 6 characters')
     .isLength({ min: 6 }),
-  check('volPhoneNumber')
-    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits')
+  check('volPhoneNumber', 'Phone number must have 9 digits')
+    .isLength({ min: 9, max: 9 })
 ], (req, res, next) => {
 
   const errorsResult = validationResult(req);

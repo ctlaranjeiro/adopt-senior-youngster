@@ -344,23 +344,20 @@ router.post('/user/:id/:action', uploadCloud.single('photo'), [
     .not().isEmpty(),
   check('email')
     //.not().isEmpty().withMessage('Email is empty')
-    .isEmail().withMessage('Invalid email')
-    .normalizeEmail(),
+    .isEmail().withMessage('Invalid email'),
   check('address', 'Address must be filled')
     .not().isEmpty(),
-  check('phoneNumber')
-    //.not().isEmpty().withMessage('Phone number must be filled')
-    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits'),
+  check('phoneNumber', 'Phone number must have 9 digits')
+    .isLength({ min: 9, max: 9 }),
   //---------- EMERGENCY CONTACT INFO
   check('emergFirstName', `Emergency contact's first name must be filled`)
     .not().isEmpty(),
   check('emergLastName', `Emergency contact's last name must be filled`)
     .not().isEmpty(),
-  check('emergPhoneNumber')
-    .isMobilePhone('pt-PT').withMessage(`Emergency contact's phone number must have 9 digits`),
+  check('emergPhoneNumber', `Emergency contact's phone number must have 9 digits`)
+    .isLength({ min: 9, max: 9 }),
   check('emergEmail')
-    .isEmail().withMessage(`Emergency contact's invalid email`)
-    .normalizeEmail(),
+    .isEmail().withMessage(`Emergency contact's invalid email`),
   check('emergAddress', `Emergency contact's address must be filled`)
     .not().isEmpty(),
   check('password', 'Minimum length of 6 characters')
@@ -928,12 +925,11 @@ router.post('/volunteer/:id/:action', uploadCloud.single('photo'), [
   check('lastName', 'Last name must be filled')
     .not().isEmpty(),
   check('email')
-    .isEmail().withMessage('Invalid email')
-    .normalizeEmail(),
+    .isEmail().withMessage('Invalid email'),
   check('address', 'Address must be filled')
     .not().isEmpty(),
-  check('volPhoneNumber')
-    .isMobilePhone('pt-PT').withMessage('Phone number must have 9 digits'),
+  check('volPhoneNumber', 'Phone number must have 9 digits')
+  .isLength({ min: 9, max: 9 }),
   check('password', 'Minimum length of 6 characters')
     .isLength({ min: 6 })
 ], async (req,res, next) => {
